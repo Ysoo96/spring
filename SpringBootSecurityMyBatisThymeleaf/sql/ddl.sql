@@ -1,3 +1,9 @@
+-- 별도 계정 생성(테스트용)
+CREATE USER spring IDENTIFIED BY spring;
+
+GRANT CONNECT, RESOURCE TO spring;
+
+
 CREATE  TABLE users (
   username VARCHAR(45) NOT NULL primary key,
   password VARCHAR(60) NOT NULL,

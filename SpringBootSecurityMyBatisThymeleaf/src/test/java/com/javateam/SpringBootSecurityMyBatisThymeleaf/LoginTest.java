@@ -88,17 +88,17 @@ public class LoginTest {
 	@DisplayName("로그인 테스트 : 아이디/패쓰워드 일치할 경우(정상 가입된 회원정보)")
 	@Test
 	// @WithMockUser(username = "admin", authorities = { "ROLE_ADMIN", "ROLE_USER" })
-	// @WithMockUser(username = "abcd1234", authorities = { "ROLE_USER" })
+	// @WithMockUser(username = "abcd1111", authorities = { "ROLE_USER" })
 	public void testAuth1() throws Exception {
 		
 		id = "abcd1234";
-		pw = "#Abcd1234";
+		pw = "#Abcd1234123123";
 		role = "USER"; // ROLE_UESR => USER
-		
+		/*
 		mockMvc.perform(get("/login")
 							.with(csrf()) 
-							// .with(httpBasic(id, pw))) 
-						    .with(user(id).password(pw))) 				
+							.with(httpBasic(id, pw))) 
+						    // .with(user(id).password(pw))) 				
 						// 만약 여러 롤(role)을 가지고 있는 회원이라면...
 						// .andExpect(authenticated().withRoles("USER","abcd1234"))
 						// @WithMockUser(username = "abcd1234", authorities = { "ROLE_USER" }) 와 같은 기능
@@ -108,12 +108,14 @@ public class LoginTest {
 						.andExpect(view().name("loginForm"))
 						.andExpect(forwardedUrl("loginForm"))
 						.andDo(print());
+		*/
 		
-//		mockMvc.perform(formLogin("/login")
-//					.user("username", id)
-//					.password("password", pw))
-//			   .andExpect(authenticated().withUsername(id))
-//			   .andDo(print());
+		mockMvc.perform(formLogin("/login")
+					.user("username", id)
+					.password("password", pw))
+			   .andExpect(authenticated().withUsername(id))
+			   .andExpect(authenticated().withRoles(role)) 
+			   .andDo(print());
 		
 	}
 	
