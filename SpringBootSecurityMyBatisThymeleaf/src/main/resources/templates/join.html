@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<style>
+#join-box 
+{
+	width: 250px;
+	padding:30px;
+	margin: 0px auto;
+	background: #fff;
+	border: 1px solid #333;
+	line-height: 30px;
+ }
+</style>
+</head>
+<body>
+
+	<div id="join-box">
+
+		<h3>회원가입</h3>
+			
+		<form id="join" 
+			  th:action="@{'/joinAction'}" 
+			  method="post">
+		
+			ID : <input type="text" 
+						id="username"
+						name="username"
+						maxlength="20"
+						size="23">
+				 <br>
+			PW : <input type="text" 
+						id="password"
+						name="password"
+						maxlength="20"
+						size="23">
+				 <br>
+			<input type="submit" value="가입">&nbsp;
+			<input type="reset" value="취소">&nbsp;
+		  	<a th:href="@{/login}">로그인</a>
+			
+		</form>
+	
+	</div>		
+
+</body>
+</html>

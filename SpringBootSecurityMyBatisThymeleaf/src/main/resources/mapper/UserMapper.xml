@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.javateam.SpringBootSecurityMyBatisThymeleaf.dao.UserMapper">
+	
+	<select id="getUserByUsername" 
+			resultType="com.javateam.SpringBootSecurityMyBatisThymeleaf.domain.Users"
+			parameterType="String">
+		SELECT * FROM users 
+		WHERE username = #{username}
+	</select>
+	
+	<select id="hasUsername" 
+			resultType="int"
+			parameterType="String">
+		SELECT count(*) FROM users
+		WHERE username = #{username}
+	</select>
+	
+	<select id="getUserRolesByUsername" 
+			resultType="com.javateam.SpringBootSecurityMyBatisThymeleaf.domain.Role"
+			parameterType="String">
+		SELECT * FROM user_roles 
+		WHERE username = #{username}
+	</select>
+	
+	<insert id="insertUser" parameterType="com.javateam.SpringBootSecurityMyBatisThymeleaf.domain.Users">
+		INSERT INTO users VALUES 
+		(#{users.username}, #{users.password}, #{users.enabled})			
+	</insert>
+	
+	<insert id="insertUserRoles">
+		INSERT INTO user_roles VALUES 
+		(user_roles_seq.nextval, #{username}, #{role})
+	</insert>	
+	
+</mapper>
