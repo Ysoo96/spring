@@ -1,0 +1,12 @@
+-- 회원 가입 시 중복 여부 확인
+SELECT COUNT(*)
+  FROM MEMBER_TBL
+ WHERE ${fld} = #{val}
+ 
+-- 회원 수정 시 중복 여부 확인
+-- 자신의 기존 정보와 다른 회원 정보
+SELECT COUNT(*)
+  FROM ( SELECT ${fld}
+           FROM MEMBER_TBL
+          WHERE ID != #{id} )
+ WHERE ${fld} = #{val}

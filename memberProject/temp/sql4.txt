@@ -1,0 +1,45 @@
+-- 주소, 이름, 성별, 휴대폰, 일반전화, (이메일)
+
+-- 인자
+-- searchKey(검색 구분(종목)) ex) ADDRESS(주소)
+-- searchWord(검색어) ex) 신림
+-- page(현재 페이지) ex) 1
+-- limit(페이지당 레코드 수) ex) 10
+-- isLikeOrEquals(동등/유사검색 여부) ex) like(유사), equals(동등)
+-- ordering(정렬) ex) ASC(오름차순), DESC(내림차순)
+
+SELECT  *
+  FROM ( SELECT m.*  
+                , FLOOR((ROWNUM - 1) / #{limit} + 1) PAGE  
+           FROM ( SELECT DISTINCT m3.* 
+                         , ( SELECT LISTAGG(r2.ROLE, ',') 
+                                      WITHIN GROUP (ORDER BY m2.ID) 
+                               FROM MEMBER_TBL m2, USER_ROLES r2  
+                              WHERE r2.USERNAME = m2.ID
+                                AND r2.USERNAME = m3.ID ) AS "ROLE"           
+                    FROM MEMBER_TBL m3, USER_ROLES r3
+                   WHERE m3.ID = r3.USERNAME
+                   <if test="searchKey == 'ADDRESS'">
+			         AND ROAD_ADDRESS LIKE '%${searchWord}%'
+                      OR JIBUN_ADDRESS LIKE '%${searchWord}%'
+		              OR DETAIL_ADDRESS LIKE '%${searchWord}%'
+		           </if>
+		           <if test="searchKey != 'ADDRESS' and isLikeOrEquals == 'like'">
+		           	AND ${searchKey} LIKE '%${searchWord}%
+		           </if>
+		           <if test="searchKey != 'ADDRESS' and isLikeOrEquals == 'equals'">
+		           	AND ${searchKey} = #{searchWord}
+		           </if>
+		           
+		           <!--
+		           AND NAME LIKE '%훈%'
+		           AND GENDER = 'm'
+		           AND MOBILE LIKE '%08%'
+		           AND MOBILE = '010-1234-5678'
+		           AND PHONE LIKE '%77%'
+		           AND PHONE = '02-3282-9776'
+		           -->
+		           
+                   ORDER BY ID ${ordering} ) m
+       )  
+ WHERE PAGE = #{page}

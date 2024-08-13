@@ -1,0 +1,21 @@
+-- 회원정보 수정(갱신)
+UPDATE
+ 	   MEMBER_TBL
+   SET PW = #{id}
+ 	 , EMAIL = #{email}
+ 	 , MOBILE = #{mobile}
+ 	 , PHONE = #{phone}
+ 	 , ZIP = #{zip}
+ 	 , ROAD_ADDRESS = #{roadAddress}
+ 	 , JIBUN_ADDRESS = #{jibunAddress}
+ 	 , DETAIL_ADDRESS = #{detailAddress}
+ WHERE ID = #{id}
+ 
+ -- 
+ <update id="">
+  update Author
+  	<set>
+  	  <if test="pw != null">PW = #{pw},</if>
+  	  <if test="email != null">, EMAIL = #{email},</if>
+  	</set>
+ </update>

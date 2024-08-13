@@ -1,0 +1,57 @@
+-- 회원정보 삽입(생성)
+INSERT INTO
+       MEMBER_TBL
+       VALUES
+       (
+          , #{id}
+          , #{pw}
+          , #{name}
+          , #{gender}
+          , #{email}
+          , #{mobile}
+          , #{phone}
+          , #{zip}
+          , #{roadAddress}
+          , #{jibunAddress}
+          , #{detailAddress}
+          , #{birthday}
+          , #{joindate}
+          SYSDATE
+       )
+;
+
+-- 회원정보 삽입(생성)
+INSERT INTO
+       MEMBER_TBL
+       (
+       		ID
+       	  , PW
+       	  , NAME
+       	  , GENDER
+       	  , EMAIL
+       	  , MOBILE
+       	  , PHONE
+       	  , ZIP
+       	  , ROAD_ADDRESS
+       	  , JIBUN_ADDRESS
+       	  , DETAIL_ADDRESS
+       	  , BIRTHDAY
+       	  , JOINDATE
+       )
+       VALUES
+       (
+          , #{id}
+          , #{pw}
+          , #{name}
+          , #{gender}
+          , #{email}
+          , #{mobile}
+          , #{phone}
+          , #{zip}
+          , #{roadAddress}
+          , #{jibunAddress}
+          , #{detailAddress}
+          , #{birthday}
+          , SYSDATE
+       )
+;
