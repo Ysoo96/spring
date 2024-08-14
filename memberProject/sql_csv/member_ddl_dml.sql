@@ -1,6 +1,6 @@
 CREATE TABLE member_tbl (
 id varchar2(20) PRIMARY KEY,
-pw varchar2(20) NOT NULL,
+PW VARCHAR2(60) NOT NULL, -- 패스워드 암호화 위한 변경 : PW VARCHAR2(60) NOT NULL, 
 name varchar2(100) NOT NULL,
 gender CHAR NOT NULL,
 email varchar2(50) NOT NULL UNIQUE,
@@ -11,7 +11,7 @@ road_address nvarchar2(100),
 jibun_address nvarchar2(100),
 detail_address nvarchar2(50),
 birthday DATE,
-joindate DATE DEFAULT current_date
+joindate DATE DEFAULT current_date,
 );
  
 comment ON COLUMN member_tbl.id IS '아이디';
