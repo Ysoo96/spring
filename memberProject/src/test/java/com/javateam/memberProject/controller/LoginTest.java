@@ -89,7 +89,7 @@ public class LoginTest {
 	@Test
 	public void testAuth1() throws Exception {
 		
-		id = "mbc_1065"; // 관리자 계정 : ROLE_USER
+		id = "mbc_1097"; // 관리자 계정 : ROLE_USER
 		pw = "#Abcd1234"; 
 		
 		mockMvc.perform(formLogin("/login")
@@ -109,12 +109,13 @@ public class LoginTest {
 		id = "mbc_1097";
 		pw = "#Abcd123456789";
 		
-		mockMvc.perform(formLogin("/login")
-						.user("username", id)
-						.password("password", pw))
-				   .andExpect(unauthenticated()) // 로그인 인증되지 않음
-				   .andExpect(redirectedUrl("/loginError")) // 로그인 에러시 이동 페이지
-				   .andDo(print());
+		MvcResult mvcResult = mockMvc.perform(formLogin("/login")
+								.user("username", id)
+								.password("password", pw))
+						   .andExpect(unauthenticated()) // 로그인 인증되지 않음
+						   .andExpect(redirectedUrl("/loginError")) // 로그인 에러시 이동 페이지
+						   .andDo(print())
+						   .andReturn();
 		
 		// Http 상태 코드 : 302
 		// 
@@ -122,6 +123,17 @@ public class LoginTest {
 		// 이 응답 코드는 요청한 리소스의 URI가 일시적으로 변경되었음을 의미 
 		// 새롭게 변경된 URI는 나중에 만들어질 수 있음 
 		// 참고링크) https://developer.mozilla.org/ko/docs/Web/HTTP/Status/302
+		
+		// Spring Security 에러 메시지 : 로그인 점검 서비스(CustomProvider.java)에서 발생한 오류 메시지
+		String sessionMsg = mvcResult.getRequest()
+									 .getSession()
+									 .getAttribute("SPRING_SECURITY_LAST_EXCEPTION")
+									 .toString();
+		
+		// 에러 메시지 확인 : Session Attrs = {SPRING_SECURITY_LAST_EXCEPTION=org.springframework.security
+		// .authentication.InternalAuthenticationServiceException: 비밀번호가 일치하지 않습니다.}
+		// 오류 메시지 포함 여부 점검 
+		assertThat("비밀번호가 일치하지 않습니다.").isSubstringOf(sessionMsg);
 		
 	}
 	
