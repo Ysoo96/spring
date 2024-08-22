@@ -45,6 +45,8 @@ public class MemberVO {
 	private Date birthday;
 	/** 가입일 */
 	private Date joindate;
+	/** 회원 활성화 여부 : 추가 */
+	private int enabled;
 	
 	@Override
 	public boolean equals(Object obj) {

@@ -25,25 +25,25 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	// DataSourceTransactionManager dsTxManager;
 	PlatformTransactionManager dsTxManager;
-	
+
 	// howto-2)
 //	private final PlatformTransactionManager dsTxManager;
 //	public MemberServiceImpl(PlatformTransactionManager dsTxManager) {
 //		this.dsTxManager = dsTxManager;
 //	}
-	 
+
 	// howto-1)
 	// @Autowired
 	// TransactionTemplate txTemplate;
-	
+
 	// howto-2)
 	TransactionTemplate txTemplate;
-	
+
 	@Autowired
 	void setTransactionTemplate(PlatformTransactionManager txManager) {
 		this.txTemplate = new TransactionTemplate(txManager);
 	}
-	
+
 	@Autowired
 	MemberDAO memberDAO;
 
@@ -64,51 +64,48 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVO> selectAllMembers() {
 		return memberDAO.selectAllMembers();
 	}
-	
+
 	/*
-	@Override
-	public boolean insertMember(MemberVO memberVO) {
-		return txTemplate.execute(new TransactionCallback<Boolean>() {
-			
-			@Override
-			public Boolean doInTransaction(TransactionStatus status) {
-				boolean result = false;
-				try {
-					result = memberDAO.insertMember(memberVO);
-					result = memberDAO.insertRole(memberVO.getId(), "ROLE_USER");
-				} catch (Exception e) {
-					result = false;
-					log.error("MemberService.insertMember 에러 : " + e);
-					status.setRollbackOnly();
-				}
-				return result;
-			}
-			
-		});
-	}
-	*/
+	 * @Override public boolean insertMember(MemberVO memberVO) { return
+	 * txTemplate.execute(new TransactionCallback<Boolean>() {
+	 * 
+	 * @Override public Boolean doInTransaction(TransactionStatus status) { boolean
+	 * result = false; try { result = memberDAO.insertMember(memberVO); result =
+	 * memberDAO.insertRole(memberVO.getId(), "ROLE_USER"); } catch (Exception e) {
+	 * result = false; log.error("MemberService.insertMember 에러 : " + e);
+	 * status.setRollbackOnly(); } return result; }
+	 * 
+	 * }); }
+	 */
 
 	@Override
 	public boolean insertMember(MemberVO memberVO) {
 		return txTemplate.execute(status -> {
-				boolean result = false;
-				
-				// 회원정보 삽입
-				try {
-					// 기존 회원 존재 여부
-					// if (memberDAO.selectMemberById(memberVO.getId()) != null) {
-					if (memberDAO.hasMemberByFld("ID", memberVO.getId()) == true) {
-						throw new Exception("중복되는 회원정보가 존재합니다.");
-					}
-					
-					result = memberDAO.insertMember(memberVO);
-					// result = memberDAO.insertRole(memberVO.getId(), "ROLE_USER");
-				} catch (Exception e) {
-					result = false;
-					log.error("MemberService.insertMember 에러 : " + e);
-					status.setRollbackOnly();
+			boolean result = false;
+
+			// 회원정보 삽입
+			try {
+				log.info("기존 회원 존재여부 : " + memberDAO.hasMemberByFld("ID", memberVO.getId()));
+
+				// 기존 회원 존재 여부
+				// if (memberDAO.selectMemberById(memberVO.getId()) != null) {
+				if (memberDAO.hasMemberByFld("ID", memberVO.getId()) == true) {
+					throw new Exception("중복되는 회원정보가 존재합니다.");
 				}
-				
+
+				log.info("-- memberVO : " + memberVO);
+
+				result = memberDAO.insertMember(memberVO);
+				// result = memberDAO.insertRole(memberVO.getId(), "ROLE_USER");
+			} catch (Exception e) {
+				result = false;
+				log.error("MemberService.insertMember 에러 : " + e);
+				status.setRollbackOnly();
+			}
+
+			// 버그 패치 : 상위 CRUD 수행시 중복회원 있을 경우 에러 리턴
+			// 상위 CRUD 실행시 에러 없을 경우만 아래 구문 실행
+			if (result == true) {
 				// 회원 롤(Role) 생성
 				try {
 					// 중요) 버그 패치
@@ -117,57 +114,50 @@ public class MemberServiceImpl implements MemberService {
 					if (memberDAO.hasMemberByFld("ID", memberVO.getId()) == false) {
 						throw new Exception("중복되는 회원정보가 존재하지 않습니다.");
 					}
-					
+
 					result = memberDAO.insertRole(memberVO.getId(), "ROLE_USER");
 				} catch (Exception e) {
 					result = false;
 					log.error("MemberService.insertMember(Role) 에러 : " + e);
 					status.setRollbackOnly();
 				}
-				return result;
-			
+			}
+
+			return result;
+
 		});
 	}
-	
+
 	/*
-	@Override
-	public boolean insertMember(MemberVO memberVO) {
-		boolean result = false;
-		TransactionStatus txStatus = dsTxManager.getTransaction(new DefaultTransactionDefinition());
-		
-		try {
-			result = memberDAO.insertMember(memberVO);
-			result = memberDAO.insertRole(memberVO.getId(), "ROLE_USER");
-			dsTxManager.commit(txStatus);
-			// result = true;
-		} catch (Exception e) {
-			dsTxManager.rollback(txStatus);
-			result = false;
-			log.error("MemberService.insertMember 에러 : " + e);
-			// throw e;
-		}
-		// dsTxManager.commit(txStatus);
-		return result;
-	}
-	*/
-	
+	 * @Override public boolean insertMember(MemberVO memberVO) { boolean result =
+	 * false; TransactionStatus txStatus = dsTxManager.getTransaction(new
+	 * DefaultTransactionDefinition());
+	 * 
+	 * try { result = memberDAO.insertMember(memberVO); result =
+	 * memberDAO.insertRole(memberVO.getId(), "ROLE_USER");
+	 * dsTxManager.commit(txStatus); // result = true; } catch (Exception e) {
+	 * dsTxManager.rollback(txStatus); result = false;
+	 * log.error("MemberService.insertMember 에러 : " + e); // throw e; } //
+	 * dsTxManager.commit(txStatus); return result; }
+	 */
+
 	@Override
 	public MemberVO insertMember2(MemberVO memberVO) {
 		return txTemplate.execute(new TransactionCallback<MemberVO>() {
-					
+
 			@Override
 			public MemberVO doInTransaction(TransactionStatus status) {
 				MemberVO resultVO = null;
-				
+
 				try {
 					// 기존 회원 존재 여부
 					// if (memberDAO.selectMemberById(memberVO.getId()) != null) {
 					if (memberDAO.hasMemberByFld("ID", memberVO.getId()) == true) {
 						throw new Exception("중복되는 회원정보가 존재합니다.");
 					}
-					
-					if (memberDAO.insertMember(memberVO) == true &&
-							memberDAO.insertRole(memberVO.getId(), "ROLE_USER") == true) {
+
+					if (memberDAO.insertMember(memberVO) == true
+							&& memberDAO.insertRole(memberVO.getId(), "ROLE_USER") == true) {
 						// 회원정보 생성 이후 결과
 						resultVO = memberDAO.selectMemberById(memberVO.getId());
 					}
@@ -178,18 +168,18 @@ public class MemberServiceImpl implements MemberService {
 				}
 				return resultVO;
 			}
-			
+
 		});
 	}
 
 	@Override
 	public boolean updateMember(MemberVO memberVO) {
 		return txTemplate.execute(new TransactionCallback<Boolean>() {
-			
+
 			@Override
 			public Boolean doInTransaction(TransactionStatus status) {
 				boolean result = false;
-				
+
 				try {
 					// 기존 회원 존재 여부
 					// if (memberDAO.selectMemberById(memberVO.getId()) == null) {
@@ -204,26 +194,25 @@ public class MemberServiceImpl implements MemberService {
 				}
 				return result;
 			}
-			
+
 		});
 	}
 
 	@Override
 	public boolean deleteMember(String id) {
-return txTemplate.execute(new TransactionCallback<Boolean>() {
-			
+		return txTemplate.execute(new TransactionCallback<Boolean>() {
+
 			@Override
 			public Boolean doInTransaction(TransactionStatus status) {
 				boolean result = false;
-				
+
 				try {
 					// 기존 회원 존재 여부
 					// if (memberDAO.selectMemberById(id) == null) {
 					if (memberDAO.hasMemberByFld("ID", id) == false) {
 						throw new Exception("삭제할 회원정보가 존재하지 않습니다.");
 					}
-					if (memberDAO.deleteRoles(id) == true && 
-							memberDAO.deleteMemberById(id) == true) {
+					if (memberDAO.deleteRoles(id) == true && memberDAO.deleteMemberById(id) == true) {
 						result = true;
 					}
 				} catch (Exception e) {
@@ -233,7 +222,7 @@ return txTemplate.execute(new TransactionCallback<Boolean>() {
 				}
 				return result;
 			}
-			
+
 		});
 	}
 

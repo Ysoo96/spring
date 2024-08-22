@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko-kr"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>회원가입</title>
+    
+	<link th:href="@{/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet" />
+	<script th:src="@{/bootstrap/5.3.3/js/bootstrap.min.js}"></script>
+    
+    <!-- AJAX library axios -->
+    <script th:src="@{'/axios/1.7.4/dist/axios.min.js'}"></script>
+
+    <!-- 주소 검색 서비스 -->
+
+    <!-- 1단계 : daum 우편번호 서비스 외장 JS(Javascript) 파일 링크 -->
+    <!-- 주의사항) 주소 검색 서비스는 일반적으로 서버(가령 live 서버) 없이 
+         실행시 오류가 발생할 수 있기 때문에 반드시 서버가 있는 상황에서 실행시키시기 바랍니다. -->
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+    <!-- 2단계 : 소스 코드 복사 
+        // javateacher) 본 회원가입 코드에서는 도로명으로 선택하든 지번 주소로 선택하든
+        // 일괄적으로 도로명으로 기본주소가 들어가도록 설정하였습니다. 추후 지번 주소와
+        // 같이 송부하기 위해서는 아래의 코드를 약간 변경하여 지번주소가 들어갈 필드를 
+        // 추가하시면 되겠습니다. -->
+    <script th:src="@{'/js/member_join_ajax_demo.js'}" charset="UTF-8"></script>
+    
+    <!-- 메시징 -->
+    <script th:inline="javascript" th:if="${msg != null}">
+		alert([[${msg}]]);
+	</script>
+</head>
+<body>
+
+	<!-- layout -->
+	<div class="w-100">
+	
+		<div class="bg-info mt-5">
+	
+		    <!-- 회원 가입 -->
+		    <div id="form_content_pnl" class="mx-auto" style="width:700px">
+		        
+		        <h2 class="my-3">회원 가입</h2>
+		    
+		        <div id="form_content_box">
+		
+		            <form id="frm" th:action="@{'/member/joinProcAjax'}" method="post" autocomplete="off" th:object="${memberDTO}">
+		                    
+		                <!-- 회원 아이디-->	
+		                <div id="id_fld_pnl" class="row py-2">	
+		                
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="id">아이디</label>
+		                    </div>
+		                    
+		                    <div class="col-10 fld_content">
+		                        <input type="text" class="form-control" id="id" name="id" 
+		                        	   maxlength="20" value="spring1111"/>       
+		                    </div>			
+		                    				
+		                </div>						
+		                
+		                <!-- 회원 아이디 에러 메시징 -->
+		                <div id="id_fld_err_pnl">
+		                </div>
+		                <!--// 회원 아이디-->
+		                
+		                <!-- 회원 패쓰워드 -->	
+		                <div id="pw_fld_pnl" class="row py-2">	
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="pw">패쓰워드</label>
+		                    </div>
+		                    <div class="col-10 fld_content">
+		                        <input type="text" class="form-control" id="pw" name="pw" 
+		                        		maxlength="20" value="#Abcd1234"/>
+		                    </div>
+		                </div>
+		                
+		                <!-- 회원 패쓰워드 에러 메시징 -->
+		                <div id="pw_fld_err_pnl">
+		                </div>
+		                <!--// 회원 패쓰워드 -->
+		                
+		                <!-- 회원 이름-->
+		                <!-- 이름 용례 추가 -->	
+		                <div id="name_fld_pnl" class="row py-2">
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="name">이름</label>
+		                    </div>
+		                    <div class="col-10 fld_content">
+		                        <input type="text" class="form-control" id="name" name="name" value="홍길동" />
+		                    </div>    
+		                </div>
+		            
+		                <!-- 회원 이름 에러 메시징 -->
+		                <div id="name_fld_err_pnl">
+		                </div>
+		                <!--// 회원 이름 -->
+		                
+		                <!-- 회원 성별 -->	
+		                <div id="gender_fld_pnl" class="row py-2">	
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label>성별</label>
+		                    </div>
+		                    <div class="col-10 pt-1 fld_content">
+		                    
+		                    	<div class="form-check form-check-inline ms-1">
+	       		                    <input type="radio" class="form-check-input" id="radio1" name="gender" value="m" checked />
+			                        <label class="form-check-label" for="radio1" checked>남</label>
+		                        </div>
+		                        
+		                        <div class="form-check form-check-inline">                                
+			                        <input type="radio" class="form-check-input" id="radio2" name="gender" value="f">
+			                        <label class="form-check-label" for="radio2">여</label>
+		                        </div>
+		                        
+		                    </div>
+		                </div>                     
+		                    
+		                <!-- 회원 성별 에러 메시징 -->
+		                <div id="gender_fld_err_pnl">
+		                </div>
+		                <!--// 회원 성별 -->
+		                    
+		                <!-- 회원 이메일 -->	
+		                <div id="email_fld_pnl" class="row py-2">	
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="email">이메일</label>
+		                    </div>    
+		                    <div class="col-10 fld_content">
+		                        <input type="email" class="form-control" id="email" name="email" value="spring1111@abcd.com" />
+		                    </div>
+		                </div>
+		                    
+		                <!-- 회원 이메일 에러 메시징 -->
+		                <div id="email_fld_err_pnl">
+		                </div>
+		                <!--// 회원 이메일 -->
+		                    
+		                <!-- 회원 연락처(휴대폰) -->	
+		                <div id="mobile_fld_pnl" class="row py-2">	
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="mobile">휴대폰</label>
+		                    </div>
+		                    <div class="col-10 fld_content">
+		                        <input type="text" class="form-control" id="mobile" name="mobile" 
+		                        	   placeholder="예시) 010-1234-5678" value="010-1234-6565" />
+		                    </div>    
+		                </div>                    
+		                
+		                <!-- 회원 연락처(휴대폰) 에러 메시징 -->
+		                <div id="mobile_fld_err_pnl">
+		                </div>
+		                <!--// 회원 연락처(휴대폰) -->
+		                
+		                <!-- 회원 연락처(집전화) -->	
+		                <div id="phone_fld_pnl" class="row py-2">	
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="phone">집전화</label>
+		                    </div>
+		                    <div class="col-10 fld_content">
+		                        <input type="text" class="form-control" id="phone" name="phone" 
+		                        	   placeholder="예시) 02-1111-2222" value="02-1111-2222" />
+		                    </div>    
+		                </div>                    
+		                
+		                <!-- 회원 연락처(집전화) 에러 메시징 -->
+		                <div id="phone_fld_err_pnl">
+		                </div>
+		                <!--// 회원 연락처(집전화) -->
+		                    
+		                <!-- 회원 우편번호 -->	
+		                <div id="zip_fld_pnl" class="row py-2">	
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="zip">우편번호</label>
+		                    </div>
+		                    <div class="col-10 d-flex justify-content-start fld_content">
+		                        <input type="text" class="form-control me-2" id="zip" name="zip" style="width:100px;" readonly value="08290" />
+		                        
+		                        <!-- 주소 검색 -->
+		                        <button type="button" class="btn btn-primary me-2" id="address_search_btn" onclick="getPostcodeAddress()">주소 검색</button>
+		                        <button type="button" class="btn btn-primary" id="address_delete_btn">주소 삭제</button>
+		                    </div>                    
+		                </div>
+		                <!--// 회원 우편번호 -->
+		                    
+		                <!-- 회원 기본 주소(도로명) -->	
+		                <div id="road_address_fld_pnl" class="row py-2">	
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="roadAddress">도로명 주소</label>
+		                    </div>
+		                    <div class="col-10 fld_content">
+		                        <input type="text" class="form-control" id="roadAddress" name="roadAddress" readonly 
+		                        	value="서울특별시 관악구 신림로 340"/>
+		                    </div>
+		                </div>
+		                
+		                <!-- 회원 기본 주소(지번) -->	
+		                <div id="jibun_address_fld_pnl" class="row py-2">	
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="jibunAddress">지번 주소</label>
+		                    </div>    
+		                    <div class="col-10 fld_content">
+		                        <input type="text" class="form-control" id="jibunAddress" name="jibunAddress" readonly 
+		                        		value="서울특별시 관악구 신림동 1422-5 르네상스 복합쇼핑몰" />
+		                    </div>
+		                </div>
+		                
+		                <!-- 회원 상세주소 에러 메시징 : 우편번호/기본주소 입력시 상세주소 미입력할 경우 -->
+		                <div id="address_fld_err_pnl">
+		                </div>
+		                <!--// 회원 기본 주소 -->
+		                
+		                <!-- 회원 상세 주소 -->	
+		                <div id="detail_address_fld_pnl" class="row py-2">	
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="detailAddress">상세주소</label>
+		                    </div>    
+		                    <div class="col-10 fld_content">
+		                        <input type="text" class="form-control" id="detailAddress" name="detailAddress" value="6층 MBC 아카데미" />
+		                    </div>
+		                </div>
+		                
+		                <!-- 회원 상세주소 에러 메시징 : 우편번호/기본주소 입력시 상세주소 미입력할 경우 -->
+		                <div id="address_fld_err_pnl">
+		                </div>
+		                <!--// 회원 상세주소 -->
+		                
+		                <!-- 회원 생일 -->	
+		                <div id="birthday_fld_pnl" class="row py-2">	
+		                    <div class="col-2 pt-1 fld_label">
+		                        <label for="birthday">생일</label>
+		                    </div>    
+		                    <div class="col-10 fld_content">
+		                        <input type="date" class="form-control" id="birthday" name="birthday" 
+		                        	   maxlength="10" placeholder="예시) 2000-01-01" value="2000-01-01" />		                        
+		                    </div>
+		                </div>
+		                
+		                <!-- 회원 생일 에러 메시징 -->
+		                <div id="birthday_fld_err_pnl">
+		                </div>
+		                <!--// 회원 생일 -->
+		                
+		                <!-- 회원 가입/취소 버튼 -->	
+		                <div id="buttons_fld_pnl" class="d-flex justify-content-center py-2">	
+		                	<!-- <button class="btn btn-primary me-2" id="submit_btn" type="submit">회원 가입</button> -->
+		                    <button class="btn btn-primary me-2" id="submit_btn" type="button">회원 가입</button>
+		                    <button class="btn btn-primary" id="reset_btn" type="reset">취소</button>
+		                </div>
+		                <!--// 회원 가입/취소 버튼 -->
+		            
+		            </form>
+		
+		        </div>
+		    
+		    </div>
+		    <!-- content -->    
+	        
+	    </div>
+	    <!--// 회원 가입 -->
+    
+    </div>
+    <!--// layout -->
+    
+</body>
+</html>

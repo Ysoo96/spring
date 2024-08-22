@@ -46,6 +46,7 @@
 				  , DETAIL_ADDRESS
 				  , BIRTHDAY
 				  , JOINDATE
+				  , ENABLED
 		       )
 		       VALUES
 		       (
@@ -62,6 +63,7 @@
 				  , #{detailAddress}
 				  , #{birthday}		  
 		          , SYSDATE
+		          , #{enabled}
 		       )
 	</insert>
 	

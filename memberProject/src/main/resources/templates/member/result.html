@@ -5,6 +5,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-메시지 : [[${msg}]]
+<script>
+	let msg = "[[${msg}]]";
+	let path = "/memberProject[[${path}]]";
+
+	alert(msg);
+	
+	location.href = path;
+	
+	/*
+	if (msg == '회원가입에 성공하셨습니다.') {
+		// location.href = "/memberProject/login";
+	} else {
+		// location.href = "/memberProject/joinDemo";
+		// history.back(); // 이전 페이지 이동
+		// history.go(-1); // 이전 페이지 이동
+	}
+	*/
+	
+</script>
+
 </body>
 </html>
