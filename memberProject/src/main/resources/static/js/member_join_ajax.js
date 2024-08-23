@@ -372,6 +372,12 @@ window.onload = () => {
 	
 	let birthdayErrMsg = "회원 생일을 작성하십시오";
 	     
+	////////////////////////////////////////////////////////////////////////
+	
+	// 초기화 : 날짜 한계(max) 금일 초기화 
+	// ex) 2024-08-23 formatting
+	// 달력 컨퍼넌트에서의 날짜 제한
+	birthdayFld.max = new Date().toISOString().substring(0, 10);
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -653,6 +659,28 @@ window.onload = () => {
                         birthdayFld.value,
                         birthdayFldErrPnl,
                         birthdayErrMsg);
+                        
+       // 추가) 생일이 금일보다 이전 날짜인지 점검
+       if (birthdayCheckFlag == true) {
+		   
+		    let now = Date.now();
+		    let parsedBith = Date.parse(birthdayFld.value);
+		   
+		    console.log('금일 날짜 : ' + now);
+		    console.log('생일 : ' + parsedBith);		    
+		    console.log("생일을 적정성 여부(과거 일자 입력) : " + (parsedBith <= now));
+       	
+       		if (parsedBith > now) {
+			
+			    alert("생일은 금일 날짜 이전이어야 합니다.");
+			 	birthdayCheckFlag = false;
+			 	
+			 	birthdayFld.value = "";
+			 	birthdayFld.focus();			 		   
+		    }
+      	 
+       } // 생일이 금일보다 이전 날짜인지 점검
+       
     } //     
 
     /////////////////////////////////////////////////////////////////
@@ -881,6 +909,28 @@ window.onload = () => {
                                     birthdayFld.value,
                                     birthdayFldErrPnl,
                                     birthdayErrMsg);
+                                    
+               ////////////////////////////////////////////
+                
+               // 추가) 생일이 금일보다 이전 날짜인지 점검
+               if (birthdayCheckFlag == true) {
+				   
+				   let now = Date.now();
+				   let parsedBith = Date.parse(birthdayFld.value);
+				   
+				   console.log('금일 날짜 : ' + now);
+				   console.log('생일 : ' + parsedBith);		    
+				   console.log("생일을 적정성 여부(과거 일자 입력) : " + (parsedBith <= now));
+				   
+				   if (parsedBith > now) {
+					   alert("생일은 금일 날짜 이전이어야 합니다.");
+					   birthdayCheckFlag = false;
+					   
+					   birthdayFld.value = "";
+					   birthdayFld.focus();
+					   }
+					   
+				  } // 생일이 금일보다 이전 날짜인지 점검	  
             } //
 
 			// 아이디/이메일/연락처(휴대폰) 중복 재점검에 따른 최종 메시징			

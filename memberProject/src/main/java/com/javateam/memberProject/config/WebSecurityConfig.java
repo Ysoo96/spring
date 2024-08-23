@@ -129,7 +129,11 @@ public class WebSecurityConfig {
 		// https://docs.spring.io/spring-security/reference/servlet/authentication/logout.html#logout-java-configuration
 
 		// 로그인/로그아웃 (인증) 처리
-		http.formLogin(formLogin -> formLogin.loginPage("/login") // 로그인 이후 주소
+		// loginProcessingUrl("/login") 추가 
+		// : Spring Security 6.x의 404 에러 간헐 발생에 따른 버그 패치 조치
+	    // 이슈(issu) 참고) https://github.com/spring-projects/spring-security/issues/12635
+		http.formLogin(formLogin -> formLogin.loginProcessingUrl("/login") // 추가) 위 설명 참조
+				.loginPage("/login") // 로그인 주소
 				.usernameParameter("username") // 아이디
 				.passwordParameter("password") // 패쓰워드
 				.defaultSuccessUrl("/myPage") // 로그인 성공시 이동 주소

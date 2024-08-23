@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+window.onload = function() {
+	
+	let birth = document.getElementById("date");
+	// date.max = '2024-08-23';
+	
+	// 2024-08-23 formatting
+	// 달력 컨퍼넌트에서의 날짜 제한
+	date.max = new Date().toISOString().substring(0, 10);
+	
+	date.onblur = function() {
+		let input_date = Date.parse(date.value);
+		console.log("input_date : " + input_date);
+		
+		let today = Date.parse(new Date());
+		console.log("today : " + today);
+		
+		// 생일 : 현재 시각보다 미래이면 안됨(제약)
+		let msg = input_date <= today ? "적합" : "부적합";
+		console.log("생일 적합성 : " + msg);
+	}
+}
+</script>
+</head>
+<body>
+	<input type="date" id="date"/>
+</body>
+</html>

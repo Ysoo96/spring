@@ -176,7 +176,7 @@ public class AuthController {
 	public String joinAjax(Model model) {
     	
 		log.info("회원가입폼(Ajax)");	
-		model.addAttribute("memberDTO", new MemberDTO());
+		model.addAttribute("memberDTO", new MemberVO());
 		return "joinAjax";
 	}
 
