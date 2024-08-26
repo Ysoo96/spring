@@ -157,8 +157,13 @@ public class WebSecurityConfig {
 		// howto-1)
 		// https://docs.spring.io/spring-security/reference/servlet/authentication/rememberme.html#_persistenttokenbasedremembermeservices
 
-		http.rememberMe((remember) -> remember.key("javateam").userDetailsService(userDetailsService)
-				.tokenRepository(getJDBCRepository()).tokenValiditySeconds(60 * 60 * 24)); // 24시간(1일)
+		/* 생략 처리
+		http.rememberMe((remember) -> remember
+				.key("javateam")
+				.userDetailsService(userDetailsService)
+				.tokenRepository(getJDBCRepository())
+				.tokenValiditySeconds(60 * 60 * 24)); // 24시간(1일)
+		*/
 
 		// howto-2) 토큰 기반 서비스
 		// https://docs.spring.io/spring-security/reference/servlet/authentication/rememberme.html
