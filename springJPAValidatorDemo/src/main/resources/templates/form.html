@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>심플 회원 가입 폼</title>
+<style>
+.err 
+{ 
+	color:red;
+}	
+</style>
+
+</head>
+<body>
+
+<!-- 참고) Validation and Error Messages(유효성 점검과 에러 메시지) : 
+     https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.html#validation-and-error-messages -->
+
+memberValid : <span th:text="${memberValid}"></span><br><br>
+
+	<form method="POST" action="formActionValid.do" th:object="${memberValid}">
+	
+			<!-- 폼 점검 전체 에러들 -->
+			<ul th:if="${#fields.hasErrors('*')}">
+			  <li th:each="err : ${#fields.errors('*')}" th:text="${err}" th:class="err" />
+			</ul>	
+						  
+			아이디 : <input type="text" th:field="*{id}" /><br>
+			<p class="err" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+				  
+			패쓰워드 : <input type="password" th:field="*{pw}"/><br>
+			<p class="err" th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}"></p>
+				    
+			이름 : <input type="text" th:field="*{name}" /><br>
+			<p class="err" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+			   	 
+			이메일 : <input type="email" th:field="*{email}" /><br>
+			<p class="err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>   	 
+			   	 
+			생년월일 : <input type="date" th:field="*{birthday}"/><br>
+			<p class="err" th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></p>
+
+			<input type="submit" value="전송" />		   
+					   	
+	</form>				
+			  
+</body>
+</html>
