@@ -108,7 +108,9 @@ public class WebSecurityConfig {
 				// .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")
 				.requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
 				// user 폴더에 경우 user(ROLE_USER) 롤이 있는 사용자에게만 허용
-				.requestMatchers("/user/**").hasAnyAuthority("ROLE_USER").anyRequest().authenticated());
+				.requestMatchers("/secured/**", "/myPage", "/member/view")
+				.hasAnyAuthority("ROLE_USER")
+				.anyRequest().authenticated());
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
 		//

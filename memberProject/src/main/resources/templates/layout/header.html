@@ -30,7 +30,7 @@
 			
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">로그아웃</a></li>
 			
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/}">회원정보 조회</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/view}">회원정보 조회</a></li>
 			
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/}">회원정보 수정</a></li>
 						

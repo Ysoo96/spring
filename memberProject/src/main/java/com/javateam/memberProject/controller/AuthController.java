@@ -149,6 +149,14 @@ public class AuthController {
 		return "/secured/home";
 	}
 	
+	@GetMapping("/joinAjaxDemo")
+	public String demo(Model model) {
+    	
+		log.info("회원가입폼");	
+		model.addAttribute("memberDTO", new MemberVO());
+		return "joinAjaxDemo";
+	}
+	
 	@GetMapping("/join")
 	public String join(Model model) {
 		log.info("회원가입폼");		
@@ -162,14 +170,6 @@ public class AuthController {
 		log.info("회원가입폼(Demo)");	
 		model.addAttribute("memberDTO", new MemberDTO());
 		return "joinDemo";
-	}
-	
-	@GetMapping("/joinAjaxDemo")
-	public String demo(Model model) {
-    	
-		log.info("회원가입폼");	
-		model.addAttribute("memberDTO", new MemberVO());
-		return "joinAjaxDemo";
 	}
 	
     @GetMapping("/joinAjax")
@@ -186,7 +186,38 @@ public class AuthController {
 
 		log.info("loginForm");
 
-		return "loginForm";
+		// 로그인/로그아웃 (인증) 처리
+		// loginProcessingUrl("/login") 추가
+		// : Spring Security 6.x의 404 에러 간헐 발생에 따른 버그 패치 조치
+	    // 이슈(issue) 참고) https://github.com/spring-projects/spring-security/issues/12635
+
+     	// 버그 패치) Spring Security Login Page Redirect(페이지 이동 문제)에 따른 조치
+    	// 버그 리포트(bug report) : 일반적으로 최초로 로그인할 경우 발생
+    	// 버그 증상) 로그인 성공시에도 불구하고 myPage로 이동되지 않고 loginForm 페이지에 머물러 있음
+    	// 버그 구체적인 패치 대응) 로그인 상태를 Authentication 정보를 통해서 수동 점검하여
+    	// forward 페이지를 인증/미인증별로 선택적으로 설정
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String path="";
+		
+		// 로그인 인증 안되었을 경우 인증정보(Authentication) dump
+    	//
+    	// AnonymousAuthenticationToken [Principal=anonymousUser, Credentials=[PROTECTED],
+    	// Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1,
+    	// SessionId=C4B68A207EF642308F11925E998570FC], Granted Authorities=[ROLE_ANONYMOUS]
+		log.info("login시 인증정보 : " + auth);
+		
+		if (auth.getPrincipal().toString().equals("anonymousUser")) { // 로그인 인증이 안되었을 경우
+			
+			log.info("로그인 인증 안됨");
+			path = "loginForm";
+		} else {
+			
+			log.info("로그인 인증됨");
+			path = "myPage";
+		} //
+		
+		// return "loginForm";
+		return path;
 	}
 
 	// 로그아웃 처리
