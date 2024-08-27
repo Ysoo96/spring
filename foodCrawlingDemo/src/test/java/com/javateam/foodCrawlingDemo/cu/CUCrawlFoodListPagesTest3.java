@@ -57,7 +57,7 @@ public class CUCrawlFoodListPagesTest3 {
 			// 이미지 확장자
 			String saveImgFileNameExt = productImgURL.substring(productImgURL.lastIndexOf('.') + 1);
 
-			String path = "D:/student/lsh/works/spring/foodCrawlingDemo/upload_image/"; // 이미지 저장 경로
+			String path = "C:/Users/Admin/git/spring/foodCrawlingDemo/upload_image/"; // 이미지 저장 경로
 			String productImg = UUID.randomUUID().toString() + "." + saveImgFileNameExt;
 
 			log.info("path : " + path);

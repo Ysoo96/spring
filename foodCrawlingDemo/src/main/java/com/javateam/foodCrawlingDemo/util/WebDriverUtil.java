@@ -19,7 +19,7 @@ public class WebDriverUtil {
 	// : https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.111/win64/chromedriver-win64.zip
 	
 	// @Value("${diver.chrome.driver_path}")
-	private String WEB_DRIVER_PATH = "D:\\lsh\\works\\spring_food1\\foodCrawlingDemo\\src\\main\\resources\\webdriver\\chromedriver.exe"; // WebDriver 경로
+	private String WEB_DRIVER_PATH = "D:\\jys\\works\\spring_food1\\foodCrawlingDemo\\src\\main\\resources\\webdriver\\chromedriver.exe"; // WebDriver 경로
 
 	public WebDriver getChromeDriver() {    
 		

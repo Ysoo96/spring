@@ -150,7 +150,7 @@ public class FoodCrawlFoodListPagesTest {
 					String saveImgFileNameExt = foodImg.substring(foodImg.lastIndexOf('.') + 1);
 
 					// 이미지 저장(다운로드)
-					String path = "D:/student/lsh/works/spring/foodCrawlingDemo/upload_image/"; // 이미지 저장 경로
+					String path = "C:/Users/Admin/git/spring/foodCrawlingDemo/upload_image/"; // 이미지 저장 경로
 					String saveImgFilename = UUID.randomUUID().toString() + "." + saveImgFileNameExt;
 
 					log.info("path : " + path);
