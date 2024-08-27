@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.DemoMapper">
+	
+	<!-- 회원정보 삽입(생성) -->
+	<insert id="insertMember" parameterType="com.javateam.demo2.domain.MemberVO">
+		<selectKey order="AFTER" resultType="int">
+			SELECT COUNT(*) FROM DEMO_TBL WHERE ID = #{id}
+		</selectKey>
+		INSERT INTO
+		       MEMBER_TBL
+		       (
+	 	     	 	ID
+				  , PW
+				  , NAME
+				  , GENDER
+				  , EMAIL
+				  , PHONE
+				  , ZIP
+				  , ADDRESS
+				  , DETAIL_ADDRESS
+				  , BIRTHDAY
+				  , JOINDATE
+				  , ENABLED
+		       )
+		       VALUES
+		       (
+		            #{id}
+				  , #{pw}
+				  , #{name}
+				  , #{gender}
+				  , #{email}
+				  , #{phone}
+				  , #{zip}
+				  , #{address}
+				  , #{detailAddress}
+				  , #{birthday}		  
+		          , SYSDATE
+		          , #{enabled}
+		       )
+	</insert>
+	
+</mapper>
