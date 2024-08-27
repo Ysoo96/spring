@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>modify</title>
+</head>
+<body>
+	<div><h3 th:text="${member.id}"></h3></div>
+	<div th:utext='${"<h3>"+member.id+"</h3>"}'></div>
+	<div th:utext='${"<h4>"+member.pw+"</h4>"}'></div>
+	<div th:utext='${"<h4>"+member.name+"</h4>"}'></div>
+</body>
+</html>
