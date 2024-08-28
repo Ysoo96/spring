@@ -18,7 +18,7 @@ public class DownloadTest {
 		// 이미지 확장자
 		String saveImgFileNameExt = imgURL.substring(imgURL.lastIndexOf('.') + 1);
 		
-		String path = "D:/lsh/works/spring_food1/foodCrawlingDemo/upload_image/";
+		String path = "C:/Users/Admin/git/spring/foodCrawlingDemo/upload_image/";
 		String saveImgFilename = UUID.randomUUID().toString() + "." + saveImgFileNameExt;
 		
 		InputStream in;

@@ -23,7 +23,7 @@ public class WebDriverUtil {
 	// 직접 다운로드(128.0.6613.85 버전) : https://storage.googleapis.com/chrome-for-testing-public/128.0.6613.85/win64/chromedriver-win64.zip
 
 	// @Value("${diver.chrome.driver_path}")
-	private String WEB_DRIVER_PATH = "D:\\student\\lsh\\works\\spring_ex\\foodCrawlingDemo\\src\\main\\resources\\webdriver\\chromedriver.exe"; // WebDriver 경로
+	private String WEB_DRIVER_PATH = "C:\\Users\\Admin\\git\\spring\\foodCrawlingDemo\\src\\main\\resources\\webdriver\\chromedriver.exe"; // WebDriver 경로
 
 	public WebDriver getChromeDriver() {
 

@@ -28,7 +28,7 @@ public class CUCrawlFoodListPagesTest3 {
 		// 개별 상품 페이지 : 정적 페이지
 		// https://cu.bgfretail.com/product/view.do?category=product&gdIdx=19732
 
-		String path = "D:/student/lsh/works/spring_ex/foodCrawlingDemo/upload_image/"; // 이미지 저장 경로
+		String path = "C:/Users/Admin/git/spring/foodCrawlingDemo/upload_image/"; // 이미지 저장 경로
 		String url = "https://cu.bgfretail.com/product/view.do?category=product&gdIdx=19732";
 		Document doc;
 
