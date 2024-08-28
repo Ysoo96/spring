@@ -24,7 +24,7 @@ public class FoodVO {
 	@Id
     @Column(nullable=false, precision=10, scale=0) // number(10,0)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
-    			   generator = "FOOD_SEQ_GENERATOR") // 오타 교정
+    			   generator = "FOOD_SEQ_GENERATOR") 
 	private long id;
 	
 	/** 식품명 */

@@ -1,20 +1,10 @@
 package com.javateam.foodCrawlingDemo.cu;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,26 +18,26 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 @Slf4j
 public class CUCrawlFoodListPagesTest6 {
-	
+
 	@Autowired
 	CUCrawlService cuCrawlService;
-	
+
 	@Autowired
 	CURepository cuRepository;
 
 	@Test
 	public void test() {
-		
-		// 메인 카테고리(searchMainCategory) (현재) 
+
+		// 메인 카테고리(searchMainCategory) (현재)
 		// : 간편식사=10, 즉석조리=20, 과자류=30, 아이스크림=40, 식품=50, 음료=60, (생활용품=70)
-		
+
 		// 각 카테고리별 총페이지 수 (현재)
 		// : 간편식사=6, 즉석조리=3, 과자류=45, 아이스크림=9, 식품=67, 음료=27, (생활용품=70)
-		
-		// ex) 간편식사 카테고리 
+
+		// ex) 간편식사 카테고리
 		// https://cu.bgfretail.com/product/productAjax.do?pageIndex=1&listtType=2&searchMainCategory=10
 
-		// 간편식사(대분류)에 따른 식품 크롤링 
+		// 간편식사(대분류)에 따른 식품 크롤링
 		Map<String, Integer> map = new HashMap<>();
 		map.put("간편식사", 6);
 		map.put("즉석조리", 3);
@@ -55,24 +45,24 @@ public class CUCrawlFoodListPagesTest6 {
 		map.put("아이스크림", 9);
 		map.put("식품", 67);
 		map.put("음료", 27);
-		
+
 		List<List<CUVO>> cuLists = new ArrayList<>();
-		
+
 		map.forEach((k,v) -> {
 			cuLists.add(cuCrawlService.crawlProductList(k,v));
 		});
-		
+
 		for (List<CUVO> list : cuLists) {
 
 			for (CUVO cuVO : list) {
-				
+
 				cuRepository.save(cuVO);
 				log.info("cu : " + cuVO);
-				
+
 			} //
-			
+
 		} //
-						
+
 	} //
 
 }

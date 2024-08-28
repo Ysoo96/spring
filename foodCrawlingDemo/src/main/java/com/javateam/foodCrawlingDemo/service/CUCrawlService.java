@@ -41,8 +41,7 @@ public class CUCrawlService {
 	 */
 	public List<CUVO> crawlProductList(String categoryTitle, int endPage) {
 
-		String path = "D:/student/lsh/works/spring/foodCrawlingDemo/upload_image/"; // 이미지 저장 경로
-
+		String path = "D:/student/lsh/works/spring_ex/foodCrawlingDemo/upload_image/"; // 이미지 저장 경로
 		List<CUVO> cuProductList = new ArrayList<>();
 
 		int searchMainCategory = categoryTitle.equals("간편식사") ? 10 :

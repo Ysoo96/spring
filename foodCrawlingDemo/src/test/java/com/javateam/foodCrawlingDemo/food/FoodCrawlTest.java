@@ -26,7 +26,7 @@ public class FoodCrawlTest {
 
 	@Test
 	public void test() {
-
+		
 		String foodSiteId = "91391";
 
 		// ex) 농사로 -> 가물치곰탕(음식)
@@ -49,7 +49,7 @@ public class FoodCrawlTest {
 						+ "ck_ry_ctg02=&"
 						+ "ck_ry_ctg03=&"
 						+ "tema_ctg01=";
-
+		
 		Document doc;
 		foodVO = new FoodVO();
 
@@ -62,30 +62,30 @@ public class FoodCrawlTest {
 			String foodName = doc.select("title").text().split(" | ")[0].trim();
 			log.info("타이틀(식품명) : " + foodName);
 			foodVO.setFoodName(foodName);
-
+			
 			// 식품 이미지
 			// https://www.nongsaro.go.kr/cms_contents/789/91391_MF_BIMG_01.jpg
 			// <img src="/cms_contents/789/91391_MF_BIMG_01.jpg" alt="가루장국(가리장국)" data-pop="91391_MF_BIMG_01.jpg">
-
+			
 			String foodImg = doc.select("div.img-wrap img").attr("src");
 			log.info("식품 이미지 : " + foodImg);
-
+			
 			// 이미지 원 주소
 			String imgURL = "https://www.nongsaro.go.kr/" + foodImg;
-
+			
 			// 이미지 확장자
 			String saveImgFileNameExt = foodImg.substring(foodImg.lastIndexOf('.') + 1);
-
+			
 			// 이미지 저장(다운로드)
-			String path = "C:/Users/Admin/git/spring/foodCrawlingDemo/upload_image/"; // 이미지 저장 경로
+			String path = "D:/lsh/works/spring_food1/foodCrawlingDemo/upload_image/";
 			String saveImgFilename = UUID.randomUUID().toString() + "." + saveImgFileNameExt;
-
+			
 			log.info("path : " + path);
 			log.info("saveImgFilename : " + saveImgFilename);
-
+			
 			InputStream in = new URL(imgURL).openStream();
 			Files.copy(in, Paths.get(path + saveImgFilename), StandardCopyOption.REPLACE_EXISTING);
-
+			
 			foodVO.setFoodImg(saveImgFilename);
 
 			// 식품 유형
@@ -135,20 +135,20 @@ public class FoodCrawlTest {
 			foodVO.setInformationProvider(informationProvider);
 
 			log.info("음식정보 : " + foodVO);
-
+			
 			// 음식정보 : FoodVO(id=0, foodName=가물치곰탕,
 			// foodType=부식류 > 국 및 탕류 > 곰국 및 탕 > 어패류,
-			// recipe=가열하여 익히는 음식 > 물을 이용한 음식 > 끓이는 음식,
+			// recipe=가열하여 익히는 음식 > 물을 이용한 음식 > 끓이는 음식, 
 			// ingredient=가물치 1마리, 찹쌀 330g(2컵), 미나리
 			// 50g, 대파 35g(1뿌리), 생강 20g(5쪽), 대추 20g(10개), 인삼 2뿌리, 다진 마늘 5큰술, 다진 생강 3큰술, 깨소금
-			// 3큰술, 물 적량, 소금 적량,
-			// minorIngredient=,
+			// 3큰술, 물 적량, 소금 적량, 
+			// minorIngredient=, 
 			// cookingInstruction=1. 가물치는 손질하여 물을 붓고 3시간
 			// 정도 약한 불에서 푹 곤다. 2. 찹쌀은 깨끗이 씻어 30분 정도 물에 불린다. 3. 미나리는 다듬어 5cm길이로 썰고, 대파는
 			// 어슷썬다(0.3cm) 4. 생강은 얇게 편 썰고(0.3cm), 대추와 인삼은 깨끗이 씻어 둔다. 5. 1을 체에 밭쳐 찌꺼지는 버리고 받은
 			// 국물에 찹쌀, 생강, 대추, 인삼을 넣고 끓인다. 6. 찹쌀이 어느 정도 익으면 미나리, 어슷썬 대파, 다진 마늘, 다진 생강, 깨소금,
-			// 소금을 넣어 한소끔 끓인다.,
-			// cook=,
+			// 소금을 넣어 한소끔 끓인다., 
+			// cook=, 
 			// reference=·예로부터 이뇨제로 작용한다 하여 결석 환자에게 특효제로서 작용하였고
 			// 보양제로서 널리 각광을 받고 있다. ·탕을 먹고 나서 계피를 이용하여 만든 수정과를 마시면 뒷맛이 개운해 진다.,
 			// cookingOrigin=농촌진흥청 농촌영양개선연수원(현 농촌자원개발연구소), 한국의 향토음식, 1994,

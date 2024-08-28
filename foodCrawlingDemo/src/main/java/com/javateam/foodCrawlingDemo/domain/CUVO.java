@@ -7,8 +7,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @SequenceGenerator(
@@ -18,6 +20,8 @@ import lombok.Data;
 	    allocationSize = 1)
 @Table(name="cu_tbl")
 @Data
+@NoArgsConstructor // 추가
+@AllArgsConstructor // 추가
 @Builder
 public class CUVO {
 	

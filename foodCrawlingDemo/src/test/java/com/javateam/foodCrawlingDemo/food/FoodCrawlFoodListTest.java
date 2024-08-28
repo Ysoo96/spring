@@ -38,13 +38,13 @@ public class FoodCrawlFoodListTest {
 
 		// 음식 고유 번호 추출
 		Document doc;
-
+		
 		// 식품 고유 번호(Primary Key)
 		List<String> foodIdList = new ArrayList<>();
-
+		
 		// 식품(식품) 리스트
 		List<FoodVO> foodList = new ArrayList<>();
-
+		
 		try {
 			doc = Jsoup.connect(foodGallerySite).get();
 
@@ -56,42 +56,42 @@ public class FoodCrawlFoodListTest {
 			log.info("갤러리 페이지 음식 갯수 : " + foodLen); // ex) 10
 
 			// 음식 아이디 : 91511
-
+			
 			// <a href="#" onclick="fncDtl('91511');return false;"><img
 			// src="/ps/img/common/anvil_img.jpg" alt="이미지 준비중입니다." ></a> </span>
-
+			
 			for (int i=0; i<foodLen; i++) {
-
+			
 				String foodId = foodListInfo.get(i) // <div class="inBox" >
 											.select("span a") // <span class="pic"><a>
 											.attr("onclick")  // onclick="fncDtl('91511');return false;"
-											.substring("fncDtl('".length(),
+											.substring("fncDtl('".length(), 
 													   "fncDtl('".length() + 5)
 											.trim(); // select("span[class='pic'] a[onclick]").text();
-
+				
 				log.info("foodId : " + foodId);
-
+				
 				foodIdList.add(foodId);
 			}
-
+			
 			// 식품번호 출력
 			foodIdList.forEach(x -> { log.info("식품번호 : " + x);});
-
+			
 		} catch (IOException e) {
 			log.error("접속 불능");
 			e.printStackTrace();
 		}
-
-
+		
+			
 		//////////////////////////////////////////////////////////////////////////////////////////////////
-
+		
 		FoodVO foodVO = null;
-
+		
 		// 개별 식품 정보 추출
 		for (int i=0; i<foodIdList.size(); i++) {
-
+			
 			String foodSiteId = foodIdList.get(i);
-
+			
 			// ex) 농사로 -> 가물치곰탕(음식)
 			String foodSite = "https://www.nongsaro.go.kr/portal/ps/psr/psrc/fdNmDtl.ps?menuId=PS03933&"
 							+ "pageIndex=1&pageSize=10&pageUnit=10&"
@@ -112,9 +112,9 @@ public class FoodCrawlFoodListTest {
 							+ "ck_ry_ctg02=&"
 							+ "ck_ry_ctg03=&"
 							+ "tema_ctg01=";
-
+			
 			///////////////////////////////////////////////////////////
-
+			
 			Document doc2 = null;
 			foodVO = new FoodVO();
 
@@ -127,30 +127,30 @@ public class FoodCrawlFoodListTest {
 				String foodName = doc2.select("title").text().split(" | ")[0].trim();
 				log.info("타이틀(식품명) : " + foodName);
 				foodVO.setFoodName(foodName);
-
+				
 				// 식품 이미지
 				// https://www.nongsaro.go.kr/cms_contents/789/91391_MF_BIMG_01.jpg
 				// <img src="/cms_contents/789/91391_MF_BIMG_01.jpg" alt="가루장국(가리장국)" data-pop="91391_MF_BIMG_01.jpg">
-
+				
 				String foodImg = doc2.select("div.img-wrap img").attr("src");
 				log.info("식품 이미지 : " + foodImg);
-
+				
 				// 이미지 원 주소
 				String imgURL = "https://www.nongsaro.go.kr/" + foodImg;
-
+				
 				// 이미지 확장자
 				String saveImgFileNameExt = foodImg.substring(foodImg.lastIndexOf('.') + 1);
-
+				
 				// 이미지 저장(다운로드)
-				String path = "C:/Users/Admin/git/spring/foodCrawlingDemo/upload_image/"; // 이미지 저장 경로
+				String path = "D:/lsh/works/spring_food1/foodCrawlingDemo/upload_image/";
 				String saveImgFilename = UUID.randomUUID().toString() + "." + saveImgFileNameExt;
-
+				
 				log.info("path : " + path);
 				log.info("saveImgFilename : " + saveImgFilename);
-
+				
 				InputStream in = new URL(imgURL).openStream();
 				Files.copy(in, Paths.get(path + saveImgFilename), StandardCopyOption.REPLACE_EXISTING);
-
+				
 				foodVO.setFoodImg(saveImgFilename);
 
 				// 식품 유형
@@ -200,16 +200,16 @@ public class FoodCrawlFoodListTest {
 				foodVO.setInformationProvider(informationProvider);
 
 				log.info("음식정보 : " + foodVO);
-
+				
 				log.info("------------------------------------------------------------");
 
 			} catch (IOException e) {
 				log.error("접속 불능");
 				e.printStackTrace();
 			}
-
+			
 		} // for
-
+ 
 		// 식품 리스트 정보 출력
 		foodList.forEach(x -> { log.info("식품 : " + x);});
 

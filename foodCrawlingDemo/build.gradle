@@ -21,13 +21,17 @@ configurations {
 
 	// 자체 로깅 시스템(logback) 제거 --> log4j2 대체
 	all {
-		// exclude group : 'org.springframework.boot', module: 'spring-boot-starter-logging'
 		exclude module: 'spring-boot-starter-logging'
 	}
 }
 
 repositories {
 	mavenCentral()
+
+	// komoran repo
+	maven {
+		url "https://jitpack.io"
+	}
 }
 
 dependencies {
@@ -61,7 +65,38 @@ dependencies {
 	implementation 'com.twelvemonkeys.imageio:imageio-jpeg:3.10.1'
 
 	// 셀레니엄 드라이버
-	implementation 'org.seleniumhq.selenium:selenium-java:4.18.1'
+	// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+	implementation 'org.seleniumhq.selenium:selenium-java:4.23.1'
+
+	// Rest Client : HttpComponents
+	implementation group: 'org.apache.httpcomponents', name: 'httpcore', version: '4.4.16'
+
+	// Rest Client : HttpClient
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.14'
+
+	// 한글 형태소 분석
+	// https://docs.komoran.kr/
+	// https://mvnrepository.com/artifact/com.github.shin285/KOMORAN
+	implementation 'com.github.shin285:KOMORAN:3.3.4'
+
+	// 한글 형태소 분석-2
+	// koalanlp
+	// http://koalanlp.github.io/koalanlp
+	implementation 'kr.bydelta:koalanlp-okt:2.1.4'
+
+	// apache commons text
+	// ex) snake case => camel case
+	implementation 'org.apache.commons:commons-text:1.11.0'
+
+	// guava
+	// ex) snake case => camel case
+	implementation 'com.google.guava:guava:33.1.0-jre'
+
+	// JSON : https://github.com/stleary/JSON-java
+	implementation 'org.json:json:20240303'
+
+	// simple-json
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 
 }
 
