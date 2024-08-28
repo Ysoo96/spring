@@ -15,19 +15,10 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Autowired
 	SqlSession sqlSession;
-	
+
 	@Override
-	public boolean insertMember(MemberVO memberVO) {
-		boolean returnValue = false;
-		try {
-			int result = sqlSession.insert("mapper.DemoMapper.insertMember", memberVO);
-			returnValue = true;
-		} catch (Exception e) {
-			log.error("insertMember 오류 : " + e);
-			e.printStackTrace();
-			returnValue = false;
-		}
-		return returnValue;
+	public MemberVO selectMemberById(String id) {
+		return sqlSession.selectOne("mapper.DemoMapper.selectMemberById", id);
 	}
 
 }
