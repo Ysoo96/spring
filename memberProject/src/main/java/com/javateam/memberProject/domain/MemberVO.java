@@ -1,27 +1,34 @@
 package com.javateam.memberProject.domain;
 
+import java.lang.reflect.Field;
 import java.sql.Date;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * 회원 정보 테이블 값 객체(VO, Entity object)
- * 
+ * 회원정보 테이블 값객체(VO, Entity Object)
+ *
  * @author java
+ *
  */
 @Data
 @Builder
 @NoArgsConstructor // 기본 생성자
-@AllArgsConstructor // 오버로딩된 생성자 -> @Builder
+@AllArgsConstructor // 오버로딩된 생성자 => @Builder
+@Slf4j // 추가
 public class MemberVO {
 
 	/** 아이디 */
 	private String id;
-	/** 패스워드 */
+	/** 패쓰워드 */
 	private String pw;
 	/** 이름 */
 	private String name;
@@ -45,9 +52,46 @@ public class MemberVO {
 	private Date birthday;
 	/** 가입일 */
 	private Date joindate;
+
 	/** 회원 활성화 여부 : 추가 */
 	private int enabled;
-	
+
+	// Map → MemberVO 생성자 추가
+	public MemberVO(Map<String, Object> requestMap) {
+
+		Set<String> set = requestMap.keySet();
+		Iterator<String> it = set.iterator();
+		Field field; // reflection 정보 활용
+
+		while (it.hasNext()) {
+
+			 String fldName = it.next();
+
+			 try {
+		    		// DTO와 1:1 대응되는 필드들 처리
+			    	try {
+							field = this.getClass().getDeclaredField(fldName);
+							field.setAccessible(true);
+
+							if (!fldName.equals("birthday") || !fldName.equals("joindate")) {
+								field.set(this, requestMap.get(fldName));
+							}
+
+					} catch (NoSuchFieldException e) {
+
+						// 만약 VO와 1:1 대응되지 않는 인자일 경우는 이 부분에서 입력처리합니다.
+						log.info("인자와 필드가 일치하지 않습니다.");
+
+					} // try
+
+			} catch (SecurityException | IllegalArgumentException | IllegalAccessException e) {
+				e.printStackTrace();
+			} // try
+
+		} // while
+
+	} //
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -64,99 +108,10 @@ public class MemberVO {
 				&& Objects.equals(phone, other.phone) && Objects.equals(pw, other.pw)
 				&& Objects.equals(roadAddress, other.roadAddress) && Objects.equals(zip, other.zip);
 	}
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(birthday, detailAddress, email, gender, id, jibunAddress, mobile, name, phone, pw,
 				roadAddress, zip);
 	}
-	
-	/*
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
-	public String getPw() {
-		return pw;
-	}
-	public void setPw(String pw) {
-		this.pw = pw;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getGender() {
-		return gender;
-	}
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getMobile() {
-		return mobile;
-	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	public String getZip() {
-		return zip;
-	}
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-	public String getRoadAddress() {
-		return roadAddress;
-	}
-	public void setRoadAddress(String roadAddress) {
-		this.roadAddress = roadAddress;
-	}
-	public String getJibunAddress() {
-		return jibunAddress;
-	}
-	public void setJibunAddress(String jibunAddress) {
-		this.jibunAddress = jibunAddress;
-	}
-	public String getDetailAddress() {
-		return detailAddress;
-	}
-	public void setDetailAddress(String detailAddress) {
-		this.detailAddress = detailAddress;
-	}
-	public Date getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-	public Date getJoindate() {
-		return joindate;
-	}
-	public void setJoindate(Date joindate) {
-		this.joindate = joindate;
-	}
-	
-	@Override
-	public String toString() {
-		return "MemberVO [id=" + id + ", pw=" + pw + ", name=" + name + ", gender=" + gender + ", email=" + email
-				+ ", mobile=" + mobile + ", phone=" + phone + ", zip=" + zip + ", roadAddress=" + roadAddress
-				+ ", jibunAddress=" + jibunAddress + ", detailAddress=" + detailAddress + ", birthday=" + birthday
-				+ ", joindate=" + joindate + "]";
-	}
-	*/
+
 }

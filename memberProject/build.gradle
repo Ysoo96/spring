@@ -68,6 +68,9 @@ dependencies {
 	// thymeleaf dialect
 	// https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaflayout-dialect
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.3.0'
+	
+	// bootstrap icons
+	implementation 'org.webjars.npm:bootstrap-icons:1.11.3'
 }
 
 tasks.named('test') {

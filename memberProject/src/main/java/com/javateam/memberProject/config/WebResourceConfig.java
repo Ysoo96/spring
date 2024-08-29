@@ -16,6 +16,10 @@ public class WebResourceConfig implements WebMvcConfigurer {
 		// axios
 		registry.addResourceHandler("/axios/**")
 				.addResourceLocations("classpath:/META-INF/resources/webjars/axios/");
+		
+		// bootstrap icons
+		registry.addResourceHandler("/bootstrap-icons/**")
+				.addResourceLocations("classpath:/META-INF/resources/webjars/bootstrap-icons/");
 	}
 
 }

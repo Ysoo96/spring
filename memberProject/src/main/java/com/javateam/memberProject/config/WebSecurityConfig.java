@@ -210,7 +210,11 @@ public class WebSecurityConfig {
 			}
 		}; */
 		return (web) -> web.ignoring()
-						.requestMatchers("/bootstrap/**", "/css/**", "/js/**", "/axios/**");
+						.requestMatchers("/bootstrap/**",
+										 "/css/**",
+										 "/js/**",
+										 "/axios/**",
+										 "/bootstrap-icons/**");
 	}
 
 }
