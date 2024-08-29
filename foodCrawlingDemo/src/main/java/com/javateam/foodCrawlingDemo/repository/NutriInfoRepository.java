@@ -5,4 +5,6 @@ import com.javateam.foodCrawlingDemo.domain.NutriInfoVO;
 
 public interface NutriInfoRepository extends CrudRepository<NutriInfoVO, Integer> {
 
+	public NutriInfoVO findByFoodName(String foodName);
+	
 }

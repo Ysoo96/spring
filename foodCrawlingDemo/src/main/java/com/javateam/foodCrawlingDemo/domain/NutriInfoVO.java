@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="NUTRI_INFO_TBL")
@@ -19,6 +20,7 @@ import lombok.Data;
 	    initialValue = 1,
 	    allocationSize = 1)
 @Data
+@NoArgsConstructor
 public class NutriInfoVO {
 		
 	@Id
