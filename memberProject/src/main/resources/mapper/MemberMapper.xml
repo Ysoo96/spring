@@ -143,7 +143,10 @@
 		                      OR JIBUN_ADDRESS LIKE '%${searchWord}%'
 				              OR DETAIL_ADDRESS LIKE '%${searchWord}%'
 		                   </if>
-		                   <if test="searchKey != 'ADDRESS' and isLikeOrEquals == 'like'">
+		                   <if test="searchKey == 'JOINDATE'">
+							   AND JOINDATE LIKE TO_DATE(#{searchWord}, 'YYYY-MM-DD')
+						   </if>
+		                   <if test="searchKey != 'ADDRESS' and isLikeOrEquals == 'like' and searchKey != 'JOINDATE'">
 		                     AND ${searchKey} LIKE '%${searchWord}%'
 		                   </if>
 		                   <if test="searchKey != 'ADDRESS' and isLikeOrEquals == 'equals'">
@@ -222,5 +225,32 @@
 		   SET ENABLED = #{enabled}
 		 WHERE ID = #{id}
 	</update>
+	
+	<!-- 검색된 전체 회원정보 수 -->
+	<select id="selectCountBySearching" parameterType="map" resultType="int">
+		SELECT COUNT(*)
+		  FROM
+		<if test="searchKey == 'role'">
+			USER_ROLES
+		</if>
+		<if test="searchKey != 'role'">
+			MEMBER_TBL
+		</if>
+		 WHERE
+		<if test="searchKey == 'address'">
+			ROAD_ADDRESS LIKE '%${searchWord}%'
+			OR JIBUN_ADDRESS LIKE '%${searchWord}%'
+			OR DETAIL_ADDRESS LIKE '%${searchWord}%'
+		</if>
+		<if test="searchKey == 'name' and serachKey != 'address'">
+			NAME LIKE '%${searchWord}%'
+		</if>
+		<if test="searchKey == 'joindate' and searchKey != 'address'">
+			JOINDATE LIKE TO_DATE(#{searchWord}, 'YYYY-MM-DD')
+		</if>
+		<if test="searchKey != 'name' and searchKey != 'address' and searchKey != 'joindate'">
+			${searchKey} = #{searchWord}
+		</if>
+	</select>
 
 </mapper>

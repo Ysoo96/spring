@@ -144,5 +144,14 @@ public interface MemberService {
 	 * @return
 	 */
 	boolean changeEnabled(String id, int enabled);
+	
+	/**
+	 * 검색된 총 회원정보 수 조회
+	 * 
+	 * @param searchKey 검색 키워드(구분)
+	 * @param searchWord 검색어
+	 * @return 검색된 총 회원정보 수
+	 */
+	public int selectCountBySearching(String searchKey, String searchWord);
 
 }

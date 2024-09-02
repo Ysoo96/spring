@@ -387,5 +387,37 @@ window.onload = function() {
 	} // for
 
 	///////////////////////////////////////////////////////////////////////////////////
+	
+	// 추가) "검색 구분" 필드가 변경될 때마다 입력 예시 문구(안내문) 및 필드 변경
+	let searchKey = document.getElementById("searchKey");
+	// let searchWord = document.getElementById("searchWord");
+	let guideText = ""
+	
+	searchKey.onchange = function() {
+		
+		switch (searchKey.value) {
+			
+			case "id" : guideText = "8~20자로 영문/숫자로 작성합니다"; break;
+			case "name" : guideText = "한글로 입력합니다"; break;
+			case "gender" : guideText = "'남' 혹은 '여'로 입력합니다"; break;
+			case "email" : guideText = "abcd@abcd.com과 같이 입력합니다"; break;
+			case "mobile" : guideText = "010-1234-5678와 같이 입력합니다"; break;
+			case "phone" : guideText = "02-1234-5678과 같이 입력합니다"; break;
+			case "address" : guideText = "시/구/군/동이름 등을 입력합니다"; break;
+			case "birthday" : guideText = "2000-01-01과 같이 입력합니다"; break;
+			case "joindate" : guideText = "2000-01-01과 같이 입력합니다"; break;
+			case "role" : guideText = "'관리자' 혹은 '회원'으로 입력합니다"; break;
+		}
+		
+		searchWord.placeholder = guideText;
+		
+		// 가입일, 생일일 경우는 년월일 입력하도록 date 필드로 변환 조치
+		// 다른 필드일 경우는 text 필드로 재변환
+		if (searchKey.value == "birthday" || searchKey.value == "joindate") {
+			searchWord.type="date";
+		} else {
+			searchWord.type="text";
+		} //
+	}
 
 } // onload

@@ -397,4 +397,10 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Transactional(readOnly = true)
+	@Override
+	public int selectCountBySearching(String searchKey, String searchWord) {
+		return memberDAO.selectCountBySearching(searchKey, searchWord);
+	}
+
 }

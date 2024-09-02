@@ -255,4 +255,14 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSession.update("mapper.MemberMapper.changeEnabled", map);
 	}
 
+	@Override
+	public int selectCountBySearching(String searchKey, String searchWord) {
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("searchKey", searchKey);
+		map.put("searchWord", searchWord);
+		
+		return (int)sqlSession.selectOne("mapper.MemberMapper.selectCountBySearching", map);
+	}
+
 }

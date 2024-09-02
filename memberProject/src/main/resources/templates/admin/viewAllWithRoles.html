@@ -204,35 +204,35 @@
 
 				    <!--  첫 페이지 -->
 				    <li class="page-item">
-				      <a class="page-link" th:href="@{/admin/viewAll?currPage=1}" aria-label="Start">
+				      <a class="page-link" th:href="@{/admin/viewAllWithRoles?currPage=1}" aria-label="Start">
 				        <span aria-hidden="true">&Lt;</span>
 				      </a>
 				    </li>
 
 				    <!-- 이전 페이지 -->
 				    <li class="page-item">
-				      <!-- <a class="page-link" th:href="@{'/admin/viewAll?currPage='+${pageVO.currPage-1 < 1 ? 1 : pageVO.currPage-1}}" aria-label="Previous"> -->
-				      <a class="page-link" th:href="@{'/admin/viewAll?currPage='+${pageVO.prePage}}" aria-label="Previous">
+				      <!-- <a class="page-link" th:href="@{'/admin/viewAllWithRoles?currPage='+${pageVO.currPage-1 < 1 ? 1 : pageVO.currPage-1}}" aria-label="Previous"> -->
+				      <a class="page-link" th:href="@{'/admin/viewAllWithRoles?currPage='+${pageVO.prePage}}" aria-label="Previous">
 				        <span aria-hidden="true">&lt;</span>
 				      </a>
 				    </li>
 
 				    <!-- 현재 페이지 -->
 				    <li class="page-item active">
-				    	<a class="page-link" th:href="@{'/admin/viewAll?currPage='+${pageVO.currPage}}" th:utext="${pageVO.currPage}"></a>
+				    	<a class="page-link" th:href="@{'/admin/viewAllWithRoles?currPage='+${pageVO.currPage}}" th:utext="${pageVO.currPage}"></a>
 			    	</li>
 
 				    <!-- 다음 페이지 -->
 				    <li class="page-item">
-				      <!-- <a class="page-link" th:href="@{'/admin/viewAll?currPage='+${pageVO.currPage+1 > pageVO.endPage ? pageVO.endPage : pageVO.currPage+1}}" aria-label="Next"> -->
-				      <a class="page-link" th:href="@{'/admin/viewAll?currPage='+${pageVO.nextPage}}" aria-label="Next">
+				      <!-- <a class="page-link" th:href="@{'/admin/viewAllWithRoles?currPage='+${pageVO.currPage+1 > pageVO.endPage ? pageVO.endPage : pageVO.currPage+1}}" aria-label="Next"> -->
+				      <a class="page-link" th:href="@{'/admin/viewAllWithRoles?currPage='+${pageVO.nextPage}}" aria-label="Next">
 				        <span aria-hidden="true">&gt;</span>
 				      </a>
 				    </li>
 
 				    <!-- 마지막 페이지 -->
 				    <li class="page-item">
-				      <a class="page-link" th:href="@{'/admin/viewAll?currPage='+${pageVO.endPage}}" aria-label="End">
+				      <a class="page-link" th:href="@{'/admin/viewAllWithRoles?currPage='+${pageVO.endPage}}" aria-label="End">
 				        <span aria-hidden="true">&Gt;</span>
 				      </a>
 				    </li>
@@ -287,7 +287,7 @@
 
 			<!-- 검색 -->
 			<!-- 간격 : mt-2 mb-5, 줄 단위 배치 : row, 레이아웃 배분 비율 : ex) col-3 -->
-			<form th:action="@{/admin/seacrhAll}" method="get">
+			<form th:action="@{/admin/seacrhAllWithRoles}" method="get">
 
 				<div id="search_pnl" class="mx-auto row mt-2 mb-5" style="width:50vw">
 
@@ -307,7 +307,8 @@
 					</div>
 
 					<div id="search_pnl" class="col-4">
-						<input type="text" class="form-control" id="searchWord" name="searchWord" placeholder="등급) 관리자, 회원" />
+						<!-- <input type="text" class="form-control" id="searchWord" name="searchWord" placeholder="등급) 관리자, 회원" /> -->
+						<input type="text" class="form-control" id="searchWord" name="searchWord" placeholder="8~20자로 영문/숫자로 작성합니다" />
 
 					</div>
 
@@ -321,7 +322,7 @@
 					</div>
 
 					<div id="list_btn_pnl" class="col-3 ps-0">
-						<a class="btn btn-primary" th:href="@{/admin/viewAll}">
+						<a class="btn btn-primary" th:href="@{/admin/viewAllWithRoles}">
 							전체 회원 목록
 						</a>
 					</div>
