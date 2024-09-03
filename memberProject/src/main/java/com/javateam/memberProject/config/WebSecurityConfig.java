@@ -111,6 +111,16 @@ public class WebSecurityConfig {
 				.requestMatchers("/secured/**", "/myPage", "/member/view",
 								 "/member/hasFldForUpdate/**", "/member/update", "/member/updateProc")
 				.hasAnyAuthority("ROLE_USER")
+				
+				//
+                // 게시판 관련 링크 추가
+                .requestMatchers("/board/write","/board/writeProc",
+                				 "/board/image", "/board/image/**", "/board/list",
+	                			 "/board/view", "/board/searchList",
+	                			 "/board/update", "/board/updateProc",
+	                			 "/board/replyWrite", "/board/replyUpdate",
+	                			 "/board/getRepliesAll", "/board/replyDelete",
+	                			 "/board/deleteProc").authenticated()
 				.anyRequest().authenticated());
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,7 +157,7 @@ public class WebSecurityConfig {
 				.logout((logout) -> logout.logoutSuccessUrl("/login") // 로그아웃 이후 이동 주소
 						.permitAll());
 
-		// 예외처시 해당 url로 이동
+		// 예외처리 해당 url로 이동
 		http.exceptionHandling(handler -> handler.accessDeniedPage("/403"));
 
 		// 추가된 부분 : remember-me 관련
@@ -209,12 +219,16 @@ public class WebSecurityConfig {
 				web.ignoring().requestMatchers("/bootstrap/**");
 			}
 		}; */
+		
 		return (web) -> web.ignoring()
 						.requestMatchers("/bootstrap/**",
 										 "/css/**",
 										 "/js/**",
 										 "/axios/**",
-										 "/bootstrap-icons/**");
+										 "/bootstrap-icons/**",
+										 "/summernote/**",
+										 "/jquery/**",
+										 "/images/**");
 	}
 
 }
