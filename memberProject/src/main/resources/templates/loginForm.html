@@ -5,15 +5,10 @@
  	  lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- layout template 적용으로 인한 이중적용 방지 제외 -->
-<!-- 
- <link th:href="@{/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet" />
- <script th:src="@{/bootstrap/5.3.3/js/bootstrap.min.js}"></script> 
--->
-
 <title>login</title>
+<script th:inline="javascript" th:if="${error == 'true'}">
+	alert([[${msg.message}]]);
+</script>
 <style>
 .error 
 {
@@ -26,135 +21,85 @@
 	padding:10px;
 	color:red;
 }
-
-#login-box 
+#login-box
 {
-	width:350px;
-	padding: 30px;
+	width: 700px;
+
 	margin: 0px auto;
-	background: #fff;
-	border: 1px solid #333;
+	padding: 30px;
+	border: 1px solid black;
+	border-radius: 10px;
 }
 
-/* layout 템플릿 적용으로 인한 생략 */
-/* #wrap {
-	width:100vw;
-	height:100vh;
-} */
+#form_content_pnl > h3 {
+	text-align: center;
+	font-weight: bold;
+}
+
+.table-borderless>:not(caption)>*>* {
+	background-color: #F5F5F5;
+}
+
 </style>
-
-<script th:inline="javascript" th:if="${error == 'true'}">
-	alert([[${msg.message}]]);			
-</script>
-
 </head>
 <body>
-
-	<!-- layout template 적용 : class="main_sect_pnl" -->	
-	<div id="wrap" 
-		 layout:fragment="content" 
-		 class="main_sect_pnl"> 
-		 <!-- layout 템플릿 적용으로 인한 생략 : d-flex justify-content-center align-items-center -->
-
-		<div id="login-box" 
-			 class="border border-light-subtle border-5 rounded-4">
-	
-			<h3>Login</h3>
-			
-		<!-- 	
-			<div th:if="${error == 'true'}" class="msg" th:text="${msg}"></div>
-			
-			<span th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null}" 
-				  th:text="${'메시지 : ' + session.SPRING_SECURITY_LAST_EXCEPTION.message}">
-			</span><br>
+	<div id="wrap" layout:fragment="content" class="main_sect_pnl">
+		<div id="login-box">
+			<div id="form_content_pnl" class="mx-auto">
+			<h3>로그인</h3>
+			<!-- loginForm -->
+			<form id="loginForm" name="loginForm" th:action="@{'/login'}" method="POST">
+				<table class="table table-borderless" style="background-color:transparent;">
 				
-			<span th:if="${msg != null}" th:text="${'메시지 : ' + msg.message}"></span><br>	
-		﻿ -->
-	
-			<form id="loginForm" 
-				  name="loginForm" 
-				  th:action="@{'/login'}"
-				  method="POST">
-				  <!-- action="<c:url value='j_spring_security_check' />" -->
-		 
-				<table class="table table-borderless">
+					<!-- 아이디 입력란 -->
 					<tr>
 						<td>
-							<label for="username" 
-								   class="form-label mt-1">ID : </label>
+							<label for="username" class="form-label mt-1 ">아이디</label>
 						</td>
 						<td class="ps-0">
-							<input type="text" 
-								   class="form-control ms-0"
-								   id = "username"	
-								   name="username" 
-								   required
-								   pattern="[a-zA-Z]{1}\w{7,19}"
-								   title="아이디는 영문자 및 숫자로 시작하여 8~20자 사이로 작성하여 주십시오" />
+							<input type="text" class="form-control ms-0" id="username" name="username" required pattern="[a-zA-Z]{1}\w{7,19}" placeholder="5~20자의 영문 소문자, 숫자 사용" />
 						</td>
 					</tr>
+					<!-- // 아이디 입력란 -->
+					
+					<!-- 비밀번호 입력란 -->
 					<tr>
 						<td>
-							<label for="password" 
-								   class="form-label mt-1">PW : </label>
+							<label for="password" class="form-label mt-1">비밀번호</label>
 						</td>
 						<td class="ps-0">
-							<input type="text" 
-								   class="form-control"
-								   id="password"
-								   name="password" 
-								   required
-								   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}"
-								   title="패쓰워드는 영문 대소문자 및 숫자, 특수문자를 최소 1개 이상 포함하여 8~20 사이로 작성하여 주십시오." />
+							<input type="password" class="form-control" id="password" name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,20}" placeholder="8~16자의 영문 대/소문자, 숫자, 특수문자 사용" />
 						</td>
 					</tr>
+					<!-- // 비밀번호 입력란 -->
+					
+					<!-- 아이디 저장 -->
+					<tr>
+						<td>
+							<div class="flex-row form-check from-check-reverse">
+								<input type="checkbox" class="form-check-input" id="remeber-me" name="remeber-me" />
+								<label class="form-check-label" for="text">아이디 저장</label>
+							</div>
+						</td>
+					</tr>
+					<!-- // 아이디 저장 -->
+					
+					<!-- 로그인 -->
 					<tr>
 						<td colspan="2">
-						
-							<div class="d-flex justify-content-evenly">	
-							
-								<input type="submit"
-									   class="btn btn-primary"
-									   id="login"
-									   name="login"
-									   value="로그인"							   
-									   />
+							<div id="btn" class="d-flex justify-content-evenly py-2">
+								<input type="submit" class="btn btn-primary" id="login" name="login" value="로그인" />
 								&nbsp;
-								<input type="reset"
-									   name="reset"  
-									   class="btn btn-primary"
-									   value="취소" />
-							    &nbsp;
-							    <a th:href="@{/join}" class="btn btn-primary">회원가입</a>
-							    
-						    </div>
+								<a th:href="@{/join}" class="btn btn-primary">회원가입</a>
+							</div>
 						</td>
 					</tr>
+					<!-- // 회원가입 -->
 				</table>
-				
-				<!-- csrf -->
-				<!-- <input type="hidden"                        
-					   th:name="${_csrf.parameterName}"
-					   th:value="${_csrf.token}"/>  -->
-				
-	<!-- 			<div class="form-check">
-				  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-				  <label class="form-check-label" for="defaultCheck1">
-				    Default checkbox
-				  </label>
-				</div> -->
-					   
-				<!-- remember me 기능 추가 -->
-				<!-- <div class="d-flex flex-row form-check form-check-reverse">
-		        	<label class="form-check-label me-2" for="text">Remember me</label>
-		        	<input type="checkbox" class="form-check-input" id="remember-me" name="remember-me" />
-		        </div>	 -->   
-		 
 			</form>
-		
-	 	</div> <!-- login box -->
-	 	
-	 </div>
-	 		
+			<!-- // loginForm -->
+			</div>
+		</div>
+	</div>
 </body>
 </html>

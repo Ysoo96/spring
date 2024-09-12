@@ -69,10 +69,48 @@ window.onload = function() {
 
 		<div class="content_sect_pnl">
 
-			<!-- 인자 현황판 이전(move) :   -->
+			<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+			<!-- (검색할) 게시글 정보가 없을 경우 -->
+			<div th:if="${#lists.isEmpty(boardList)}">
+
+				<script>
+					alert('검색 결과가 없습니다.')
+				</script>
+
+			</div>
+			<!--// (검색할) 게시글 정보가 없을 경우 -->
+
+			<!--
+				인자 현황판 (collapse)
+				: https://getbootstrap.com/docs/5.3/components/collapse/
+			-->
+			<div id="boardArgs" class="collapse" th:if="${#lists.isEmpty(boardList) == false}">
+
+				<table class="table table-sm table-striped">
+					<tr>
+					    <th style="width:150px;">총 게시글 수</th><td th:text="${pageVO.listCount}"></td>
+						<th style="width:150px;">이전 페이지</th><td th:text="${pageVO.prePage}"></td>
+						<th style="width:150px;">현재 페이지</th><td th:text="${pageVO.currPage}"></td>
+						<th style="width:150px;">이후 페이지</th><td th:text="${pageVO.nextPage}"></td>
+						<th style="width:150px;">처음 페이지</th><td th:text="${pageVO.startPage}"></td>
+						<th style="width:150px;">마지막 페이지</th><td th:text="${pageVO.endPage}"></td>
+					</tr>
+					<tr th:each="board : ${boardList}">
+						<th colspan="1">게시글 정보</th>
+						<td colspan="11">
+							<span th:text="${board}"></span><br>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
 			<h2 class="d-flex justify-content-center m-5">
 				게시글 목록
+				<!-- 인자 현황 버튼 -->
+				&nbsp;<button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#boardArgs">인자 현황</button>
 			</h2>
 
 			<table class="table mx-2 mx-auto" style="width:50vw">
@@ -115,6 +153,20 @@ window.onload = function() {
 						<!-- 조회수 추가 -->
 						<td th:utext="${board.boardReadCount}"></td>
 					</tr>
+
+					<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
+					<!-- 검색 결과가 없을 경우 -->
+					<tr th:if="${#lists.isEmpty(boardList) && pageVO.listCount == 0}">
+						<td colspan="17">
+							<div  class="d-flex justify-content-center align-items-center w-100" style="height:50vh">
+								<b>검색된 게시글 정보가 없습니다</b>
+							</div>
+						</td>
+					</tr>
+
+					<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
+
 				</tbody>
 
 			</table>

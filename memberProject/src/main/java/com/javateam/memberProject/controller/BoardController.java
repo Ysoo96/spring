@@ -116,7 +116,8 @@ public class BoardController {
 		// 조회할 때마다 조회수 갱신(+)
 		boardService.updateBoardReadcountByBoardNum(boardNum);
 
-		return "/board/view";
+		// return "/board/view"; // 댓글 패쓰워드 사용시 레이아웃
+		return "/board/view_reply_no_pw"; // 댓글 패쓰워드 입력 "미"사용 레이아웃
 	}
 
 }

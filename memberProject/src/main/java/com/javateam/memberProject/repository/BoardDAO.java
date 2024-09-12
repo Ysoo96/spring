@@ -13,6 +13,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.javateam.memberProject.domain.BoardVO;
 
+import jakarta.transaction.Transactional;
+
 // public interface BoardDAO extends JpaRepository<BoardVO, Integer>{
 // 페이징 메서드 추출위해 Repository 교체
 public interface BoardDAO extends PagingAndSortingRepository<BoardVO, Integer>{

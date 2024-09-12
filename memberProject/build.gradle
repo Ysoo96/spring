@@ -3,7 +3,6 @@ plugins {
 	id 'war'
 	// id 'org.springframework.boot' version '3.3.2'
 	// id 'io.spring.dependency-management' version '1.1.6'
-	
 	// oracle 11g & JPA 활용을 위한 버전 다운 그레이드
 	id 'org.springframework.boot' version '3.1.12'
 	id 'io.spring.dependency-management' version '1.1.4'
@@ -22,7 +21,7 @@ configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
-	
+
 	// 자체 로깅 시스템(logback) 제거 --> log4j2 대체
 	all {
 		exclude module: 'spring-boot-starter-logging'
@@ -45,37 +44,39 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	
+
 	// log4j2
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-	
+
 	// log4jdbc
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
-    
-    // REST Test springdoc(swagger)
-    // 최근(current) 버전 swagger : https://springdoc.org/ 
+
+	// REST Test springdoc(swagger)
+	// https://springdoc.org/
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
-	
+
+	// 추가된 부분
 	// security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	// thymeleaf security taglib
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	// security test
 	testImplementation 'org.springframework.security:spring-security-test'
-	
+
 	// bootstrap
 	implementation 'org.webjars:bootstrap:5.3.3'
-	
+
 	// AJAX axios
 	implementation 'org.webjars.npm:axios:1.7.4'
-	
+
 	// thymeleaf dialect
-	// https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaflayout-dialect
+	// https://mvnrepository.com/artifact/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.3.0'
-	
+
 	// bootstrap icons
 	implementation 'org.webjars.npm:bootstrap-icons:1.11.3'
-	
+
 	/////////////////////////////////////////////////////////////////////////////////////
 
 	// 게시판에서 추가된 요소들
@@ -97,6 +98,7 @@ dependencies {
 	// library : https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib
 	// API referece doc : https://javadoc.io/doc/org.imgscalr/imgscalr-lib/latest/index.html
 	implementation 'org.imgscalr:imgscalr-lib:4.2'
+
 }
 
 tasks.named('test') {

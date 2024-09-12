@@ -172,6 +172,30 @@ window.onload = function() {
 			return false;
 		}
 
+		/////////////////////////////////////////////////////////////////////////
+
+		// 추가 : 컨텐츠 내용량 체크 board_content 데이터 필드를 varchar2(4000) 등으로
+		// 자료형을 변경할 경우 반드시 전송 전에 컨텐츠 용량 제한을 점검할 필요가 있습니다.
+
+		const maxContentSize = 4 * 1024; // 4KB (4,000 byte)
+
+		console.log("컨텐츠 용량 : " + content.length);
+		console.log("컨텐츠 제한 용량 초과 여부 : " + (content.length > maxContentSize));
+
+		if (content.length > maxContentSize) {
+
+			alert("컨텐츠 용량이 4KB를 초과하였습니다.");
+
+			// 여기서 일반적으로 내용을 비워서 초기화를 할 수도 있지만, 작성자가 열심히(!) 작성한
+			// 내용이 없어지면 문제가 될 수 있기 때문에 컨텐츠를 그냥 두어서 자체적으로 변경하도록
+			// 유도하거나 초과한 내용은 소거하여 내용을 살려서 초기화할 수도 있습니다.
+			boardContent.focus(); // 재입력 대기
+
+			return false;
+		}
+
+		//////////////////////////////////////////////////////////////////////////
+
 		// 파일 업로드 사이즈 체크 : 10MB 보다 큰지 점검
 		let boardFile = document.getElementById("boardFile");
 		// 버그 패치 (빈 파일일 경우)
@@ -217,7 +241,7 @@ window.onload = function() {
 				<table class="table mx-auto mt-4" style="width: 800px;">
 
 					<tr>
-						<th scope="col" class="col-2">게시글 번호</th>
+						<th scope="col" class="col-2" style="width:100px">게시글 번호</th>
 						<td>
 							<input type="text" class="form-control" id="boardNum" name="boardNum"
 								th:value="${board.boardNum}" th:field="*{boardNum}" readonly />

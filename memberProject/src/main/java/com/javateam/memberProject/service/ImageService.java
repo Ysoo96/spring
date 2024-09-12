@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 //import com.javateam.memberProject.dao.FileDAO;
@@ -148,5 +150,75 @@ public class ImageService {
         }
 
     } //
+
+	/**
+	 * 게시글내의 삽입 이미지 리스트 조회
+	 *
+	 * @param str 게시글 내용(board_content)
+	 * @param imgUploadPath 이미지 경로
+	 * @return
+	 */
+	// imgUploadPath = /board/image/
+	public List<Integer> getImageList(String str, String imgUploadPath) {
+
+		log.info("BoardService.getImageList");
+		List<Integer> imgList = new ArrayList<>(); // upload_file_tbl 테이블의 PK(기본키)
+
+		if (str.contains(imgUploadPath) == false) { // 이미지 미포함
+
+			log.info("이미지가 전혀 포함되어 있지 않습니다.");
+
+		} else {
+
+			// 포함된 전체 이미지 수 : 이 한계량 만큼 검색  => 카운터에 반영
+			int imgLen = StringUtils.countOccurrencesOf(str, imgUploadPath);
+
+			log.info("imgLen : " + imgLen);
+
+			// 이미지 검색 카운터 설정 : 이미지 검색할 횟수
+			int count = 0;
+
+			int initPos = str.indexOf(imgUploadPath);
+			log.info("첫 발견 위치 : " + initPos);
+
+			// 추출된 문자열 : 반복문에서 사용
+			String subStr = str;
+
+			while (count < imgLen) {
+
+				initPos = subStr.indexOf(imgUploadPath);
+
+				// 이미지 파일만 추출 (첫번째)
+				// "/board/image/".length()
+				initPos += imgUploadPath.length();
+				log.info("이미지 파일 시작 위치 : " + initPos);
+
+				// 추출된 문자열
+				// ex) 41 (.../board/image/41" : upload_file_tbl 테이블의 삽입 이미지 PK(기본키))
+				subStr = subStr.substring(initPos);
+
+				log.info("subStr : " + subStr);
+
+				// 첫번째 " (큰 따옴표) 위치 검색하여 순수한 숫자(PK)만 추출
+				int quotMarkPos = subStr.indexOf("\"");
+
+				// 이미지 파일 끝 검색하여 이미지 파일명/확장자 추출
+				// 이미지 끝 검색 : 검색어(" )
+				int imgFileNum = Integer.parseInt(subStr.substring(0, quotMarkPos));
+
+				log.info("이미지 파일 테이블 PK(기본기) : " + imgFileNum);
+
+				count++; // 이미지 추출되었으므로 카운터 증가
+
+				imgList.add(imgFileNum); // 리스트에 추가
+
+				log.info("----------------------------------------");
+
+			} //  while
+
+		} // if
+
+		return imgList;
+	}
 
 }
