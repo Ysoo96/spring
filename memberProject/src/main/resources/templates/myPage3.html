@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" 
+	  xmlns:th="http://www.thymeleaf.org" 
+  	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout_login}"
+	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>my Page</title>
+</head>
+<body>
+    <div layout:fragment="content" class="main_sect_pnl">
+    	<ul class="menu">
+    		<li>
+    			<a id="menuIcon" href="#" class="userIcon"></a>
+    			<ul id="dropMenu" class="displaynone">
+    				<li><span class="scrapIcon"></span><a href="#">스크랩 레시피</a></li>
+    				<li><span class="updateIcon"></span><a href="#">회원정보수정</a></li>
+    				<li><a href="/logoutProc">로그아웃</a></li>
+    			</ul>
+    		</li>
+    	</ul>	
+	</div>
+</body>
+</html>

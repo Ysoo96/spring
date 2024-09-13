@@ -102,7 +102,7 @@ public class WebSecurityConfig {
 				.requestMatchers("/resources/**", "/loginError",
 								"/join", "/joinAjax", "/joinDemo", "/joinAjaxDemo",
 								"/member/joinProc" ,"/member/joinProc2", "/member/joinProcDemo", "/member/joinProcAjax",
-								"/login/idCheck", "/login", "/member/hasFld/**")
+								"/login/idCheck", "/login", "/member/hasFld/**", "/home", "/board/**")
 				.permitAll()
 				// admin 폴더에 경우 admin(ROLE_ADMIN) 롤이 있는 사용자에게만 허용
 				// .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")

@@ -10,7 +10,7 @@
 	
 	<h4>관리자 [[${username}]]님 [[${message}]]</h4>
 
-	<span sec:authorize="${isAuthenticated()}">
+	<span> <!-- sec:authorize="${isAuthenticated()}"> -->
 	
 		<span sec:authentication="principal.username"></span> 님 환영합니다.<br>
 		

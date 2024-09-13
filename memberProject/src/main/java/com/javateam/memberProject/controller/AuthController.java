@@ -101,6 +101,13 @@ public class AuthController {
 
 		return "helloworld";
 	}
+	
+	@GetMapping("/home")
+	public String home(ModelMap model) {
+		log.info("home");
+		
+		return "home";
+	}
 
 	// 관리자용 주소
 	@GetMapping("/admin/home")
@@ -149,14 +156,6 @@ public class AuthController {
 		return "/secured/home";
 	}
 	
-	@GetMapping("/joinAjaxDemo")
-	public String demo(Model model) {
-    	
-		log.info("회원가입폼");	
-		model.addAttribute("memberDTO", new MemberVO());
-		return "joinAjaxDemo";
-	}
-	
 	@GetMapping("/join")
 	public String join(Model model) {
 		log.info("회원가입폼");		
@@ -164,22 +163,6 @@ public class AuthController {
 		return "join";
 	}
 	
-	@GetMapping("/joinDemo")
-	public String joinDemo(Model model) {
-    	
-		log.info("회원가입폼(Demo)");	
-		model.addAttribute("memberDTO", new MemberDTO());
-		return "joinDemo";
-	}
-	
-    @GetMapping("/joinAjax")
-	public String joinAjax(Model model) {
-    	
-		log.info("회원가입폼(Ajax)");	
-		model.addAttribute("memberDTO", new MemberVO());
-		return "joinAjax";
-	}
-
 	// 로그인 폼
 	@GetMapping("/login")
 	public String login() {
@@ -206,7 +189,8 @@ public class AuthController {
     	// SessionId=C4B68A207EF642308F11925E998570FC], Granted Authorities=[ROLE_ANONYMOUS]
 		log.info("login시 인증정보 : " + auth);
 		
-		if (auth.getPrincipal() == null || auth.getPrincipal().toString().equals("anonymousUser")) { // 로그인 인증이 안되었을 경우
+		if (auth.getPrincipal() == null || auth.getPrincipal().toString().equals("anonymousUser")) {
+			// 로그인 인증이 안되었을 경우
 			
 			log.info("로그인 인증 안됨");
 			path = "loginForm";
