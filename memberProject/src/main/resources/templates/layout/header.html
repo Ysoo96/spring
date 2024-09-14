@@ -2,7 +2,10 @@
 <html lang="ko" 
 	  xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+<!-- google -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <!-- 
 	참고)
 	
@@ -18,9 +21,15 @@
 	<div class="header_sect_pnl">
 	
 		<ul id="main_menu">
-		
+
 			<!-- gnb -->
-			<li><a th:href="@{/home}">Home</a></li>
+			<li>
+				<div class="logo">
+					<a th:href="@{/home}">
+						<span class="material-symbols-outlined" style="font-size: 50px;">psychology_alt</span>
+					</a>
+				</div>
+			</li>
 			
 			<li>
 				<div class="search">
@@ -39,7 +48,21 @@
 			<!-- // gnb(로그인전) -->
 						
 			<!-- gnb(로그인후) -->
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/myPage}"><i class="bi bi-person fs-3"></i></a></li>
+			<li sec:authorize="isAuthenticated()">
+				<div id="menu">
+					<ul>
+						<li><i class="bi bi-person fs-3"></i>
+							<ul>
+								<li><a href="#">스크랩 레시피</a></li>
+								<li><a th:href="@{/member/update}">회원정보수정</a></li>
+								<hr>
+								<li><a th:href="@{/logout}">로그아웃</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+						
+			</li>
 			
 			<!-- <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">로그아웃</a></li>
 			

@@ -37,7 +37,7 @@ div.header_sect_pnl {
 }
 
 
-/* 회원가입 레이아웃 : 중앙 content 레이아웃 패널  */ 
+/* 회원정보수정 레이아웃 : 중앙 content 레이아웃 패널  */ 
 div.main_sect_pnl {
 	background-color: #F5F5F5;
 	height:calc(105vh - 55px);
@@ -45,7 +45,9 @@ div.main_sect_pnl {
 	/* 컨텐츠 중앙 정렬 */
 	display:flex;
 	align-items:center;
-	justify-content:center;	
+	justify-content:center;
+	
+	padding: 20px 0 20px 0;
 }  
 
 /* 하단 footer 레이아웃 패널 */
@@ -62,6 +64,12 @@ div.footer_sect_pnl {
    	width: 100%;
    	
    	border-top: 1px solid #C0C0C0;
+}
+
+.content_sect_pnl {
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 10px;
 }
 
 ul#main_menu {
@@ -126,7 +134,7 @@ ul#main_menu li .search a {
 }
 
 #menu {
-	font: bold 16px;
+	font: bold 20px;
 	height: 50px;
 	color: black;
 	line-height: 50px;
@@ -150,11 +158,20 @@ ul#main_menu li .search a {
 	padding: 15px;
 	border: 1px solid black;
 	border-radius: 10px;
-
 }
 #menu > ul > li:hover > ul {
 	color: black;
 	display: block;
+}
+
+#reset_btn > a {
+	color: white;
+	text-decoration: none;
+}
+
+h2 {
+	text-align: center;
+	font-weight: bold;
 }
 </style>
 </head>

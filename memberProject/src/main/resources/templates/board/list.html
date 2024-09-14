@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security6"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}"
+	layout:decorate="~{layout_board}"
 	lang="ko-kr">
 <head>
 <meta charset="UTF-8">
-<title>관리자 화면</title>
+<title>board list</title>
 
 <!-- bootstrap icons :  -->
 <link rel="stylesheet" th:href="@{/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css}">
@@ -67,18 +67,18 @@ window.onload = function() {
 	<!-- layout -->
 	<div layout:fragment="content" class="main_sect_pnl">
 
-		<div class="content_sect_pnl">
+		<div class="content_sect_pnl" style="height: 450px; margin-bottom: 250px;">
 
 			<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
 			<!-- (검색할) 게시글 정보가 없을 경우 -->
-			<div th:if="${#lists.isEmpty(boardList)}">
+			<!-- <div th:if="${#lists.isEmpty(boardList)}">
 
 				<script>
 					alert('검색 결과가 없습니다.')
 				</script>
 
-			</div>
+			</div> -->
 			<!--// (검색할) 게시글 정보가 없을 경우 -->
 
 			<!--
@@ -107,13 +107,9 @@ window.onload = function() {
 
 			<!-- ////////////////////////////////////////////////////////////////////////////////////// -->
 
-			<h2 class="d-flex justify-content-center m-5">
-				게시글 목록
-				<!-- 인자 현황 버튼 -->
-				&nbsp;<button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#boardArgs">인자 현황</button>
-			</h2>
+			<h2 class="d-flex justify-content-center" style="font-weight: bold; margin-top: 20px;">게시글 목록</h2>
 
-			<table class="table mx-2 mx-auto" style="width:50vw">
+			<table class="table mx-2 mx-auto table-borderless" style="width:50vw;">
 				<thead>
 					<tr>
 						<th>
@@ -200,7 +196,7 @@ window.onload = function() {
 						<!--  첫 페이지 -->
 						<li class="page-item"><a class="page-link"
 							th:href="@{/board/list?currPage=1}" aria-label="Start">
-								<span aria-hidden="true">&Lt;</span>
+								<span aria-hidden="true">&lt;</span>
 						</a></li>
 
 						<!-- 이전 페이지 -->
@@ -229,7 +225,7 @@ window.onload = function() {
 						<!-- 마지막 페이지 -->
 						<li class="page-item"><a class="page-link"
 							th:href="@{'/board/list?currPage='+${pageVO.endPage}}"
-							aria-label="End"> <span aria-hidden="true">&Gt;</span>
+							aria-label="End"> <span aria-hidden="true">&gt;</span>
 						</a></li>
 					</ul>
 				</nav>
@@ -245,7 +241,7 @@ window.onload = function() {
 				    <li class="page-item">
 				      <a class="page-link"
 				      	 th:href="@{'/board/searchlist?currPage=1&searchKey='+${searchKey}+'&searchWord='+${searchWord}}" aria-label="Start">
-				        <span aria-hidden="true">&Lt;</span>
+				        <span aria-hidden="true">&lt;</span>
 				      </a>
 				    </li>
 

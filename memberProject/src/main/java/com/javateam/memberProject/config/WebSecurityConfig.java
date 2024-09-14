@@ -100,16 +100,14 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
 				// 해당 url을 허용한다.
 				.requestMatchers("/resources/**", "/loginError",
-								"/join", "/joinAjax", "/joinDemo", "/joinAjaxDemo",
-								"/member/joinProc" ,"/member/joinProc2", "/member/joinProcDemo", "/member/joinProcAjax",
-								"/login/idCheck", "/login", "/member/hasFld/**", "/home", "/board/**")
+								"/join", "/login/idCheck", "/login", "/member/hasFld/**", "/home", "/board/**")
 				.permitAll()
 				// admin 폴더에 경우 admin(ROLE_ADMIN) 롤이 있는 사용자에게만 허용
 				// .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")
 				.requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
 				// user 폴더에 경우 user(ROLE_USER) 롤이 있는 사용자에게만 허용
 				.requestMatchers("/secured/**", "/myPage", "/member/view",
-								 "/member/hasFldForUpdate/**", "/member/update", "/member/updateProc")
+								 "/member/hasFldForUpdate/**", "/member/update", "/member/updateProc", "/home")
 				.hasAnyAuthority("ROLE_USER")
 				
 				//

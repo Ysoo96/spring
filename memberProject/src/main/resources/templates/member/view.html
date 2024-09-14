@@ -2,7 +2,7 @@
 <!-- thymeleaf dialect 적용 -->
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout}"
+	  layout:decorate="~{layout_update}"
  	  lang="ko-kr">
 <head>
 <meta charset="UTF-8">
@@ -19,7 +19,7 @@
 			<!-- 회원 정보 조회 -->
 			<div id="form_content_pnl" class="mx-auto" style="width:600px">
 
-				<h2>회원 정보 조회</h2>
+				<h2>회원정보조회</h2>
 
 				<div id="form_content_box">
 
@@ -47,19 +47,6 @@
 					</div>
 					<!--// 회원 이름 -->
 
-					<!-- 회원 성별 -->
-					<div id="gender_fld_pnl" class="row py-2">
-
-						<div class="col-3 pt-1 fw-bold fld_label">
-							<label>성별</label>
-						</div>
-
-						<div class="col-9 fld_content"
-							th:text="${memberDTO.gender == 'm' ? '남자 ' : '여자'}"></div>
-
-					</div>
-					<!--// 회원 성별 -->
-
 					<!-- 회원 이메일 -->
 					<div id="email_fld_pnl" class="row py-2">
 
@@ -72,7 +59,7 @@
 					</div>
 					<!--// 회원 이메일 -->
 
-					<!-- 회원 연락처(휴대폰) -->
+					<!-- 회원 휴대폰 -->
 					<div id="mobile_fld_pnl" class="row py-2">
 
 						<div class="col-3 pt-1 fw-bold fld_label">
@@ -82,66 +69,8 @@
 						<div class="col-9 fld_content" th:text="${memberDTO.mobile}"></div>
 
 					</div>
-					<!--// 회원 연락처(휴대폰) -->
-
-					<!-- 회원 연락처(집전화) -->
-					<div id="phone_fld_pnl" class="row py-2">
-
-						<div class="col-3 pt-1 fw-bold fld_label">
-							<label for="phone">집전화</label>
-						</div>
-
-						<div class="col-9 fld_content" th:text="${memberDTO.phone}"></div>
-
-					</div>
-					<!--// 회원 연락처(집전화) -->
-
-					<!-- 회원 우편번호 -->
-					<div id="zip_fld_pnl" class="row py-2">
-
-						<div class="col-3 pt-1 fw-bold fld_label">
-							<label for="zip">우편번호</label>
-						</div>
-
-						<div class="col-9 fld_content" th:text="${memberDTO.zip}"></div>
-
-					</div>
-					<!--// 회원 우편번호 -->
-
-					<!-- 회원 기본 주소 -->
-					<div id="road_address_fld_pnl" class="row py-2">
-
-						<div class="col-3 pt-1 fw-bold fld_label">
-							<label for="roadAddress">도로명 주소</label>
-						</div>
-
-						<div class="col-9 fld_content" th:text="${memberDTO.roadAddress}"></div>
-
-					</div>
-
-					<div id="jibun_address_fld_pnl" class="row py-2">
-
-						<div class="col-3 pt-1 fw-bold fld_label">
-							<label for="jibunAddress">지번 주소</label>
-						</div>
-
-						<div class="col-9 fld_content" th:text="${memberDTO.jibunAddress}"></div>
-
-					</div>
-					<!--// 회원 기본 주소 -->
-
-					<!-- 회원 상세 주소 -->
-					<div id="detail_address_fld_pnl" class="row py-2">
-
-						<div class="col-3 pt-1 fw-bold fld_label">
-							<label for="detail_address">상세주소</label>
-						</div>
-
-						<div class="col-9 fld_content" th:text="${memberDTO.detailAddress}"></div>
-
-					</div>
-					<!--// 회원 상세주소 -->
-
+					<!--// 회원 휴대폰 -->
+					
 					<!-- 회원 생일 -->
 					<div id="birthday_fld_pnl" class="row py-2">
 

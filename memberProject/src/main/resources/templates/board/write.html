@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security6"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout}" lang="ko-kr">
+	  layout:decorate="~{layout_board}" lang="ko-kr">
 <head>
 <meta charset="UTF-8">
 <title>게시글 쓰기</title>
@@ -214,7 +214,7 @@ window.onload = function() {
 			<form id="board_write_frm" th:action="@{'/board/writeProc'}"
 				encType="multipart/form-data" method="post">
 
-				<h2 class="d-flex justify-content-center">게시글 쓰기</h2>
+				<h2 class="d-flex justify-content-center" style="font-weight: bold;">게시글 쓰기</h2>
 
 				<table class="table mx-auto mt-4" style="width: 800px;">
 

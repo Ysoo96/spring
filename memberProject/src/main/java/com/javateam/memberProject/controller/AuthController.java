@@ -91,16 +91,6 @@ public class AuthController {
 
 		return "myPage";
 	} //
-
-	@GetMapping("/helloworld")
-	public String helloWorld(ModelMap model) {
-
-		log.info("hellowWolrd");
-
-		model.addAttribute("message", "Welcome to the Hello World page");
-
-		return "helloworld";
-	}
 	
 	@GetMapping("/home")
 	public String home(ModelMap model) {
@@ -162,7 +152,7 @@ public class AuthController {
 		model.addAttribute("memberDTO", new MemberVO());
 		return "join";
 	}
-	
+
 	// 로그인 폼
 	@GetMapping("/login")
 	public String login() {
@@ -189,8 +179,7 @@ public class AuthController {
     	// SessionId=C4B68A207EF642308F11925E998570FC], Granted Authorities=[ROLE_ANONYMOUS]
 		log.info("login시 인증정보 : " + auth);
 		
-		if (auth.getPrincipal() == null || auth.getPrincipal().toString().equals("anonymousUser")) {
-			// 로그인 인증이 안되었을 경우
+		if (auth.getPrincipal() == null || auth.getPrincipal().toString().equals("anonymousUser")) { // 로그인 인증이 안되었을 경우
 			
 			log.info("로그인 인증 안됨");
 			path = "loginForm";

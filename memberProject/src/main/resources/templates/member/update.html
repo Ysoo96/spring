@@ -2,7 +2,7 @@
 <!-- thymeleaf dialect 적용 -->
 <html xmlns:th="http://www.thymeleaf.org"
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout}"
+	  layout:decorate="~{layout_update}"
  	  lang="ko-kr">
 <head>
     <meta charset="UTF-8">
@@ -11,13 +11,6 @@
 
     <!-- AJAX library axios -->
     <script th:src="@{'/axios/1.7.4/dist/axios.min.js'}"></script>
-
-    <!-- 주소 검색 서비스 -->
-
-    <!-- 1단계 : daum 우편번호 서비스 외장 JS(Javascript) 파일 링크 -->
-    <!-- 주의사항) 주소 검색 서비스는 일반적으로 서버(가령 live 서버) 없이
-         실행시 오류가 발생할 수 있기 때문에 반드시 서버가 있는 상황에서 실행시키시기 바랍니다. -->
-    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
     <!-- 2단계 : 소스 코드 복사
         // javateacher) 본 회원가입 코드에서는 도로명으로 선택하든 지번 주소로 선택하든
@@ -34,14 +27,14 @@
 <body>
 
 	<!-- layout template 적용 : class="main_sect_pnl" -->
-	<div layout:fragment="content" class="main_sect_pnl">
+	<div layout:fragment="content" class="main_sect_pnl w-100">
 
-		<div class="content_sect_pnl">
+		<div class="content_sect_pnl mx-auto" style="width:700px">
 
 		    <!-- 회원 정보 수정 -->
 		    <div id="form_content_pnl">
 
-		        <h2 class="my-3">회원 정보 수정</h2>
+		        <h2 class="my-3">회원정보수정</h2>
 
 		        <div id="form_content_box">
 
@@ -50,11 +43,11 @@
 		                <!-- 회원 아이디-->
 		                <div id="id_fld_pnl" class="row py-2">
 
-		                    <div class="col-2 pt-1 fld_label">
+		                    <div class="col-3 pt-1 fld_label">
 		                        <label for="id">아이디</label>
 		                    </div>
 
-		                    <div class="col-10 fld_content" th:text="*{id}"></div>
+		                    <div class="col-9 fld_content" th:text="*{id}"></div>
 
 		                </div>
 		                <!--// 회원 아이디-->
@@ -62,11 +55,11 @@
 		                <!-- 수정용 패쓰워드(2개) -->
 		                <div id="pw1_fld_pnl" class="row py-2">
 
-		                    <div class="col-2 pt-1 fld_label">
+		                    <div class="col-3 pt-1 fld_label">
 		                        <label for="password1">패쓰워드(신규)</label>
 		                    </div>
 
-		                    <div class="col-10 fld_content">
+		                    <div class="col-9 fld_content">
 		                        <input type="text" class="form-control" id="password1" name="password1" maxlength="20" th:field="*{password1}" />
 		                    </div>
 
@@ -74,11 +67,11 @@
 
 		                <div id="pw2_fld_pnl" class="row py-2">
 
-		                    <div class="col-2 pt-1 fld_label">
+		                    <div class="col-3 pt-1 fld_label">
 		                        <label for="password2">패쓰워드(확인)</label>
 		                    </div>
 
-		                    <div class="col-10 fld_content">
+		                    <div class="col-9 fld_content">
 		                        <input type="text" class="form-control" id="password2" name="password2" maxlength="20" th:field="*{password2}" />
 		                    </div>
 
@@ -92,153 +85,45 @@
 		                <!-- 회원 이름-->
 		                <div id="name_fld_pnl" class="row py-2">
 
-		                    <div class="col-2 pt-1 fld_label">
+		                    <div class="col-3 pt-1 fld_label">
 		                        <label for="name">이름</label>
 		                    </div>
 
-		                    <div class="col-10 fld_content" th:text="*{name}"></div>
+		                    <div class="col-9 fld_content" th:text="*{name}"></div>
 
 		                </div>
 		                <!--// 회원 이름 -->
 
-		                <!-- 회원 성별 -->
-		                <div id="gender_fld_pnl" class="row py-2">
-
-		                    <div class="col-2 pt-1 fld_label">
-		                        <label for="gender">성별</label>
-		                    </div>
-
-		                    <div class="col-10 fld_content">
-		                    	<span th:text="${memberUpdateDTO.gender == 'm' ? '남자 ' : '여자'}"></span>
-		                    </div>
-
-		                </div>
-		                <!--// 회원 성별 -->
-
 		                <!-- 회원 이메일 -->
 		                <div id="email_fld_pnl" class="row py-2">
 
-		                    <div class="col-2 pt-1 fld_label">
+		                    <div class="col-3 pt-1 fld_label">
 		                        <label for="email">이메일</label>
 		                    </div>
 
-		                    <div class="col-10 fld_content">
-		                        <input type="email" class="form-control" id="email" name="email" th:field="*{email}" />
-		                    </div>
+		                    <div class="col-9 fld_content" th:text="*{email}"></div>
 
 		                </div>
 
-		                <!-- 회원 이메일 에러 메시징 -->
-		                <div id="email_fld_err_pnl">
-		                </div>
-		                <!--// 회원 이메일 -->
-
-		                <!-- 회원 연락처(휴대폰) -->
+		                <!-- 회원 휴대폰 -->
 		                <div id="mobile_fld_pnl" class="row py-2">
 
-		                    <div class="col-2 pt-1 fld_label">
+		                    <div class="col-3 pt-1 fld_label">
 		                        <label for="mobile">휴대폰</label>
 		                    </div>
 
-		                    <div class="col-10 fld_content">
-		                        <input type="text" class="form-control" id="mobile" name="mobile" th:field="*{mobile}" placeholder="예시) 010-1234-5678"/>
-		                    </div>
+		                    <div class="col-9 fld_content" th:text="*{mobile}"></div>
 
 		                </div>
-
-		                <!-- 회원 연락처(휴대폰) 에러 메시징 -->
-		                <div id="mobile_fld_err_pnl">
-		                </div>
-		                <!--// 회원 연락처(휴대폰) -->
-
-		                <!-- 회원 연락처(집전화) -->
-		                <div id="phone_fld_pnl" class="row py-2">
-
-		                    <div class="col-2 pt-1 fld_label">
-		                        <label for="phone">집전화</label>
-		                    </div>
-
-		                    <div class="col-10 fld_content">
-		                        <input type="text" class="form-control" id="phone" name="phone" th:field="*{phone}" placeholder="예시) 02-1111-2222"/>
-		                    </div>
-
-		                </div>
-
-		                <!-- 회원 연락처(집전화) 에러 메시징 -->
-		                <div id="phone_fld_err_pnl">
-		                </div>
-		                <!--// 회원 연락처(집전화) -->
-
-		                <!-- 회원 우편번호 -->
-		                <div id="zip_fld_pnl" class="row py-2">
-
-		                    <div class="col-2 pt-1 fld_label">
-		                        <label for="zip">우편번호</label>
-		                    </div>
-
-		                    <div class="col-10 d-flex justify-content-start fld_content">
-		                        <input type="text" class="form-control me-2"  id="zip" name="zip" th:field="*{zip}" style="width:100px;" readonly />
-
-		                        <!-- 주소 검색 -->
-		                        <button type="button" class="btn btn-primary me-2" id="address_search_btn" onclick="getPostcodeAddress()">주소 검색</button>
-		                        <button type="button" class="btn btn-primary" id="address_delete_btn">주소 삭제</button>
-		                    </div>
-
-		                </div>
-		                <!--// 회원 우편번호 -->
-
-		                <!-- 회원 기본 주소(도로명 + 지번 주소)  -->
-		                <div id="road_address_fld_pnl" class="row py-2">
-
-		                    <div class="col-2 pt-1 fld_label">
-		                        <label for="roadAddress">도로명 주소</label>
-		                    </div>
-
-		                    <div class="col-10 fld_content">
-		                        <input type="text" class="form-control" id="roadAddress" name="roadAddress" style="width:500px" readonly th:field="*{roadAddress}" />
-		                    </div>
-
-		                </div>
-
-		                <div id="jibun_address_fld_pnl" class="row py-2">
-
-		                    <div class="col-2 pt-1 fld_label">
-		                        <label for="jibunAddress">지번 주소</label>
-		                    </div>
-
-		                    <div class="col-10 fld_content">
-		                        <input type="text" class="form-control" id="jibunAddress" name="jibunAddress" style="width:500px" readonly th:field="*{jibunAddress}" />
-		                    </div>
-
-		                </div>
-		                <!--// 회원 기본 주소(도로명 + 지번 주소) -->
-
-		                <!-- 회원 상세 주소  -->
-		                <div id="detail_address_fld_pnl" class="row py-2">
-
-		                    <div class="col-2 pt-1 fld_label">
-		                        <label for="detailAddress">상세주소</label>
-		                    </div>
-
-		                    <div class="col-10 fld_content">
-		                        <input type="text" class="form-control" id="detailAddress" name="detailAddress" style="width:400px" th:field="*{detailAddress}" />
-		                    </div>
-
-		                </div>
-
-		                <!-- 회원 상세주소 에러 메시징 : 우편번호/기본주소 입력시 상세주소 미입력할 경우 -->
-		                <div id="address_fld_err_pnl">
-		                </div>
-		                <!--// 회원 상세주소 -->
 
 		                <!-- 회원 생일 -->
 		                <div id="birthday_fld_pnl" class="row py-2">
 
-		                    <div class="col-2 pt-1 fld_label">
+		                    <div class="col-3 pt-1 fld_label">
 		                        <label for="birthday">생일</label>
 		                    </div>
 
-		                    <div class="col-10 fld_content"
+		                    <div class="col-9 fld_content"
 		                    	 th:text="${#dates.format(memberUpdateDTO.birthday, 'yyyy년 MM월 dd일')}"></div>
 
 		                </div>
@@ -247,11 +132,11 @@
 		                <!-- 가입일 -->
 						<div id="joindate_fld_pnl" class="row py-2">
 
-							<div class="col-2 pt-1 fld_label">
+							<div class="col-3 pt-1 fld_label">
 								<label>가입일</label>
 							</div>
 
-							<div class="col-10 fld_content"
+							<div class="col-9 fld_content"
 						    	th:text="${#dates.format(memberUpdateDTO.joindate, 'yyyy년 MM월 dd일 HH:mm:ss')}"></div>
 
 						</div>
@@ -265,14 +150,13 @@
 							<input type="hidden" id="birthday" name="birthday" th:field="*{birthday}" readonly />
 							<input type="hidden" id="joindate" name="joindate" th:field="*{joindate}" readonly />
 							<input type="hidden" id="enabled" name="enabled" th:field="*{enabled}" />
-							<input type="hidden" id="gender" name="gender" th:field="*{gender}" />
 						</div>
 						<!--// 히든 필드들  -->
 
 		                <!-- 회원정보 수정/취소 버튼 -->
 		                <div id="buttons_fld_pnl" class="d-flex justify-content-center py-2">
 		                    <button class="btn btn-primary me-2" id="submit_btn" type="submit">회원정보 수정</button>&nbsp;
-		                    <button class="btn btn-primary"  id="reset_btn" type="reset">취소</button>
+		                    <button class="btn btn-primary"  id="reset_btn"><a th:href="@{/home}">취소</a></button>
 		                </div>
 		                <!--// 회원 정보 수정/취소 버튼 -->
 
