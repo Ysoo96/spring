@@ -1,11 +1,11 @@
 plugins {
 	id 'java'
 	id 'war'
-	// id 'org.springframework.boot' version '3.3.2'
-	// id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.springframework.boot' version '3.3.2'
+	id 'io.spring.dependency-management' version '1.1.6'
 	// oracle 11g & JPA 활용을 위한 버전 다운 그레이드
-	id 'org.springframework.boot' version '3.1.12'
-	id 'io.spring.dependency-management' version '1.1.4'
+	// id 'org.springframework.boot' version '3.1.12'
+	// id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.javateam'
@@ -99,6 +99,8 @@ dependencies {
 	// API referece doc : https://javadoc.io/doc/org.imgscalr/imgscalr-lib/latest/index.html
 	implementation 'org.imgscalr:imgscalr-lib:4.2'
 
+	// Java Mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('test') {

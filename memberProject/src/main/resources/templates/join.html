@@ -22,14 +22,12 @@
     	border: 1px solid black;
     	border-radius: 10px;
     }
-    .domain_list {
-     	border-radius: 5px;
-     	border: 1px solid #A9A9A9;
-     	padding: 5px;
-    }
-    .email_num {
+    #number_btn {
 		 border-radius: 5px;
     	 border: 1px solid #A9A9A9;
+    }
+    #number_btn:hover {
+    	background-color: #DCDCDC;
     }
     </style>
 
@@ -137,19 +135,12 @@
 		                    <div class="col-3 pt-1 fld_label">
 		                        <label for="email">이메일</label>
 		                    </div>    
-		                    <div class="col-9 fld_content">
+		                    <div class="col-7 fld_content">
 		                        <input type="email" class="form-control" id="email" name="email" th:field="*{email}" placeholder="예시) abcd@naver.com" />
 		                    </div>
-		                    <!-- <div class="col-3 box domain">
-	                        	<select class="domain_list">
-	                        		<option value="-클릭-">-클릭-</option>
-	                        		<option value="naver.com">naver.com</option>
-	                        		<option value="google.com">google.com</option>
-	                        	</select>
-		                    </div>
-		                    <div class="email_num col-2">
+		                    <div class="col-2 email_num">
 		                    	<button class="btn" id="number_btn">인증번호</button>
-		                    </div> -->
+		                    </div>
 		                </div>
 		                    
 		                <!-- 회원 이메일 에러 메시징 -->
