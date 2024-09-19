@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javateam.memberProject.domain.Users;
+import com.javateam.memberProject.service.EmailService;
 import com.javateam.memberProject.service.MemberService;
+import com.javateam.memberProject.service.RegisterMail;
 import com.javateam.memberProject.domain.CustomUser;
 import com.javateam.memberProject.domain.MemberDTO;
 import com.javateam.memberProject.domain.MemberVO;
@@ -39,6 +41,9 @@ public class AuthController {
 
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	RegisterMail registerMail;
 
 	@RequestMapping("/")
 	public String home() {
@@ -91,13 +96,12 @@ public class AuthController {
 		
 		return "home";
 	}
-	
-/*
+
 	// 관리자용 주소
-	@GetMapping("/home")
+	@GetMapping("/admin/home")
 	public String securedAdminHome(ModelMap model) {
 
-		log.info("/home");
+		log.info("/admin/home");
 
 		// Security pricipal 객체 (사용자 인증/인가 정보 객체)
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -114,9 +118,9 @@ public class AuthController {
 		model.addAttribute("username", name);
 		model.addAttribute("message", "관리자 페이지에 들어오셨습니다.");
 
-		return "/home";
+		return "/admin/home";
 	}
-*/
+
 	// (일반)사용자용 주소
 	@GetMapping("/secured/home")
 	public String securedHome(ModelMap model) {
@@ -240,4 +244,13 @@ public class AuthController {
 		return "/error/403";
 	}
 	
+	// 이메일 인증
+	@PostMapping("login/mailConfirm")
+	@ResponseBody
+	String mailConfirm(@RequestParam("email") String email) throws Exception {
+
+		String code = registerMail.sendSimpleMessage(email);
+		System.out.println("인증코드 : " + code);
+		return code;
+	}
 } //

@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "mail.smtp.auth",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.smtp.auth'"
+  },
+  {
+    "name": "mail.smtp.starttls.required",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.smtp.starttls.required'"
+  },
+  {
+    "name": "mail.smtp.socketFactory.class",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.smtp.socketFactory.class'"
+  },
+  {
+    "name": "mail.smtp.socketFactory.fallback",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.smtp.socketFactory.fallback'"
+  },
+  {
+    "name": "mail.smtp.starttls.enable",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.smtp.starttls.enable'"
+  },
+  {
+    "name": "mail.smtp.port",
+    "type": "java.lang.String",
+    "description": "A description for 'mail.smtp.port'"
+  }
+]}
