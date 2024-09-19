@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -14,6 +15,7 @@ import org.springframework.transaction.support.TransactionCallback;
 import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import com.javateam.memberProject.domain.MemberDTO;
 import com.javateam.memberProject.domain.MemberVO;
 import com.javateam.memberProject.domain.Role;
 import com.javateam.memberProject.repository.MemberDAO;
@@ -97,7 +99,7 @@ public class MemberServiceImpl implements MemberService {
 		});
 	}
 	*/
-
+	
 	@Override
 	public boolean insertMember(MemberVO memberVO) {
 

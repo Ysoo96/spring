@@ -38,15 +38,8 @@
 					ID
 				  , PW
 				  , NAME
-				  , GENDER
 				  , EMAIL
 				  , MOBILE
-				  , PHONE
-				  , ZIP
-				  , ROAD_ADDRESS
-				  , JIBUN_ADDRESS
-				  , DETAIL_ADDRESS
-				  , BIRTHDAY
 				  , JOINDATE
 				  , ENABLED
 		       )
@@ -55,14 +48,8 @@
 		       	    #{id}
 				  , #{pw}
 				  , #{name}
-				  , #{gender}
 				  , #{email}
 				  , #{mobile}
-				  , #{phone}
-				  , #{zip}
-				  , #{roadAddress}
-				  , #{jibunAddress}
-				  , #{detailAddress}
 				  , #{birthday}
 		          , SYSDATE
 		          , #{enabled}
@@ -78,27 +65,6 @@
 		      <if test="pw != null">
 		      	 PW = #{pw}
 		      </if>
-		      <if test="email != null">
-		        , EMAIL = #{email}
-		      </if>
- 	 		  <if test="mobile != null">
- 	 		  	, MOBILE = #{mobile}
- 	 		  </if>
- 	 		  <if test="phone != null">
- 	 		    , PHONE = #{phone}
- 	 		  </if>
- 	 		  <if test="zip != null">
- 	 		    , ZIP = #{zip}
- 	 		  </if>
- 	 		  <if test="roadAddress != null">
- 	 		  	, ROAD_ADDRESS = #{roadAddress}
- 	 		  </if>
- 	 		  <if test="jibunAddress != null">
- 	 		    , JIBUN_ADDRESS = #{jibunAddress}
- 	 		  </if>
- 	 		  <if test="detailAddress != null">
- 	 		    , DETAIL_ADDRESS = #{detailAddress}
- 	 		  </if>
 		   </set>
 		 WHERE ID = #{id}
 	</update>
@@ -252,5 +218,4 @@
 			${searchKey} = #{searchWord}
 		</if>
 	</select>
-
 </mapper>

@@ -74,14 +74,8 @@
 						<th style="width:40px;">번호</th>
 						<th>아이디</th>
 						<th style="width:70px;">이름</th>
-						<th>성별</th>
 						<th>이메일</th>
 						<th>휴대폰</th>
-						<th>집전화</th>
-						<th>우편<br>번호</th>
-						<th>기본주소(도로명)</th>
-						<th>기본주소(지번)</th>
-						<th>상세주소</th>
 						<th style="width:120px;">생일</th>
 						<th>가입일</th>
 						<th>등급(role)</th>
@@ -96,7 +90,6 @@
 						<td th:text="${st.count + (pageVO.currPage - 1) * 10}"></td>
 						<td th:utext="${member.get('ID')}"></td>
 						<td th:utext="${member.get('NAME')}"></td>
-						<td th:utext="${member.get('GENDER') == 'm' ? '남' : '여'}"></td>
 						<td th:utext="${member.get('EMAIL')}"></td>
 
 						<td>
@@ -109,11 +102,6 @@
 								   maxlength="13" />
 						</td>
 
-						<td th:utext="${member.get('PHONE')}"></td>
-						<td th:utext="${member.get('ZIP')}"></td>
-						<td th:utext="${member.get('ROAD_ADDRESS')}"></td>
-						<td th:utext="${member.get('JIBUN_ADDRESS')}"></td>
-						<td th:utext="${member.get('DETAIL_ADDRESS')}"></td>
 						<td th:utext="${#dates.format(member.get('BIRTHDAY'), 'yyyy년 MM월 dd일')}"></td>
 						<td th:utext="${#dates.format(member.get('JOINDATE'), 'yyyy년 MM월 dd일 HH:mm:ss')}"></td>
 
@@ -295,11 +283,8 @@
 						<select class="form-select" id="searchKey" name="searchKey" aria-label="검색 구분">
 						  <option selected value="id">아이디</option>
 						  <option value="name">이름</option>
-						  <option value="gender">성별</option>
 						  <option value="email">이메일</option>
 						  <option value="mobile">휴대폰</option>
-						  <option value="phone">집전화</option>
-						  <option value="address">주소</option>
 						  <option value="birthday">생일</option>
 						  <option value="joindate">가입일</option>
 						  <option value="role">등급(role)</option>

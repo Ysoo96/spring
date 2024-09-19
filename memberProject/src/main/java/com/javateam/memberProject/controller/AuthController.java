@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -82,15 +83,7 @@ public class AuthController {
 //		
 //		return path;
 //	} // 
-
-	// myPage
-	@GetMapping("/myPage")
-	public String myPage() {
-
-		log.info("myPage");
-
-		return "myPage";
-	} //
+	
 	
 	@GetMapping("/home")
 	public String home(ModelMap model) {
@@ -98,12 +91,13 @@ public class AuthController {
 		
 		return "home";
 	}
-
+	
+/*
 	// 관리자용 주소
-	@GetMapping("/admin/home")
+	@GetMapping("/home")
 	public String securedAdminHome(ModelMap model) {
 
-		log.info("/admin/home");
+		log.info("/home");
 
 		// Security pricipal 객체 (사용자 인증/인가 정보 객체)
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -120,9 +114,9 @@ public class AuthController {
 		model.addAttribute("username", name);
 		model.addAttribute("message", "관리자 페이지에 들어오셨습니다.");
 
-		return "/admin/home";
+		return "/home";
 	}
-
+*/
 	// (일반)사용자용 주소
 	@GetMapping("/secured/home")
 	public String securedHome(ModelMap model) {
@@ -182,11 +176,11 @@ public class AuthController {
 		if (auth.getPrincipal() == null || auth.getPrincipal().toString().equals("anonymousUser")) { // 로그인 인증이 안되었을 경우
 			
 			log.info("로그인 인증 안됨");
-			path = "loginForm";
+			path = "findId";
 		} else {
 			
 			log.info("로그인 인증됨");
-			path = "myPage";
+			path = "home";
 		} //
 		
 		// return "loginForm";
@@ -245,4 +239,5 @@ public class AuthController {
 
 		return "/error/403";
 	}
+	
 } //

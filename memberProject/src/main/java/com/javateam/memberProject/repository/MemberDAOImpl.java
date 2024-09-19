@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.javateam.memberProject.domain.MemberDTO;
 import com.javateam.memberProject.domain.MemberVO;
 
 // import lombok.extern.log4j.Log4j2;
@@ -264,5 +265,4 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		return (int)sqlSession.selectOne("mapper.MemberMapper.selectCountBySearching", map);
 	}
-
 }

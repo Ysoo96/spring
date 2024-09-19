@@ -9,22 +9,30 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 public class MailConfig {
-
 	@Bean
-	public JavaMailSender javaMailSender() {
-		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-		mailSender.setHost("smtp.naver.com");
-		mailSender.setPort(587);
+	public JavaMailSender javaMailService() {
+		JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
 		
-		mailSender.setUsername("116sally@naver.com");
-		mailSender.setPassword("DusTn@1602@");
+		javaMailSender.setHost("smtp.naver.com");
+		javaMailSender.setUsername("116sally@naver.com");
+		javaMailSender.setPassword("DusTn@1602@");
 		
-		Properties props = mailSender.getJavaMailProperties();
-		props.put("mail.transport.protocol", "smtp");
-		props.put("mail.stmp.auth", "true");
-		props.put("mail.smtp.starttls.enabled", "true");
-		props.put("mail.debug", "true");
+		javaMailSender.setPort(465);
 		
-		return mailSender;
+		javaMailSender.setJavaMailProperties(getMailProperties());
+		
+		return javaMailSender;
+	}
+	
+	private Properties getMailProperties() {
+		Properties properties = new Properties();
+		properties.setProperty("mail.transport.protocol", "smtp");
+		properties.setProperty("mail.smtp.auth", "true");
+		properties.setProperty("mail.smtp.starttls.enable", "true");
+		properties.setProperty("mail.debug", "true");
+		properties.setProperty("mail.smtp.ssl.trust", "smtp.naver.com");
+		properties.setProperty("mail.smtp.ssl.enable", "true");
+		
+		return properties;
 	}
 }
