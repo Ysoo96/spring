@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
@@ -118,6 +120,21 @@ public class BoardController {
 
 		// return "/board/view"; // 댓글 패쓰워드 사용시 레이아웃
 		return "/board/view_reply_no_pw"; // 댓글 패쓰워드 입력 "미"사용 레이아웃
+	}
+	
+	// 09.23 스크랩 구현
+	@ResponseBody
+	@RequestMapping(value = "/board/srap", method=RequestMethod.POST)
+	public int scrap (String id, int board_number) throws Exception {
+		int scrap = boardService.scrapCheck(board_number, id);
+		
+		if (scrap == 0) {
+			boardService.scrap(id, board_number);
+		} else if (scrap == 1) {
+			boardService.scrapCancel(board_number, id);
+		}
+		
+		return scrap;
 	}
 
 }

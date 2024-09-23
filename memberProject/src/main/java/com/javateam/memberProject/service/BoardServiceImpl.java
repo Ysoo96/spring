@@ -165,10 +165,35 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 
+	// 09.23 스크랩 기능 구현
 	@Override
 	@Transactional(readOnly = true)
 	public List<BoardVO> findAll() {
 		return (List<BoardVO>) boardDAO.findAll(Sort.by("boardNum"));
+	}
+
+	@Override
+	public BoardVO scrap(String id, int board_number) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean scrapCancel(int board_number, String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int scrapCount(int board_number, String id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int scrapCheck(int board_number, String id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

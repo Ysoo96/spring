@@ -130,4 +130,40 @@ public interface BoardService {
 	 */
 	List<BoardVO> findAll();
 
+	// 09.23 스크랩 기능 구현
+	/**
+	 * 스크랩 기능
+	 * 
+	 * @param id 회원아이디
+	 * @param board_number 스크랩 게시물 번호
+	 * @return
+	 */
+	BoardVO scrap(String id, int board_number);
+
+	/**
+	 * 스크랩 취소
+	 * 
+	 * @param id 회원아이디
+	 * @param board_number 스크랩 게시물 번호
+	 * @return
+	 */
+	boolean scrapCancel(int board_number, String id);
+	
+	/**
+	 * 스크랩 수
+	 * 
+	 * @param board_number 스크랩 게시물 번호
+	 * @param id 회원아이디
+	 * @return
+	 */
+	int scrapCount(int board_number, String id);
+	
+	/**
+	 * 스크랩 중복방지
+	 * 
+	 * @param board_number 스크랩 게시물 번호
+	 * @param id 회원아이디
+	 * @return
+	 */
+	int scrapCheck(int board_number, String id);
 }
