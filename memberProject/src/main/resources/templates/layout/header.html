@@ -17,19 +17,6 @@
 -->	  
 	
 <div th:fragment="header">
-
-	<div id="menu_list">
-		<!-- gnb(로그인후) -->
-		<li sec:authorize="isAuthenticated()">
-			<ul>
-				<li><i class="bi bi-person fs-3"></i></li>
-				<li><a href="#">스크랩 레시피</a></li>
-				<li><a th:href="@{/member/update}">회원정보수정</a></li>
-				<hr>
-				<li><a th:href="@{/logout}">로그아웃</a></li>
-			</ul>
-		</li>
-	</div>
 	
 	<div class="header_sect_pnl">
 	
@@ -56,21 +43,15 @@
 			
 			<!-- gnb(로그인전) -->
 			<li sec:authorize="isAnonymous()"><a th:href="@{/login}">로그인</a></li>
-			
 			<li sec:authorize="isAnonymous()"><a th:href="@{/join}">회원가입</a></li>
 			<!-- // gnb(로그인전) -->
-						
+			
 			<!-- gnb(로그인후) -->
-			<li sec:authorize="isAuthenticated()">
-			</li>
-			
-			<!-- <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">로그아웃</a></li>
-			
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/view}">회원정보 조회</a></li>
-			
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update}">회원정보 수정</a></li> -->
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/recipe/scrap}">스크랩 레시피</a>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/member/update}">회원정보수정</a>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{logout}">로그아웃</a>
 			<!-- // gnb(로그인후) -->
-						
+					
 			<!-- gnb(관리자) -->
 			<li sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/admin/viewAllWithRoles}">회원 관리</a></li>
 			<!-- // gnb(관리자) -->

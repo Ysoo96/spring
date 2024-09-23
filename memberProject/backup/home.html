@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+			    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+			    layout:decorate="~{layout}">
+			    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<head>
+<meta charset="UTF-8">
+<title>메모리테이블</title>
+<style>
+	/* 전체 슬라이드 패널 */
+	div#slide {
+		display:flex; 
+		flex-direction:row;
+		width:1250px;
+		height:300px;			
+		overflow-x:hidden;
+		overflow-y:hidden;
+	}
+
+	/* 개별 슬라이드 패널 */
+	div[id^=s] {
+		width:250px;
+		height:300px;
+		display:flex; 
+		align-items:center;
+		justify-content:center;		
+	}
+
+	/* 개별 상품 이미지 */
+	div[id^=s] img {
+		width:228px;
+		height:298px;
+	}
+
+	/* 슬라이드 위로 위치 이동 */
+	/* 슬라이드 버튼 */ 
+	button#btn_left {
+		position:absolute;
+		z-index:5;
+		left:20px;
+		top:120px;	
+		opacity:0.4;
+	}
+
+	button#btn_right {
+		position:absolute;
+		z-index:5;
+		left:1170px;
+		top:120px;	
+		opacity:0.4;
+	}
+</style>
+<script>
+	// 좌/우측(양방향)으로 이동하는 슬라이드
+	window.onload = function() {
+		
+		// 변수 위치 이동 : 상품 갯수
+		let recipeLen = 5;
+		
+		let allSlides = document.querySelectorAll("div#slide div[id^=s] img");
+		
+		// 슬라이드별 초기 설정 차별화
+		let slideSpec = [[0.2, "100px", "140px"],
+						 [0.5, "180px", "220px"],
+						 [1,   "228px", "298px"],
+						 [0.5, "180px", "220px"],
+						 [0.2, "100px", "140px"]];
+		
+		for (var i = 0; i < recipeLen; i++) {
+			allSlides[i].style.opacity = slideSpec[i][0];
+			allSlides[i].style.width = slideSpec[i][1];
+			allSlides[i].style.height = slideSpec[i][2];
+			allSlides[i].style.transition = 'all .3s .5s';
+		}
+		
+		// 정중앙 위치 슬라이드
+		let centerNo = Math.ceil(recipeLen / 2);
+		console.log("centerNo : " + centerNo);
+		let centerSlide = document.getElementById('s${centerNo}');
+		console.log("정중앙 슬라이드 ID : " + centerSlide.id);
+		
+		let centerSlideImage = document.querySelector('#${centerSlide.id} img');
+		
+		centerSlideImage.style.width = "300px";
+		centerSlideImage.style.height = "300px";
+		
+		centerSlideImage.style.opacity = "1";
+		centerSlideImage.style.transition = 'all 1s';
+		
+		// 이동 카운터 변수
+		let count = 1;
+		// 좌측 이동 버튼
+		let btnLeft = document.getElementById("btn_left");
+		// 우측 이동 버튼
+		let btnRight = document.getElementById("btn_right");
+		// 슬라이드들을 둘러싸고 있는 바깥 슬라이드 패널 인식
+		let slide = document.getElementById("slide");
+		
+		// 좌측 이동 버튼 클릭시 이벤트 처리
+		btnLeft.onclick = function() {
+			// 맨앞의 슬라이드 아이디
+			let id = document.querySelector("div#slide div:first-child").getAttribute("id");
+			id = id.substring(1); // id = "s1"
+			count = id;
+			
+			console.log("맨 좌측 아이디 : " + id);
+			
+			let leftFirstSlideContent = document.getElementById('s${count}').innerHTML;
+			
+			console.log("현재 슬라이드 번호(카운터) : " + count);
+			
+			// 트랜지션 효과 적용을 위해 DOM방식으로 요소 추가 부분 변경
+			let newSlide = document.createElement("div");
+			newSlide.setAttribute("id", 's${count}');
+			newSlide.innerHTML = '${leftFirstSlideContent}';
+			
+			slide.append(newSlide);
+			
+			console.log('맨앞 슬라이드 : s${count}');
+			
+			// 맨앞 슬라이드 제거
+			document.getElementById('s${count}').remove();
+			
+			let currentSlideArr = [];
+			for (let i = 1; i <= recipeLen; i++) {
+				let div = document.querySelector('div#slide div[id^=s]:nth-child(${i})').id;
+				currentSlideArr.push(div); // 배열 요소 삽입
+			} // for
+			
+			console.log("현재 슬라이드 배열 상태 : " + currentSlideArr);
+			
+			centerNo = Math.ceil(recipeLen / 2) - 1;
+			console.log("centerNo : " + centerNo);
+			centerSlide = document.getElementById(currentSlideArr[centerNo]);
+			console.log("정중앙 슬라이드 ID : " + centerSlide.id);
+			
+			// 모든 슬라이드 효과 재설정
+			let slideSpec = [[0.2, "100px", "140px"],
+							 [0.5, "180px", "220px"],
+							 [1,   "228px", "298px"],
+							 [0.5, "180px", "220px"],
+							 [0.2, "100px", "140px"]];
+			
+			for (var i = 0; i < recipeLen; i++) {
+				var slideAttr = document.querySelector('#${currentSlideArr[i]} img');
+				
+				slideAttr.style.opacity = slideSpec[i][0];
+				slideAttr.style.width = slideSpec[i][1];
+				slideAttr.style.height = slideSpec[i][2];
+				
+				slideAttr.style.transition = 'all 1s';
+			} // for
+			
+			// 정중앙 슬라이드
+			console.log("정중앙 슬라이드 ID-2 : " + centerSlide.id);
+			
+			let centerSlideImage = document.querySelector('#${centerSlide.id} img');
+			
+			centerSlideImage.style.width = "300px";
+			centerSlideImage.style.height = "300px";
+			
+			centerSlideImage.style.opacity = "1";
+			centerSlideImage.style.transition = 'all 1s';
+			
+			// 카운터 증가
+			count = (count >= recipeLen + 1) ? 1 : ++count;
+		}; // btnLeft.onclick
+		
+		// 우측이동 버튼 클릭시 이벤트 처리
+		btnRight.onclick = function() {
+			
+			console.log("현재 슬라이드 번호 : " + count);
+			
+			count = recipeLen + 1 - count;
+			
+			// 맨뒤 슬라이드
+			let lastDiv = document.querySelector("div div:last-child");
+			// 맨앞 슬라이드
+			let firstDiv = document.querySelector("div div:first-child");
+			
+			// 마지막 슬라이드 앞에 첫번쨰 슬라이드 삽입
+			slide.insertBefore(lastDiv, firstDiv);
+			
+			let currentSlideArr = [];
+			for (let i = 1; i <= recipeLen; i++) {
+				let div = document.querySelector('div#slide div[id^=s]:nth-child(${i})').id;
+				currentSlideArr.push(div);
+			} // for
+			
+			console.log("현재 슬라이드 배열 상태 : " + currentSlideArr);
+			
+			let centerNo = Math.ceil(recipeLen / 2) - 1;
+			console.log("centerNo : " + centerNo);
+			let centerSlide = document.getElementById(currentSlideArr[centerNo]);
+			console.log("정중앙 슬라이드 ID : " + centerSlide.id);
+			
+			let slideSpec = [[0.2, "100px", "140px"],
+							 [0.5, "180px", "220px"],
+							 [1,   "228px", "298px"],
+							 [0.5, "180px", "220px"],
+							 [0.2, "100px", "140px"]];
+			
+			for (var i = 0; i < recipeLen; i++) {
+				var slideAttr = document.querySelector(`#${currentSlideArr[i]} img`);
+
+				slideAttr.style.opacity = slideSpec[i][0];
+				slideAttr.style.width = slideSpec[i][1];
+				slideAttr.style.height = slideSpec[i][2];
+
+				slideAttr.style.transition = 'all 1s';	
+			} // for
+			
+			console.log("정중앙 슬라이드 ID-2 : " + centerSlide.id);
+
+			let centerSlideImage = document.querySelector(`#${centerSlide.id} img`);	
+			
+			centerSlideImage.style.width = "300px";
+			centerSlideImage.style.height = "300px";
+
+			centerSlideImage.style.opacity = "1";
+			
+			// 카운터 증가
+			count = (count >= productLen) ? 1 : ++count; 
+		}; // btnRight.onclick
+		
+		// 일정한 시간간격으로 자동으로 슬라이딩 처리
+		setInterval(function() {
+
+			// 맨앞의 슬라이드 아이디
+			let id = document.querySelector("div#slide div:first-child").getAttribute("id");
+			id = id.substring(1); // id="s1" => 카운터("1") 추출
+			count = id;
+
+			console.log("맨 좌측 아이디 : "+ id);
+
+			let leftFirstSlideContent = document.getElementById(`s${count}`).innerHTML;
+
+			console.log("현재 슬라이드 번호(카운터) : " + count);
+			
+			// 트랜지션 효과 적용을 위해 DOM 방식으로 요소 추가 부분 변경
+			let newSlide = document.createElement("div");
+			newSlide.setAttribute("id", `s${count}`);
+			newSlide.innerHTML = `${leftFirstSlideContent}`;						
+			
+			// slide.appendChild(newSlide);
+			slide.append(newSlide);
+
+			console.log(`맨앞 슬라이드 : s${count}`);	
+
+			// 맨앞(좌측 첫번째) 슬라이드 제거	
+			document.getElementById(`s${count}`).remove();
+			
+			let currentSlideArr = [];
+			for (let i=1; i<=productLen; i++) {
+				
+				let div = document.querySelector(`div#slide div[id^=s]:nth-child(${i})`).id;
+				currentSlideArr.push(div); // 배열 요소 삽입
+			} //
+
+			console.log("현재 슬라이드 배열 상태 : " + currentSlideArr);	
+
+			// 정중앙 위치 슬라이드
+			centerNo = Math.ceil(productLen / 2) - 1;
+			console.log("centerNo : " + centerNo);
+			centerSlide = document.getElementById(currentSlideArr[centerNo]);				
+			console.log("정중앙 슬라이드 ID : " + centerSlide.id);
+
+			// 모든 슬라이드는 효과 재설정
+			// 슬라이드별 초기 설정 차별화
+			// 각 슬라이드별 현황 배열 활용
+			let slideSpec = [[0.2, "100px", "140px"],
+							 [0.5, "180px", "220px"],
+							 [1,   "228px", "298px"],
+							 [0.5, "180px", "220px"],
+							 [0.2, "100px", "140px"]];
+
+			for (var i=0; i<productLen ; i++) {
+
+				var slideAttr = document.querySelector(`#${currentSlideArr[i]} img`);
+
+				slideAttr.style.opacity = slideSpec[i][0];
+				slideAttr.style.width = slideSpec[i][1];
+				slideAttr.style.height = slideSpec[i][2];
+
+				slideAttr.style.transition = 'all .3s .7s';
+			}
+			
+			// 정중앙 슬라이드 opacity = 1로 설정
+			console.log("정중앙 슬라이드 ID-2 : " + centerSlide.id);
+
+			let centerSlideImage = document.querySelector(`#${centerSlide.id} img`);	
+			
+			centerSlideImage.style.width = "300px";
+			centerSlideImage.style.height = "300px";
+
+			centerSlideImage.style.opacity = "1";
+			centerSlideImage.style.transition = 'all 1s';
+			
+			// 카운터 증가
+			count = (count >= productLen+1) ? 1 : ++count; 
+		}, 3000); // 3초마다 자동으로 우측으로 슬라이딩
+	
+	} // onload
+</script>
+</head>
+<body>
+	<div id="wrap" layout:fragment="content" class="main_sect_pnl">
+		<!-- 슬라이드 -->
+		<div id="slide">
+			<div id="s1"><img src="/image/1.jpg"></div>
+			<div id="s2"><img src="/image/2.jpg"></div>
+			<div id="s3"><img src="/image/3.jpg"></div>
+			<div id="s4"><img src="/image/4.jpg"></div>
+			<div id="s5"><img src="/image/5.jpg"></div>
+		</div>
+		
+		<!-- 좌측 이동 버튼 -->
+		<button id="btn_left" class="btn">
+			<span class="mt-1 ms-1">
+				<i class="bi bi-caret-left-fill"></i>
+			</span>
+		</button>
+		
+		<!-- 우측 이동 버튼 -->
+		<button id="btn_right" class="btn">
+			<span class="mt-1">
+				<i class="bi bi-caret-right-fill"></i>
+			</span>
+		</button>
+	</div>
+	
+</body>
+</html>

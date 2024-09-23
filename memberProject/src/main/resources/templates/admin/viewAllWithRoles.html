@@ -61,14 +61,10 @@
 				</table>
 			</div>
 
-			<h2 class="d-flex justify-content-center m-5">
-				회원 관리
-				<!-- 인자 현황 버튼 이동 -->
-				&nbsp;<button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#demo">인자 현황</button>
-			</h2>
+			<h2 class="d-flex justify-content-center m-5" style="font-weight: bold;">회원 관리</h2>
 
 			<!-- 회원정보 시작 -->
-			<table class="table table-sm mx-2 mx-auto" style="width:95vw">
+			<table class="table table-sm mx-2 mx-auto" style="width:95vw; box-shadow: rgba(0, 0, 0, 1) 0px 2px 8px;">
 				<thead>
 					<tr>
 						<th style="width:40px;">번호</th>
@@ -76,7 +72,7 @@
 						<th style="width:70px;">이름</th>
 						<th>이메일</th>
 						<th>휴대폰</th>
-						<th style="width:120px;">생일</th>
+						<th style="width:150px;">생일</th>
 						<th>가입일</th>
 						<th>등급(role)</th>
 						<th>&nbsp;</th>
@@ -279,7 +275,7 @@
 
 				<div id="search_pnl" class="mx-auto row mt-2 mb-5" style="width:50vw">
 
-					<div id="select_pnl" class="col-2 pe-0">
+					<div id="select_pnl" class="col-3 pe-0">
 						<select class="form-select" id="searchKey" name="searchKey" aria-label="검색 구분">
 						  <option selected value="id">아이디</option>
 						  <option value="name">이름</option>
@@ -291,7 +287,7 @@
 						</select>
 					</div>
 
-					<div id="search_pnl" class="col-4">
+					<div id="search_pnl" class="col-6">
 						<!-- <input type="text" class="form-control" id="searchWord" name="searchWord" placeholder="등급) 관리자, 회원" /> -->
 						<input type="text" class="form-control" id="searchWord" name="searchWord" placeholder="8~20자로 영문/숫자로 작성합니다" />
 
@@ -305,12 +301,7 @@
 						</button>
 
 					</div>
-
-					<div id="list_btn_pnl" class="col-3 ps-0">
-						<a class="btn btn-primary" th:href="@{/admin/viewAllWithRoles}">
-							전체 회원 목록
-						</a>
-					</div>
+					
 				</div>
 
 			</form>

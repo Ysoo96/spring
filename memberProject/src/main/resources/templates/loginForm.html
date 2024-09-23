@@ -27,8 +27,9 @@
 
 	margin: 0px auto;
 	padding: 30px;
-	border: 1px solid black;
 	border-radius: 10px;
+	
+	box-shadow: rgba(0, 0, 0, 1) 0px 2px 8px;
 }
 
 #form_content_pnl > h3 {
@@ -37,7 +38,7 @@
 }
 
 .table-borderless>:not(caption)>*>* {
-	background-color: #F5F5F5;
+	background-color: #FFE4C4;
 }
 
 </style>
@@ -100,9 +101,9 @@
 					<tr>
 						<td colspan="2">
 							<div id="find_btn">
-								<a th:href="@{/findId}" class="find" id="findId">아이디 찾기</a>
+								<a th:href="@{/find/findId}" class="find" id="findId">아이디 찾기</a>
 								&nbsp; | &nbsp;
-								<a th:href="@{/findPw}" class="find" id="findPw">비밀번호 찾기</a>
+								<a th:href="@{/find/findPw}" class="find" id="findPw">비밀번호 찾기</a>
 							</div>
 						</td>
 					</tr>

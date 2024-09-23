@@ -1,6 +1,7 @@
 package com.javateam.memberProject.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,9 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javateam.memberProject.domain.Users;
-import com.javateam.memberProject.service.EmailService;
 import com.javateam.memberProject.service.MemberService;
-import com.javateam.memberProject.service.RegisterMail;
 import com.javateam.memberProject.domain.CustomUser;
 import com.javateam.memberProject.domain.MemberDTO;
 import com.javateam.memberProject.domain.MemberVO;
@@ -41,9 +40,6 @@ public class AuthController {
 
 	@Autowired
 	BCryptPasswordEncoder passwordEncoder;
-	
-	@Autowired
-	RegisterMail registerMail;
 
 	@RequestMapping("/")
 	public String home() {
@@ -96,11 +92,7 @@ public class AuthController {
 		
 		return "home";
 	}
-<<<<<<< HEAD
 	
-=======
-
->>>>>>> refs/remotes/origin/main
 	// 관리자용 주소
 	@GetMapping("/admin/home")
 	public String securedAdminHome(ModelMap model) {
@@ -122,13 +114,9 @@ public class AuthController {
 		model.addAttribute("username", name);
 		model.addAttribute("message", "관리자 페이지에 들어오셨습니다.");
 
-		return "/admin/home";
+		return "/home";
 	}
-<<<<<<< HEAD
 	
-=======
-
->>>>>>> refs/remotes/origin/main
 	// (일반)사용자용 주소
 	@GetMapping("/secured/home")
 	public String securedHome(ModelMap model) {
@@ -158,6 +146,20 @@ public class AuthController {
 		model.addAttribute("memberDTO", new MemberVO());
 		return "join";
 	}
+	
+	@GetMapping("/find/findId")
+	public String findId(Model model) {
+		log.info("아이디찾기");
+		model.addAttribute("memberDTO", new MemberVO());
+		return "/find/findId";
+	}
+	
+	@GetMapping("/find/findPw")
+	public String findPw(Model model) {
+		log.info("비밀번호찾기");
+		model.addAttribute("memberDTO", new MemberVO());
+		return "/find/findPw";
+	}
 
 	// 로그인 폼
 	@GetMapping("/login")
@@ -172,7 +174,7 @@ public class AuthController {
 
      	// 버그 패치) Spring Security Login Page Redirect(페이지 이동 문제)에 따른 조치
     	// 버그 리포트(bug report) : 일반적으로 최초로 로그인할 경우 발생
-    	// 버그 증상) 로그인 성공시에도 불구하고 myPage로 이동되지 않고 loginForm 페이지에 머물러 있음
+    	// 버그 증상) 로그인 성공시에도 불구하고 home로 이동되지 않고 loginForm 페이지에 머물러 있음
     	// 버그 구체적인 패치 대응) 로그인 상태를 Authentication 정보를 통해서 수동 점검하여
     	// forward 페이지를 인증/미인증별로 선택적으로 설정
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -250,15 +252,5 @@ public class AuthController {
 	public String error403() {
 
 		return "/error/403";
-	}
-	
-	// 이메일 인증
-	@PostMapping("login/mailConfirm")
-	@ResponseBody
-	String mailConfirm(@RequestParam("email") String email) throws Exception {
-
-		String code = registerMail.sendSimpleMessage(email);
-		System.out.println("인증코드 : " + code);
-		return code;
 	}
 } //

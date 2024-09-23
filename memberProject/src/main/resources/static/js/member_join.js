@@ -412,7 +412,30 @@ window.onload = () => {
 		   }
 	   } // 생일이 금일보다 이전 날짜인지 점검
 	   
-    } //         
+    } //
+    
+    /////////////////////////////////////////////////////////////////
+    // 09.23 인증번호 발송
+    let checkEmail = document.getElementById("checkEmail");
+    
+    checkEmail.onclick = function(e) {
+		
+		axios.get(`/memberProject/member/makeEmailCheckAuth/${checkEmail.value}`)
+			 .then(function(response) {
+				
+				// console.log("서버 응답 : " + JSON.stringify(response));
+				
+				idDuplicatedCheckFlag = response.data;
+				
+				console.log("response.data : ", response.data);
+				// console.log("response.data : ", typeof(response.data));
+								
+					
+			 })
+			 .catch(function(err) {
+				console.error("아이디 중복 점검 중 서버 에러가 발견되었습니다");
+			 });
+	}
 
     /////////////////////////////////////////////////////////////////
  

@@ -24,11 +24,11 @@
 #find-box
 {
 	width: 700px;
-
 	margin: 0px auto;
 	padding: 30px;
 	border: 1px solid black;
 	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 1) 0px 2px 8px;
 }
 
 #form_content_pnl > h3 {
@@ -37,7 +37,7 @@
 }
 
 .table-borderless>:not(caption)>*>* {
-	background-color: #F5F5F5;
+	background-color: #FFE4C4;
 }
 
 </style>
@@ -46,27 +46,29 @@
 	<div id="wrap" layout:fragment="content" class="main_sect_pnl">
 		<div id="find-box">
 			<div id="form_content_pnl" class="mx-auto">
-			<h3>아이디/비밀번호 찾기</h3>
-			<!-- findId -->
-			<form id="findId" name="findId" th:action="@{'/findId'}" method="POST">
+			<h3>비밀번호 찾기</h3>
+			<!-- findPw -->
+			<form id="findPw" name="findPw" th:action="@{'/findPw'}" method="POST">
 				<table class="table table-borderless" style="background-color:transparent;">
 					<!-- 아이디/비밀번호 찾기 -->
 					<tr>
 						<td colspan="2">
 							<div id="find_btn">
-								<a th:href="@{/findId}" class="find" id="findId">아이디 찾기</a>
+								<a th:href="@{/find/findId}" class="find" id="findId">아이디 찾기</a>
 								&nbsp; | &nbsp;
-								<a th:href="@{/findPw}" class="find" id="findPw">비밀번호 찾기</a>
+								<a th:href="@{/find/findPw}" class="find" id="findPw">비밀번호 찾기</a>
 							</div>
 						</td>
 					</tr>
+					<!-- // 아이디/비밀번호 찾기 -->
+					
 					<!-- 이름 입력란 -->
 					<tr>
-						<td>
-							<label for="name" class="form-label mt-1 ">이름</label>
+						<td class="col-2">
+							<label for="username" class="form-label mt-1 ">아이디</label>
 						</td>
-						<td class="ps-0">
-							<input type="text" class="form-control ms-0" id="name" name="name" required />
+						<td class="col-10">
+							<input type="text" class="form-control ms-0" id="username" name="username" required />
 						</td>
 					</tr>
 					<!-- // 이름 입력란 -->
@@ -76,26 +78,32 @@
 						<td>
 							<label for="email" class="form-label mt-1">이메일</label>
 						</td>
-						<td class="ps-0">
+						<td>
 							<input type="email" class="form-control" id="email" name="email" required placeholder="예시) abcd@naver.com" />
+							<button type="button" class="btn btn-outline-primary" value="sumbit">전송</button>
 						</td>
 					</tr>
 					<!-- // 이메일 입력란 -->
 					
-					<!-- 로그인/회원가입 -->
+					<!-- 인증번호 입력란 -->
 					<tr>
-						<td colspan="2">
-							<div id="btn" class="d-flex justify-content-evenly py-2">
-								<input type="submit" class="btn btn-primary" id="sendEmail" name="sendEmail" value="이메일로 아이디 전송하기" />
-							</div>
+						<td>
+							<label for="emailConfirm" class="form-label mt-1">인증번호</label>
+						</td>
+						<td>
+							<input type="text" class="form-control" id="emailConfirm" name="emailConfirm" required />
+							<button type="button" class="btn btn-outline-primary" value="sumbit">확인</button>
 						</td>
 					</tr>
-					<!-- // 로그인/회원가입 -->
-				
-					<!-- // 회원가입 -->
+					<!-- // 인증번호 입력란 -->
 				</table>
+				
+				<div id="btn" class="d-flex justify-content-evenly py-2">
+					<button type="submit" class="btn btn-primary" id="sendEmail" name="sendEmail">비밀번호 재설정하기</button>
+				</div>
+				
 			</form>
-			<!-- // loginForm -->
+			<!-- // findPw -->
 			</div>
 		</div>
 	</div>

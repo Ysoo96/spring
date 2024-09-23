@@ -19,8 +19,9 @@
     	font-weight: bold;
     }
     #join-box {
-    	border: 1px solid black;
     	border-radius: 10px;
+    	box-shadow: rgba(0, 0, 0, 1) 0px 2px 8px;
+    	padding-right: 15px;
     }
     #number_btn {
 		 border-radius: 5px;
@@ -82,8 +83,7 @@
 		                </div>						
 		                
 		                <!-- 회원 아이디 에러 메시징 -->
-		                <div id="id_fld_err_pnl">
-		                </div>
+		                <div id="id_fld_err_pnl"></div>
 		                <!--// 회원 아이디-->
 		                
 		                <!-- 회원 패쓰워드 -->	
@@ -110,8 +110,7 @@
 		                <input type="hidden" th:field="*{pw}" >
 		                
 		                <!-- 회원 패쓰워드 에러 메시징 -->
-		                <div id="pw_fld_err_pnl">
-		                </div>
+		                <div id="pw_fld_err_pnl"></div>
 		                <!--// 회원 패쓰워드 -->
 		                
 		                <!-- 회원 이름-->
@@ -126,8 +125,7 @@
 		                </div>
 		            
 		                <!-- 회원 이름 에러 메시징 -->
-		                <div id="name_fld_err_pnl">
-		                </div>
+		                <div id="name_fld_err_pnl"> </div>
 		                <!--// 회원 이름 -->
 		                    
 		                <!-- 회원 이메일 -->
@@ -135,11 +133,11 @@
 		                    <div class="col-3 pt-1 fld_label">
 		                        <label for="email">이메일</label>
 		                    </div>    
-		                    <div class="col-7 fld_content">
+		                    <div class="col-6 fld_content">
 		                        <input type="email" class="form-control" id="email" name="email" th:field="*{email}" placeholder="예시) abcd@naver.com" />
 		                    </div>
-		                    <div class="col-2 email_num">
-		                    	<button class="btn btn-outline-primary" type="button" id="checkEmail">인증번호</button>
+		                    <div class="col-3 email_num">
+		                    	<button class="btn btn-outline-primary" type="button" id="checkEmail">인증번호 발급</button>
 		                    </div>
 		                    <br>
 		                </div>
@@ -148,22 +146,16 @@
 	                    	<div class="col-3 pt-1 fld_label">
 	                    		<label for="memailconfirm" id="memailconfirmTxt">인증번호</label>
 	                    	</div>
-	                    	<div class="col-9 fld_content">
+	                    	<div class="col-7 fld_content">
 	                    		<input type="text" class="form-control" id="memailconfirm">
 	                    	</div>
-<<<<<<< HEAD
-<<<<<<< HEAD
+	                    	<div class="col-2">
+	                    		<button type="button" class="btn btn-primary">확인</button> 
+	                    	</div>
 	                    </div>
-=======
-	                    </div>              
->>>>>>> refs/remotes/origin/main
-=======
-	                    </div>              
->>>>>>> refs/remotes/origin/main
 		                    
 		                <!-- 회원 이메일 에러 메시징 -->
-		                <div id="email_fld_err_pnl">
-		                </div>
+		                <div id="email_fld_err_pnl"></div>
 		                <!--// 회원 이메일 -->
 		                    
 		                <!-- 회원 휴대폰 -->	
@@ -178,8 +170,7 @@
 		                </div>                    
 		                
 		                <!-- 회원 휴대폰 에러 메시징 -->
-		                <div id="mobile_fld_err_pnl">
-		                </div>
+		                <div id="mobile_fld_err_pnl"></div>
 		                <!--// 회원 휴대폰 -->
 		                
 		                <!-- 회원 생일 -->	
@@ -194,8 +185,7 @@
 		                </div>
 		                
 		                <!-- 회원 생일 에러 메시징 -->
-		                <div id="birthday_fld_err_pnl">
-		                </div>
+		                <div id="birthday_fld_err_pnl"></div>
 		                <!--// 회원 생일 -->
 		                
 		                <!-- 회원 가입 버튼 -->	
@@ -206,16 +196,11 @@
 		            
 		            </form>
 		
-		        </div>
-		    
-		    </div>
-		    <!-- content -->    
-	        
-	    </div>
-	    <!--// 회원 가입 -->
-    
+				</div>
+			</div>
+    		<!--// 회원 가입 -->
+        </div>
     </div>
-    <!--// layout -->
-    
+    <!-- // layout -->
 </body>
 </html>
