@@ -98,9 +98,15 @@ dependencies {
 	// library : https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib
 	// API referece doc : https://javadoc.io/doc/org.imgscalr/imgscalr-lib/latest/index.html
 	implementation 'org.imgscalr:imgscalr-lib:4.2'
+<<<<<<< HEAD
+=======
 
 	// Spring Mail
 	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/main
+=======
+>>>>>>> refs/remotes/origin/main
 }
 
 tasks.named('test') {

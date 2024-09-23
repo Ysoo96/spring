@@ -51,46 +51,6 @@
     <script th:inline="javascript" th:if="${msg != null}">
 		alert([[${msg}]]);
 	</script>
-	
-	<script>
-		$checkEmail.click(function() {
-			$.ajax({
-				type:"POST",
-				url:"/login/mailConfirm",
-				data : {
-					"email" : $email.val()
-				},
-				success : function(data) {
-					alert("해당 이메일로 인증번호 발송이 완료되었습니다.")
-					console.log("data : " + data);
-					chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt);
-				}
-			})
-		})
-		
-		function chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt) {
-			$memailconfirm.on("keyup", function() {
-				if (data != $memailconfirm.val()) {
-					emconfirmchk = false;
-					$memailconfirmTxt.html("<span id='emconfirmchk'>인증번호를 잘못입력했습니다.</span>")
-					$("#emconfirmchk").css({
-						"color":"#FA3E3E",
-						"font-weight":"bold",
-						"font-size":"10px"
-					})
-				} else {
-					emconfirmchk = true;
-					$memailconfirmTxt.html("<span id='emconfirmchk'>인증번호 확인 완료</span>")
-					
-					$("#emconfirmchk").css({
-						"color":"#0D6EFD",
-						"font-weight":"bold",
-						"font-size":"10px"
-					})
-				} // if-else
-			})
-		}
-	</script>
 </head>
 <body>
 
@@ -191,7 +151,15 @@
 	                    	<div class="col-9 fld_content">
 	                    		<input type="text" class="form-control" id="memailconfirm">
 	                    	</div>
+<<<<<<< HEAD
+<<<<<<< HEAD
+	                    </div>
+=======
 	                    </div>              
+>>>>>>> refs/remotes/origin/main
+=======
+	                    </div>              
+>>>>>>> refs/remotes/origin/main
 		                    
 		                <!-- 회원 이메일 에러 메시징 -->
 		                <div id="email_fld_err_pnl">

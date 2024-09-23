@@ -18,6 +18,19 @@
 	
 <div th:fragment="header">
 
+	<div id="menu_list">
+		<!-- gnb(로그인후) -->
+		<li sec:authorize="isAuthenticated()">
+			<ul>
+				<li><i class="bi bi-person fs-3"></i></li>
+				<li><a href="#">스크랩 레시피</a></li>
+				<li><a th:href="@{/member/update}">회원정보수정</a></li>
+				<hr>
+				<li><a th:href="@{/logout}">로그아웃</a></li>
+			</ul>
+		</li>
+	</div>
+	
 	<div class="header_sect_pnl">
 	
 		<ul id="main_menu">
@@ -49,19 +62,6 @@
 						
 			<!-- gnb(로그인후) -->
 			<li sec:authorize="isAuthenticated()">
-				<div id="menu">
-					<ul>
-						<li><i class="bi bi-person fs-3"></i>
-							<ul>
-								<li><a href="#">스크랩 레시피</a></li>
-								<li><a th:href="@{/member/update}">회원정보수정</a></li>
-								<hr>
-								<li><a th:href="@{/logout}">로그아웃</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-						
 			</li>
 			
 			<!-- <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">로그아웃</a></li>

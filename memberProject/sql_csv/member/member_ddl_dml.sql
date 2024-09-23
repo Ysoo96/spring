@@ -1,32 +1,20 @@
-CREATE TABLE member_tbl (
-id varchar2(20) PRIMARY KEY,
+CREATE TABLE MEMBER_TBL (
+ID VARCHAR2(20) PRIMARY KEY,
 PW VARCHAR2(60) NOT NULL, -- 패스워드 암호화 위한 변경 : PW VARCHAR2(60) NOT NULL, 
-name varchar2(100) NOT NULL,
-gender CHAR NOT NULL,
-email varchar2(50) NOT NULL UNIQUE,
-mobile varchar2(13) NOT NULL UNIQUE,
-phone varchar2(13) NOT NULL,
-zip CHAR(5),
-road_address nvarchar2(100),
-jibun_address nvarchar2(100),
-detail_address nvarchar2(50),
-birthday DATE,
-joindate DATE DEFAULT current_date,
+NAME VARCHAR2(100) NOT NULL,
+EMAIL VARCHAR2(50) NOT NULL UNIQUE,
+MOBILE VARCHAR2(13) NOT NULL UNIQUE,
+BIRTHDAY DATE,
+JOINDATE DATE DEFAULT CURRENT_DATE
 );
  
-comment ON COLUMN member_tbl.id IS '아이디';
-comment ON COLUMN member_tbl.pw IS '패쓰워드';
-comment ON COLUMN member_tbl.name IS '이름';
-comment ON COLUMN member_tbl.gender IS '성별';
-comment ON COLUMN member_tbl.email IS '이메일';
-comment ON COLUMN member_tbl.mobile IS '연락처1(휴대폰)';
-comment ON COLUMN member_tbl.phone IS '연락처2(일반전화)';
-comment ON COLUMN member_tbl.zip IS '우편번호';
-comment ON COLUMN member_tbl.road_address IS '도로명 주소';
-comment ON COLUMN member_tbl.jibun_address IS '지번 주소';
-comment ON COLUMN member_tbl.detail_address IS '상세 주소';
-comment ON COLUMN member_tbl.birthday IS '생년월일';
-comment ON COLUMN member_tbl.joindate IS '가입일';
+COMMENT ON COLUMN MEMBER_TBL.ID IS '아이디';
+COMMENT ON COLUMN MEMBER_TBL.PW IS '비밀번호';
+COMMENT ON COLUMN MEMBER_TBL.NAME IS '이름';
+COMMENT ON COLUMN MEMBER_TBL.EMAIL IS '이메일';
+COMMENT ON COLUMN MEMBER_TBL.MOBILE IS '휴대폰';
+COMMENT ON COLUMN MEMBER_TBL.BIRTHDAY IS '생년월일';
+COMMENT ON COLUMN MEMBER_TBL.JOINDATE IS '가입일';
  
 DROP TABLE member_tbl;
 
@@ -36,33 +24,21 @@ CREATE TABLE member_tbl (
 id varchar2(20) CONSTRAINT member_tbl_id_pk PRIMARY KEY,
 pw varchar2(20) CONSTRAINT member_tbl_pw_nn NOT NULL,
 name varchar2(100) CONSTRAINT member_tbl_name_nn NOT NULL,
-gender CHAR CONSTRAINT member_tbl_gender_nn NOT NULL,
 email varchar2(50) CONSTRAINT member_tbl_email_nn NOT NULL,
 mobile varchar2(13) CONSTRAINT member_tbl_mobile_nn NOT NULL,
-phone varchar2(13) CONSTRAINT member_tbl_phone_nn NOT NULL,
-zip CHAR(5),
-road_address nvarchar2(100),
-jibun_address nvarchar2(100),
-detail_address nvarchar2(50),
 birthday DATE,
 joindate DATE DEFAULT current_date,
 CONSTRAINT member_tbl_email_u UNIQUE(email),
 CONSTRAINT member_tbl_mobile_u UNIQUE(mobile)
 );
 
-comment ON COLUMN member_tbl.id IS '아이디';
-comment ON COLUMN member_tbl.pw IS '패쓰워드';
-comment ON COLUMN member_tbl.name IS '이름';
-comment ON COLUMN member_tbl.gender IS '성별';
-comment ON COLUMN member_tbl.email IS '이메일';
-comment ON COLUMN member_tbl.mobile IS '연락처1(휴대폰)';
-comment ON COLUMN member_tbl.phone IS '연락처2(일반전화)';
-comment ON COLUMN member_tbl.zip IS '우편번호';
-comment ON COLUMN member_tbl.road_address IS '도로명 주소';
-comment ON COLUMN member_tbl.jibun_address IS '지번 주소';
-comment ON COLUMN member_tbl.detail_address IS '상세 주소';
-comment ON COLUMN member_tbl.birthday IS '생년월일';
-comment ON COLUMN member_tbl.joindate IS '가입일';
+COMMENT ON COLUMN MEMBER_TBL.ID IS '아이디';
+COMMENT ON COLUMN MEMBER_TBL.PW IS '비밀번호';
+COMMENT ON COLUMN MEMBER_TBL.NAME IS '이름';
+COMMENT ON COLUMN MEMBER_TBL.EMAIL IS '이메일';
+COMMENT ON COLUMN MEMBER_TBL.MOBILE IS '휴대폰';
+COMMENT ON COLUMN MEMBER_TBL.BIRTHDAY IS '생년월일';
+COMMENT ON COLUMN MEMBER_TBL.JOINDATE IS '가입일';
  
 DROP TABLE member_tbl;
 
@@ -72,14 +48,8 @@ CREATE TABLE member_tbl (
 id varchar2(20),
 pw varchar2(20) CONSTRAINT member_tbl_pw_nn NOT NULL,
 name varchar2(100) CONSTRAINT member_tbl_name_nn NOT NULL,
-gender CHAR CONSTRAINT member_tbl_gender_nn NOT NULL,
 email varchar2(50) CONSTRAINT member_tbl_email_nn NOT NULL,
 mobile varchar2(13) CONSTRAINT member_tbl_mobile_nn NOT NULL,
-phone varchar2(13) CONSTRAINT member_tbl_phone_nn NOT NULL,
-zip CHAR(5),
-road_address nvarchar2(100),
-jibun_address nvarchar2(100),
-detail_address nvarchar2(50),
 birthday DATE,
 joindate DATE DEFAULT current_date,
 CONSTRAINT member_tbl_id_pk PRIMARY KEY(id),
@@ -87,19 +57,13 @@ CONSTRAINT member_tbl_email_u UNIQUE(email),
 CONSTRAINT member_tbl_mobile_u UNIQUE(mobile)
 );
  
-comment ON COLUMN member_tbl.id IS '아이디';
-comment ON COLUMN member_tbl.pw IS '패쓰워드';
-comment ON COLUMN member_tbl.name IS '이름';
-comment ON COLUMN member_tbl.gender IS '성별';
-comment ON COLUMN member_tbl.email IS '이메일';
-comment ON COLUMN member_tbl.mobile IS '연락처1(휴대폰)';
-comment ON COLUMN member_tbl.phone IS '연락처2(일반전화)';
-comment ON COLUMN member_tbl.zip IS '우편번호';
-comment ON COLUMN member_tbl.road_address IS '도로명 주소';
-comment ON COLUMN member_tbl.jibun_address IS '지번 주소';
-comment ON COLUMN member_tbl.detail_address IS '상세 주소';
-comment ON COLUMN member_tbl.birthday IS '생년월일';
-comment ON COLUMN member_tbl.joindate IS '가입일';
+COMMENT ON COLUMN MEMBER_TBL.ID IS '아이디';
+COMMENT ON COLUMN MEMBER_TBL.PW IS '비밀번호';
+COMMENT ON COLUMN MEMBER_TBL.NAME IS '이름';
+COMMENT ON COLUMN MEMBER_TBL.EMAIL IS '이메일';
+COMMENT ON COLUMN MEMBER_TBL.MOBILE IS '휴대폰';
+COMMENT ON COLUMN MEMBER_TBL.BIRTHDAY IS '생년월일';
+COMMENT ON COLUMN MEMBER_TBL.JOINDATE IS '가입일';
 
 DROP TABLE member_tbl;
 
@@ -109,14 +73,8 @@ CREATE TABLE member_tbl (
 id varchar(20),
 pw nvarchar2(20),
 name nvarchar2(100),
-gender CHAR,
 email nvarchar2(50),
 mobile nvarchar2(13),
-phone nvarchar2(13),
-zip CHAR(5),
-road_address nvarchar2(100),
-jibun_address nvarchar2(100),
-detail_address nvarchar2(50),
 birthday DATE,
 joindate DATE DEFAULT current_date
 );
@@ -137,19 +95,10 @@ ALTER TABLE member_tbl
 MODIFY (name CONSTRAINT member_tbl_name_nn NOT NULL);
  
 ALTER TABLE member_tbl
-MODIFY (gender CONSTRAINT member_tbl_gender_nn NOT NULL);
-
-ALTER TABLE member_tbl
-ADD CONSTRAINT member_tbl_gender_ck CHECK ( gender IN ( 'm', 'f' ) );
- 
-ALTER TABLE member_tbl
 MODIFY (email CONSTRAINT member_tbl_email_nn NOT NULL);
  
 ALTER TABLE member_tbl
 MODIFY (mobile CONSTRAINT member_tbl_mobile_nn NOT NULL);
- 
-ALTER TABLE member_tbl
-MODIFY (phone  CONSTRAINT member_tbl_phone_nn NOT NULL);
 
 -- 참고 제약조건(constraint) 삭제 예시
 

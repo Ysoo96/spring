@@ -96,7 +96,11 @@ public class AuthController {
 		
 		return "home";
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> refs/remotes/origin/main
 	// 관리자용 주소
 	@GetMapping("/admin/home")
 	public String securedAdminHome(ModelMap model) {
@@ -120,7 +124,11 @@ public class AuthController {
 
 		return "/admin/home";
 	}
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> refs/remotes/origin/main
 	// (일반)사용자용 주소
 	@GetMapping("/secured/home")
 	public String securedHome(ModelMap model) {
@@ -180,7 +188,7 @@ public class AuthController {
 		if (auth.getPrincipal() == null || auth.getPrincipal().toString().equals("anonymousUser")) { // 로그인 인증이 안되었을 경우
 			
 			log.info("로그인 인증 안됨");
-			path = "findId";
+			path = "loginForm";
 		} else {
 			
 			log.info("로그인 인증됨");
