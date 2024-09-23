@@ -433,7 +433,7 @@ window.onload = () => {
 					
 			 })
 			 .catch(function(err) {
-				console.error("아이디 중복 점검 중 서버 에러가 발견되었습니다");
+				console.error("이메일 중복 점검 중 서버 에러가 발견되었습니다");
 			 });
 	}
 
