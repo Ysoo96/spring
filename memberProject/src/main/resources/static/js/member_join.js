@@ -90,14 +90,14 @@ window.onload = () => {
     // 아이디 에러 패널 인식
     let idFldErrPnl = document.getElementById("id_fld_err_pnl");
 
-    // 패쓰워드 필드 인식
+    // 비밀번호 필드 인식
     let pwFld = document.getElementById("pw");
     
-    // 패스워드 & 패스워드 확인
+    // 비밀번호 & 비밀번호 확인
     let pw1Fld = document.getElementById("pw1");
     let pw2Fld = document.getElementById("pw2");
 
-    // 패쓰워드 에러 패널 인식
+    // 비밀번호 에러 패널 인식
     let pwFldErrPnl = document.getElementById("pw_fld_err_pnl");
 
     // 이름 필드 인식
@@ -115,7 +115,7 @@ window.onload = () => {
     // 휴대폰 필드 인식
     let mobileFld = document.getElementById("mobile");
 
-    // 연휴대폰 필드 에러 패널 인식
+    // 휴대폰 필드 에러 패널 인식
     let mobileFldErrPnl = document.getElementById("mobile_fld_err_pnl");
 
     // 생일 필드 인식
@@ -129,7 +129,7 @@ window.onload = () => {
     // 에러 메시지
     let idErrMsg = "회원 아이디는 8~20사이의 영문으로 시작하여 영문 대소문자 및 숫자로 작성하십시오";
 	
-	let pwErrMsg = "회원 패쓰워드는 영문 대소문자, 숫자, 특수문자 1자 이상 포함하여 8~20자로 작성하십시오";
+	let pwErrMsg = "회원 비밀번호는 영문 대소문자, 숫자, 특수문자 1자 이상 포함하여 8~20자로 작성하십시오";
 	
 	let nameErrMsg = "회원 이름은 한글 이름만 허용됩니다";
 	

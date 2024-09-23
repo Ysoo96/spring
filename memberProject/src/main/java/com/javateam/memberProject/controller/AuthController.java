@@ -186,7 +186,7 @@ public class AuthController {
     	// Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1,
     	// SessionId=C4B68A207EF642308F11925E998570FC], Granted Authorities=[ROLE_ANONYMOUS]
 		log.info("login시 인증정보 : " + auth);
-		
+		/*
 		if (auth.getPrincipal() == null || auth.getPrincipal().toString().equals("anonymousUser")) { // 로그인 인증이 안되었을 경우
 			
 			log.info("로그인 인증 안됨");
@@ -196,9 +196,9 @@ public class AuthController {
 			log.info("로그인 인증됨");
 			path = "home";
 		} //
-		
-		// return "loginForm";
-		return path;
+		*/
+		return "loginForm";
+		// return path;
 	}
 
 	// 로그아웃 처리
