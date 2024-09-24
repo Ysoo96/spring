@@ -109,7 +109,7 @@ window.onload = function() {
 
 			<h2 class="d-flex justify-content-center" style="font-weight: bold; margin-top: 20px;">게시글 목록</h2>
 
-			<table class="table mx-2 mx-auto table-borderless" style="width:50vw;">
+			<table class="table mx-2 mx-auto table-borderless">
 				<thead>
 					<tr>
 						<th>
@@ -131,7 +131,7 @@ window.onload = function() {
 							<input type="checkbox" th:id="${'check_'+ board.boardNum}" th:name="${'check_'+ board.boardNum}">
 						</td>
 						<td th:text="${st.count + (pageVO.currPage - 1) * 10}"></td>
-						<td th:utext="${board.boardNum}"></td>
+						<td th:utext="${board.boardWriter}"></td>
 						<td>
 							<a th:href="@{'/board/view/'+ ${board.boardNum}}" th:utext="${board.boardSubject}"></a>
 							<!-- 글 내용 중 삽입 이미지 존재 여부 -->
