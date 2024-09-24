@@ -399,11 +399,8 @@ window.onload = function() {
 			
 			case "id" : guideText = "8~20자로 영문/숫자로 작성합니다"; break;
 			case "name" : guideText = "한글로 입력합니다"; break;
-			case "gender" : guideText = "'남' 혹은 '여'로 입력합니다"; break;
 			case "email" : guideText = "abcd@abcd.com과 같이 입력합니다"; break;
 			case "mobile" : guideText = "010-1234-5678와 같이 입력합니다"; break;
-			case "phone" : guideText = "02-1234-5678과 같이 입력합니다"; break;
-			case "address" : guideText = "시/구/군/동이름 등을 입력합니다"; break;
 			case "birthday" : guideText = "2000-01-01과 같이 입력합니다"; break;
 			case "joindate" : guideText = "2000-01-01과 같이 입력합니다"; break;
 			case "role" : guideText = "'관리자' 혹은 '회원'으로 입력합니다"; break;

@@ -148,9 +148,7 @@ public class AuthController {
 	}
 	
 	@GetMapping("/find/findId")
-	public String findId(Model model) {
-		log.info("아이디찾기");
-		model.addAttribute("memberDTO", new MemberVO());
+	public String findId() {
 		return "/find/findId";
 	}
 	

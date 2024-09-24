@@ -100,14 +100,15 @@ public class WebSecurityConfig {
 		http.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
 				// 해당 url을 허용한다.
 				.requestMatchers("/resources/**", "/loginError",
-								"/join", "/login/idCheck", "/login", "/member/hasFld/**", "/home", "/board/list", "/find/**", "/member/makeEmailCheckAuth/**")
+								"/join", "/login/idCheck", "/login", "/member/hasFld/**", "/home",
+								"/board/list", "/find/**", "/mailSend/**", "/checkRandomNum/**", "/mailSendTest", "/mimeTest")
 				.permitAll()
 				// admin 폴더에 경우 admin(ROLE_ADMIN) 롤이 있는 사용자에게만 허용
 				// .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")
-				.requestMatchers("/admin/**", "/home").hasAnyAuthority("ROLE_ADMIN")
+				.requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
 				// user 폴더에 경우 user(ROLE_USER) 롤이 있는 사용자에게만 허용
 				.requestMatchers("/secured/**", "/member/view",
-								 "/member/hasFldForUpdate/**", "/member/update", "/member/updateProc", "/home", "/board/**", "/recipe/list")
+								 "/member/hasFldForUpdate/**", "/member/update", "/member/updateProc", "/board/**", "/recipe/list")
 				.hasAnyAuthority("ROLE_USER")
 				
 				//
@@ -147,7 +148,7 @@ public class WebSecurityConfig {
 				.loginPage("/login") // 로그인 주소
 				.usernameParameter("username") // 아이디
 				.passwordParameter("password") // 패쓰워드
-				.defaultSuccessUrl("/myPage") // 로그인 성공시 이동 주소
+				.defaultSuccessUrl("/home") // 로그인 성공시 이동 주소
 				.failureUrl("/loginError") // 로그인 에러 처리
 				// .failureHandler(new CustomAuthenticationFailure()) // 로그인 실패 핸들러
 				.permitAll())
@@ -209,14 +210,6 @@ public class WebSecurityConfig {
 	// security URL 열외(제외) : ex) permitAll 유사한 개념
 	@Bean
 	public WebSecurityCustomizer webSecurityCustomizer() {
-		/*
-		return new WebSecurityCustomizer() {
-
-			@Override
-			public void customize(WebSecurity web) {
-				web.ignoring().requestMatchers("/bootstrap/**");
-			}
-		}; */
 		
 		return (web) -> web.ignoring()
 						.requestMatchers("/bootstrap/**",
@@ -226,7 +219,7 @@ public class WebSecurityConfig {
 										 "/bootstrap-icons/**",
 										 "/summernote/**",
 										 "/jquery/**",
-										 "/images/**");
+										 "/image/**");
 	}
 
 }

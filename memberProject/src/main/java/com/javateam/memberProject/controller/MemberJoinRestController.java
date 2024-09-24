@@ -25,6 +25,7 @@ import com.javateam.memberProject.service.EmailService;
 import com.javateam.memberProject.service.MemberService;
 import com.javateam.memberProject.service.RandomMakeService;
 
+import jakarta.servlet.ServletContext;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -34,14 +35,16 @@ public class MemberJoinRestController {
 
 	@Autowired
 	MemberService memberService;
-	
-	@Autowired
-	RandomMakeService randomMakeService;
 
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 	
+	// 이메일 인증번호
 	@Autowired
 	EmailService emailService;
+	@Autowired
+	ServletContext servletContext;
+	@Autowired
+	RandomMakeService randomMakeService;
 
 	@PostMapping("joinProc2")
 	// @ResponseBody

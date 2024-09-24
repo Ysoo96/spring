@@ -193,7 +193,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int scrapCheck(int board_number, String id) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
 }

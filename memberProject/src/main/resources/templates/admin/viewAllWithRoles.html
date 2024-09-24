@@ -64,7 +64,7 @@
 			<h2 class="d-flex justify-content-center m-5" style="font-weight: bold;">회원 관리</h2>
 
 			<!-- 회원정보 시작 -->
-			<table class="table table-sm mx-2 mx-auto" style="width:95vw; box-shadow: rgba(0, 0, 0, 1) 0px 2px 8px;">
+			<table class="table table-sm" style="width:85vw; box-shadow: rgba(0, 0, 0, 1) 0px 2px 8px;">
 				<thead>
 					<tr>
 						<th style="width:40px;">번호</th>
@@ -81,7 +81,7 @@
 						<th>메뉴</th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody class="mb-3">
 					<tr th:if="${not #lists.isEmpty(members) && pageVO.listCount > 0}" th:each="member, st : ${members}">
 						<td th:text="${st.count + (pageVO.currPage - 1) * 10}"></td>
 						<td th:utext="${member.get('ID')}"></td>

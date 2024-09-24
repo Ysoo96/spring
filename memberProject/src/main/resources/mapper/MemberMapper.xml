@@ -219,25 +219,10 @@
 		</if>
 	</select>
 	
-	<!-- 09.23 스크랩 기능 구현-->
-	<!-- 스크랩 기능 -->
-	<insert id="scrap">
-		INSERT INTO MY_SCRAP (SCRAPNO, ID, BOARD_NUMBER)
-		VALUE ((SELECT NVL(MAX(SCRAPNO), 0) + 1 FROM MY_SCRAP), #{id}, #{board_number})
-	</insert>
-	
-	<!-- 스크랩 취소 -->
-	<delete id="scrapCancel">
-		DELETE FROM MY_SCRAP WHERE BOARD_NUMBER = #{board_number} AND ID = #{id}
-	</delete>
-	
-	<!-- 게시글의 스크랩 수 -->
-	<select id="scrapCount">
-		SELECT COUNT(*) FROM MY_SCRAP WHERE BOARD_NUMBER = #{board_number}
-	</select>
-	
-	<!-- 중복 방지 -->
-	<select id="scrapCheck">
-		SELECT COUNT(*) FROM MY_SCRAP WHERE BOARD_NUMBER = #{board_number} AND ID = #{id}
+	<!-- 회원 아이디 찾기 -->
+	<select id="findId" parameterType="String" resultType="com.javateam.memberProject.domain.MemberVO">
+		SELECT ID
+		  FROM MEMBER_TBL
+		 WHRER EMAIL = #{email}
 	</select>
 </mapper>

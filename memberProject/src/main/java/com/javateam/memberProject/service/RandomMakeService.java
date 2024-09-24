@@ -13,8 +13,7 @@ public class RandomMakeService {
 		String result = "";
 		
 		for (int i = 0; i < 4; i++) {
-			int temp = (int)(Math.random() * 10);
-			result += temp;
+			result += (int)(Math.random() * 10);
 		}
 		
 		return result;

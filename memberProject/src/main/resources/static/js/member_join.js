@@ -50,6 +50,20 @@ function isCheckFldValid(fld, regex, initVal, errPnl, errMsg) {
 
 ////////////////////////////////////////////////////////////////////////////////////
 
+// 09.24 인증번호 발송
+// 경과시간 표시 포맷 함수
+function formatTime(time) {
+	let minutes = parseInt(time / 60);
+	let seconds = time - 60 * minutes;
+	
+	minutes = minutes < 10 ? "0" + minutes : minutes;
+	seconds = seconds < 10 ? "0" + seconds : seconds;
+	
+	return minutes + ":" + seconds;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
 window.onload = () => {
 
     // 각 필드들의 에러 점검 여부 (플래그(flag) 변수)
@@ -413,29 +427,158 @@ window.onload = () => {
 	   } // 생일이 금일보다 이전 날짜인지 점검
 	   
     } //
-    
-    /////////////////////////////////////////////////////////////////
-    // 09.23 인증번호 발송
-    let checkEmail = document.getElementById("checkEmail");
-    
-    checkEmail.onclick = function(e) {
+	
+	//////////////////////////////////////////////////////////////////
+	// 09.24 이메일 인증
+	
+	// 발급 인증번호 입력제한 카운트다운
+	
+	let intervalFunc; // 카운트다운 콜백 함수
+	
+	let sendNum = document.getElementById("sendNum"); // 인증번호 발급 버튼 필드
+	let inputNum = document.getElementById("inputNum"); // 인증번호 입력 필드
+	
+	let limitTime = 1 * 60 * 1000; // 입력제한 시간 1분 (millis)
+	
+	sendNum.onclick = function(e) {
+		console.log("인증번호 발급 클릭");
 		
-		axios.get(`/memberProject/member/makeEmailCheckAuth/${checkEmail.value}`)
-			 .then(function(response) {
-				
-				// console.log("서버 응답 : " + JSON.stringify(response));
-				
-				idDuplicatedCheckFlag = response.data;
-				
-				console.log("response.data : ", response.data);
-				// console.log("response.data : ", typeof(response.data));
-								
+		emailCheckFlag = isCheckFldValid(emailFld,
+                    /^[a-zA-Z0-9_+.-]+@([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]{2,4}$/,
+                    emailFld.value,
+                    emailFldErrPnl,
+                    emailErrMsg);
+	 
+		if (emailCheckFlag == false) {
+			
+			alert("회원 이메일을 작성하십시오");
+			emailFld.focus();
+			
+			/*
+			axios.get(`/memberProject/member/hasFld/EMAIL/${emailFld.value}`)
+				 .then(function(response) {
 					
-			 })
-			 .catch(function(err) {
-				console.error("이메일 중복 점검 중 서버 에러가 발견되었습니다");
-			 });
-	}
+					emailDuplicatedCheckFlag = response.data;
+					console.log("response.data : ", response.data);
+	
+					let emailDupErrMsg = emailDuplicatedCheckFlag == true ? "중복되는 이메일이 존재합니다" : "사용가능한 이메일입니다"				   
+					console.log(emailDupErrMsg)
+					
+					// 메시지 반복 출력 방지 : 출력할 메시지 있으면 출력
+					if (emailDuplicatedCheckFlag == true) {
+					
+						alert(emailDupErrMsg);
+						emailFld.value = "";
+					}
+					
+				 })
+				 .catch(function(err) {
+					console.error("이메일 중복 점검 중 서버 에러가 발견되었습니다");
+					//emailDuplicatedCheckFlag = false;
+				 }); */
+				 
+		} // if
+		
+		let timer = document.getElementById("timer");
+		
+		console.log("email : " + emailFld.value);
+		console.log("limitTime : " + limitTime);
+		
+		axios.get(`/memberProject/mailSend/${emailFld.value}/${limitTime / (60 * 1000)}`)
+			.then(function(response) {
+				
+				console.log("response : ", response);
+				
+				// 발급 번호
+				console.log("response.data : ", response.data);
+				
+				// 입력제한시간 카운트다운
+				let firstTime = Date.now();
+				let elapsedTime = 0; // 경과시간
+				
+				// - setInterval : 일정시간 간격으로 콜백 함수 호출
+				// : https://developer.mozilla.org/ko/docs/Web/API/setInterval
+
+				// - clearInterval : 콜백함수 정지
+				// : https://developer.mozilla.org/ko/docs/Web/API/clearInterval
+				
+				intervalFunc = setInterval(function() { // 콜백 함수
+					
+					let now = Date.now(); // 현재 시각
+					
+					elapsedTime = now - firstTime; // 경과 시간
+					
+					console.log("처음 시간 : ", new Date().setTime(firstTime));
+					console.log("현재 시간 : ", new Date().setTime(now));
+					
+					if (elapsedTime < limitTime) {
+						
+						console.log("경과 시간 : " + parseInt(elapsedTime / 1000));
+						
+						// 경과시간 표시 ex) 02:10
+						timer.innerHTML = formatTime(parseInt(elapsedTime / 1000));
+					} else {
+						alert("입력시간이 만료되었습니다. 재발급하십시오.");
+						// TODO
+						
+						// 콜백 함수 호출 해제
+						clearInterval(intervalFunc);
+						console.log("exit");
+						
+						// 필드 초기화
+						timer.innerText = "";
+						inputNum.innerText = "";
+					} // if
+
+			}, 1000, firstTime, elapsedTime); // 1초 단위로 호출
+		}) 
+		.catch(function(err) {
+			console.error("서버 에러가 발견되었습니다 : ", err);
+		}); // axios
+		
+	} // onclick
+	
+	///////////////////////////////////////////////////////////////////////////
+	// 메일 발급 인증문자(숫자) 전송 및 점검
+	let submitBtn = document.getElementById("submitBtn");
+	
+	submitBtn.onclick = function() {
+		
+		// 입력값과 비교
+		axios.get('/memberProject/checkRandomNum/${inputNum.value}')
+			.then(function(response) {
+			
+				// 발급 번호
+				console.log("response.data : ", response.data);
+				
+				let result = response.data;
+				console.log("typeof(result) : ", typeof(result));
+				
+				if (result == true) {
+					console.log("일치");
+					alert("인증되었습니다.");
+					// TODO
+					
+					// 카운트다운 콜백 정지
+					// 콜백 함수 호출 해제
+					clearInterval(intervalFunc);
+					
+					// 필드 초기화
+					timer.innerText = "";
+				} else {
+					console.log("불일치");
+					alert("인증에 실패했습니다.\n다시 인증해주세요.");
+					// TODO
+				} // if
+				
+				// 입력 필드 초기화
+				inputNum.value = "";
+		})
+		.catch(function(err) {
+			console.log("서버 에러가 발견되었습니다 : ", err);
+		}); // axios
+		
+	} // onclick
 
     /////////////////////////////////////////////////////////////////
  
