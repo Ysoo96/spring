@@ -37,9 +37,9 @@ class MimeEmailTest {
 		log.info("Email Test");
 		
 		try {
-			String msg = mockMvc.perform(get("/mime"))
+			String msg = mockMvc.perform(get("/mimeTest"))
 								.andExpect(status().isOk())
-								.andExpect(content().contentType("text/planin; charset=UTF-8"))
+								.andExpect(content().contentType("text/plain; charset=UTF-8"))
 								.andDo(print())
 								.andReturn()
 								.getResponse()

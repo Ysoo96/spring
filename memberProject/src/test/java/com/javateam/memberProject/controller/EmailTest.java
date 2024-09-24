@@ -37,7 +37,7 @@ class EmailTest {
 		log.info("Email Test");
 		
 		try {
-			String msg = mockMvc.perform(get("/"))
+			String msg = mockMvc.perform(get("/mailSendTest"))
 								.andExpect(status().isOk())
 								.andExpect(content().contentType("text/plain; charset=UTF-8"))
 								.andDo(print())

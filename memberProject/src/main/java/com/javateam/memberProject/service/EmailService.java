@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class EmailService {
 	
 	@Autowired
@@ -36,6 +38,8 @@ public class EmailService {
 	// https://docs.spring.io/spring-framework/reference/6.0/integration/email.html#mail-usage-mime
 	public void sendMIMEMessage(String from, String to, String subject, String text) {
 		
+		log.info("전송시작");
+		
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
 			@Override
@@ -52,6 +56,8 @@ public class EmailService {
 		};
 		
         emailSender.send(preparator);
+        
+        log.info("전송끝");
     } //
 
 }
