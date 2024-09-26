@@ -77,20 +77,21 @@ public class EmailController {
 	// 이메일 중복점검을 위한 인증번호 점검
 	@GetMapping("/checkRandomNum/{randomNum}")
 	public ResponseEntity<Boolean> checkRandomNum(@PathVariable("randomNum") String randomNum, HttpSession session) {
+
 		log.info("인증번호 점검");
-		
+
 		boolean result = false;
-		
+
 		// 랜덤 문자 세션화
 		String randomNumSess = "";
-		
+
 		if (session.getAttribute("SESS_RANDOM_NUM") != null) {
 			randomNumSess = session.getAttribute("SESS_RANDOM_NUM").toString();
-			
+
 			if (randomNum.trim().equals(randomNumSess.trim())) {
 				// 일치
 				result = true;
-
+				
 				// 세션 변수 소거
 				session.removeAttribute("SESS_RANDOM_NUM");
 			} else {
@@ -100,8 +101,8 @@ public class EmailController {
 		} else {
 			new ResponseEntity<>(result, HttpStatus.NO_CONTENT); // 에러 유발
 		} //
-		
+
 		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
+	} //
 	
 }

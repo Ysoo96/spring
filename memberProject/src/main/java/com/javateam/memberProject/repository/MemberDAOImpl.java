@@ -265,10 +265,4 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		return (int)sqlSession.selectOne("mapper.MemberMapper.selectCountBySearching", map);
 	}
-	
-	// 아이디 찾기
-	@Override
-	public MemberVO findId(String email) {
-		return sqlSession.selectOne("mapper.MemberMapper.findId", email);
-	}
 }

@@ -404,11 +404,4 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectCountBySearching(searchKey, searchWord);
 	}
 
-	// 아이디 찾기
-	@Transactional(readOnly = true)
-	@Override
-	public MemberVO findId(String email) {
-		return memberDAO.findId(email);
-	}
-
 }

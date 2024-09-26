@@ -101,14 +101,14 @@ public class WebSecurityConfig {
 				// 해당 url을 허용한다.
 				.requestMatchers("/resources/**", "/loginError",
 								"/join", "/login/idCheck", "/login", "/member/hasFld/**", "/home",
-								"/board/list", "/find/**", "/mailSend/**", "/checkRandomNum/**", "/mailSendTest", "/mimeTest")
+								"/board/list", "/find/**", "/mailSend/**", "/checkRandomNum/**")
 				.permitAll()
 				// admin 폴더에 경우 admin(ROLE_ADMIN) 롤이 있는 사용자에게만 허용
 				// .antMatchers("/admin/**").hasAnyRole("ROLE_ADMIN")
 				.requestMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
 				// user 폴더에 경우 user(ROLE_USER) 롤이 있는 사용자에게만 허용
 				.requestMatchers("/secured/**", "/member/view",
-								 "/member/hasFldForUpdate/**", "/member/update", "/member/updateProc", "/board/**", "/recipe/list")
+								 "/member/hasFldForUpdate/**", "/member/update", "/member/updateProc", "/board/**", "/recipe/**")
 				.hasAnyAuthority("ROLE_USER")
 				
 				//
@@ -147,14 +147,14 @@ public class WebSecurityConfig {
 		http.formLogin(formLogin -> formLogin.loginProcessingUrl("/login") // 추가) 위 설명 참조
 				.loginPage("/login") // 로그인 주소
 				.usernameParameter("username") // 아이디
-				.passwordParameter("password") // 패쓰워드
+				.passwordParameter("password") // 비밀번호
 				.defaultSuccessUrl("/home") // 로그인 성공시 이동 주소
 				.failureUrl("/loginError") // 로그인 에러 처리
 				// .failureHandler(new CustomAuthenticationFailure()) // 로그인 실패 핸들러
 				.permitAll())
 				// logout 핸들링(처리)
 				.logout((logout) -> logout.logoutSuccessUrl("/login") // 로그아웃 이후 이동 주소
-						.permitAll());
+				.permitAll());
 
 		// 예외처리 해당 url로 이동
 		http.exceptionHandling(handler -> handler.accessDeniedPage("/403"));

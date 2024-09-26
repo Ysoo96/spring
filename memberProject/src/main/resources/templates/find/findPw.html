@@ -21,23 +21,23 @@
 	padding:10px;
 	color:red;
 }
-#find-box
-{
-	width: 700px;
-	margin: 0px auto;
-	padding: 30px;
-	border: 1px solid black;
-	border-radius: 10px;
-	box-shadow: rgba(0, 0, 0, 1) 0px 2px 8px;
-}
-
-#form_content_pnl > h3 {
-	text-align: center;
-	font-weight: bold;
-}
 
 .table-borderless>:not(caption)>*>* {
 	background-color: #FFE4C4;
+}
+
+.find {
+	text-decoration: none;
+	color: black;
+}
+
+.find:hover {
+	color: red;
+}
+
+a#findId.find {
+	text-decoration: none;
+	padding-left: 155px;
 }
 
 </style>
@@ -48,59 +48,52 @@
 			<div id="form_content_pnl" class="mx-auto">
 			<h3>비밀번호 찾기</h3>
 			<!-- findPw -->
-			<form id="findPw" name="findPw" th:action="@{'/findPw'}" method="POST">
-				<table class="table table-borderless" style="background-color:transparent;">
-					<!-- 아이디/비밀번호 찾기 -->
-					<tr>
-						<td colspan="2">
-							<div id="find_btn">
-								<a th:href="@{/find/findId}" class="find" id="findId">아이디 찾기</a>
-								&nbsp; | &nbsp;
-								<a th:href="@{/find/findPw}" class="find" id="findPw">비밀번호 찾기</a>
-							</div>
-						</td>
-					</tr>
-					<!-- // 아이디/비밀번호 찾기 -->
-					
-					<!-- 이름 입력란 -->
-					<tr>
-						<td class="col-2">
-							<label for="username" class="form-label mt-1 ">아이디</label>
-						</td>
-						<td class="col-10">
-							<input type="text" class="form-control ms-0" id="username" name="username" required />
-						</td>
-					</tr>
-					<!-- // 이름 입력란 -->
-					
-					<!-- 이메일 입력란 -->
-					<tr>
-						<td>
-							<label for="email" class="form-label mt-1">이메일</label>
-						</td>
-						<td>
-							<input type="email" class="form-control" id="email" name="email" required placeholder="예시) abcd@naver.com" />
-							<button type="button" class="btn btn-outline-primary" value="sumbit">전송</button>
-						</td>
-					</tr>
-					<!-- // 이메일 입력란 -->
-					
-					<!-- 인증번호 입력란 -->
-					<tr>
-						<td>
-							<label for="emailConfirm" class="form-label mt-1">인증번호</label>
-						</td>
-						<td>
-							<input type="text" class="form-control" id="emailConfirm" name="emailConfirm" required />
-							<button type="button" class="btn btn-outline-primary" value="sumbit">확인</button>
-						</td>
-					</tr>
-					<!-- // 인증번호 입력란 -->
-				</table>
-				
-				<div id="btn" class="d-flex justify-content-evenly py-2">
-					<button type="submit" class="btn btn-primary" id="sendEmail" name="sendEmail">비밀번호 재설정하기</button>
+			<form id="findPw" name="findPw" th:action="@{'/find/findPw'}" method="post">
+				<!-- 아이디/비밀번호 찾기 페이지 이동-->
+				<div>
+					<a th:href="@{/find/findId}" class="find" id="findId">아이디 찾기</a>
+					&nbsp; | &nbsp;
+					<a th:href="@{/find/findPw}" class="find" id="findPw">비밀번호 찾기</a>
 				</div>
+				<!-- // 아이디/비밀번호 찾기 페이지 이동 -->
+				
+				<!-- 아이디 입력란 -->
+				<div id="id_fld_pnl" class="row py-2">
+					<div>
+						<input type="text" id="id" maxlength="20" placeholder="아이디" />
+					</div>
+				</div>
+				<!-- // 아이디 입력란 -->
+                
+                <!-- 이메일 입력란 -->
+                <div id="email_fld_pnl" class="row py-2">
+	                <div class="col-8">
+	                	<input type="email" id="email" placeholder="이메일" />
+	                </div>
+	                <div class="col-4">
+	                	<button type="button" class="btn btn-outline-primary" id="sendNum">번호전송</button>
+	                </div>
+                </div>
+                <!-- // 이메일 입력란 -->
+                
+                <!-- 인증번호 입력란 -->
+                <div class="form-group check_input row py-2">
+                	<div class="col-8">
+                		<input type="text" id="inputNum" placeholder="인증번호" />
+                	</div>
+                	<!-- 카운트다운 -->
+                	<div class="col-1" id="timer"></div>
+                	<div class="col-3">
+                		<button type="button" class="btn btn-primary" id="submitBtn">확인</button>
+                	</div>
+                </div>
+                <!-- // 인증번호 입력란 -->
+			
+				<!-- 비밀번호 재설정 버튼 -->
+				<div id="btn" class="d-flex justify-content-evenly py-2">
+					<button class="rePwd"><a th:href="@{/find/rePwd}" id="rePwd">비밀번호 재설정하기</a></button>
+				</div>
+				<!-- // 비밀번호 재설정 버튼 -->
 				
 			</form>
 			<!-- // findPw -->

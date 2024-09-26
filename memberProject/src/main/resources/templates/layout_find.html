@@ -25,7 +25,7 @@ body {
 
 /* 상단 menu 레이아웃 패널 */
 div.header_sect_pnl {
-	background-color: #FFE4C4;
+	background-color: #F5FFFA;
 	color: black; 
 	height: 100px;
 	
@@ -37,9 +37,9 @@ div.header_sect_pnl {
 }
 
 
-/* 로그인 레이아웃 : 중앙 content 레이아웃 패널  */ 
+/* 중앙 content 레이아웃 패널  */ 
 div.main_sect_pnl {
-	background-color: #FFE4C4;
+	background-color: #F5FFFA;
 	height:calc(105vh - 55px);
 	
 	/* 컨텐츠 중앙 정렬 */
@@ -50,7 +50,7 @@ div.main_sect_pnl {
 
 /* 하단 footer 레이아웃 패널 */
 div.footer_sect_pnl {
-	background-color: #FFE4C4;
+	background-color: #F5FFFA;
 	color:black;
 	height:25px;
 	display:flex;
@@ -61,7 +61,7 @@ div.footer_sect_pnl {
    	bottom:0px;
    	width: 100%;
    	
-   	border-top: 1px solid #C0C0C0;
+   	border-top: 1px solid #D3D3D3;
 }
 
 ul#main_menu {
@@ -128,49 +128,65 @@ ul#main_menu li .search a {
 	font-size: 10px;
 }
 
-.find {
+#find-box {
+	width: 600px;
+	margin: 0px auto;
+	padding: 30px;
+	border: 1px solid black;
+	border-radius: 10px;
+	box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+	background-color: white;
+}
+
+#form_content_pnl > h3 {
+	text-align: center;
+	font-weight: bold;
+}
+
+button {
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 15px 45px;
+  margin: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 80ms ease-in;
+}
+
+a {
 	text-decoration: none;
 	color: black;
 }
 
-.find:hover {
-	color: red;
+/* 이메일 전송 버튼 */
+.sendEmail {
+  box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+}
+.sendEmail:active {
+  box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+}
+/* 비밀번호 재설정 버튼 */
+.rePwd {
+  box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+}
+.rePwd:active {
+  box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
 }
 
-a#findId.find {
-	padding-left: 200px;
-}
-
-#menu {
-	font: bold 16px;
-	height: 50px;
-	color: black;
-	line-height: 50px;
-	margin: 0 auto;
-	text-align: center;
-}
-#menu > ul li {
-	list-style: none;
-}
-#menu > ul > li {
-	float: left;
-	width: 100px;
-	/* position: relative; */
-}
-#menu > ul > li > ul {
-	width: 200px;
-	display: none;
-	/* position: absolute; */
-	font-size: 12px;
-	background-color: white;
-	padding: 15px;
-	border: 1px solid black;
-	border-radius: 10px;
-
-}
-#menu > ul > li:hover > ul {
-	color: black;
-	display: block;
+/* 입력란 */
+form input {
+  background: #eee;
+  padding: 16px;
+  margin: 8px 0;
+  width: 85%;
+  border: 0;
+  outline: none;
+  border-radius: 20px;
+  box-shadow: inset 7px 2px 5px #babebc, inset -5px -5px 6px #fff;
 }
 </style>
 </head>

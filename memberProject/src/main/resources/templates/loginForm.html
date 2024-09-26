@@ -24,12 +24,12 @@
 #login-box
 {
 	width: 700px;
-
 	margin: 0px auto;
 	padding: 30px;
+	border: 1px solid black;
 	border-radius: 10px;
-	
-	box-shadow: rgba(0, 0, 0, 1) 0px 2px 8px;
+	box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+	background-color: white;
 }
 
 #form_content_pnl > h3 {
@@ -38,9 +38,14 @@
 }
 
 .table-borderless>:not(caption)>*>* {
-	background-color: #FFE4C4;
+	background-color: white;
 }
-
+.btn {
+	box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+}
+.btn:active {
+	box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+}
 </style>
 </head>
 <body>
@@ -89,9 +94,9 @@
 					<tr>
 						<td colspan="2">
 							<div id="btn" class="d-flex justify-content-evenly py-2">
-								<input type="submit" class="btn btn-primary" id="login" name="login" value="로그인" />
+								<input type="submit" class="btn" id="login" name="login" value="로그인" />
 								&nbsp;
-								<a th:href="@{/join}" class="btn btn-primary">회원가입</a>
+								<a th:href="@{/join}" class="btn">회원가입</a>
 							</div>
 						</td>
 					</tr>

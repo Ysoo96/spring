@@ -516,7 +516,7 @@ window.onload = () => {
 						console.log("경과 시간 : " + parseInt(elapsedTime / 1000));
 						
 						// 경과시간 표시 ex) 02:10
-						timer.innerHTML = formatTime(parseInt(elapsedTime / 1000));
+						timer.innerText = formatTime(parseInt(elapsedTime / 1000));
 					} else {
 						alert("입력시간이 만료되었습니다. 재발급하십시오.");
 						// TODO
@@ -545,7 +545,7 @@ window.onload = () => {
 	submitBtn.onclick = function() {
 		
 		// 입력값과 비교
-		axios.get('/memberProject/checkRandomNum/${inputNum.value}')
+		axios.get(`/memberProject/checkRandomNum/${inputNum.value}`)
 			.then(function(response) {
 			
 				// 발급 번호

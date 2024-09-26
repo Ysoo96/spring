@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="~{layout_find}"
- 	  lang="ko">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout_find}" lang="ko">
 <head>
 <meta charset="UTF-8">
 <title>login</title>
@@ -10,35 +9,32 @@
 	alert([[${msg.message}]]);
 </script>
 <style>
-.error 
-{
+.error {
 	padding: 10px;
 	color: red;
 }
 
-.msg 
-{
-	padding:10px;
-	color:red;
-}
-#find-box
-{
-	width: 700px;
-	margin: 0px auto;
-	padding: 30px;
-	border: 1px solid black;
-	border-radius: 10px;
-	
-	box-shadow: rgba(0, 0, 0, 1) 0px 2px 8px;
-}
-
-#form_content_pnl > h3 {
-	text-align: center;
-	font-weight: bold;
+.msg {
+	padding: 10px;
+	color: red;
 }
 
 .table-borderless>:not(caption)>*>* {
-	background-color: #FFE4C4;
+	background-color: white;
+}
+
+.find {
+	text-decoration: none;
+	color: black;
+}
+
+.find:hover {
+	color: red;
+}
+
+a#findId.find {
+	text-decoration: none;
+	padding-left: 155px;
 }
 
 </style>
@@ -47,53 +43,48 @@
 	<div id="wrap" layout:fragment="content" class="main_sect_pnl">
 		<div id="find-box">
 			<div id="form_content_pnl" class="mx-auto">
-			<h3>아이디 찾기</h3>
-			<!-- findId -->
-			<form id="findId" name="findId" th:action="@{'/findId'}" method="POST">
-				<table class="table table-borderless" style="background-color:transparent;">
-					<!-- 아이디/비밀번호 찾기 -->
-					<tr>
-						<td colspan="2">
-							<div id="find_btn">
-								<a th:href="@{/find/findId}" class="find" id="findId">아이디 찾기</a>
-								&nbsp; | &nbsp;
-								<a th:href="@{/find/findPw}" class="find" id="findPw">비밀번호 찾기</a>
-							</div>
-						</td>
-					</tr>
-					<!-- // 아이디/비밀번호 찾기 -->
-					
-					<!-- 이름 입력란 -->
-					<tr>
-						<td>
-							<label for="name" class="form-label mt-1 ">이름</label>
-						</td>
-						<td class="ps-0">
-							<input type="text" class="form-control ms-0" id="name" name="name" required />
-						</td>
-					</tr>
-					<!-- // 이름 입력란 -->
-					
-					<!-- 이메일 입력란 -->
-					<tr>
-						<td>
-							<label for="email" class="form-label mt-1">이메일</label>
-						</td>
-						<td class="ps-0">
-							<input type="email" class="form-control" id="email" name="email" required placeholder="예시) abcd@naver.com" />
-						</td>
-					</tr>
-					<!-- // 이메일 입력란 -->
-				</table>
-				
-				<!-- 아이디 이메일 전송 -->
-				<div id="btn" class="d-flex justify-content-evenly py-2">
-					<button type="submit" class="btn btn-primary" id="sendEmail" name="sendEmail">이메일로 아이디 전송하기</button>
-				</div>
-				<!-- // 아이디 이메일 전송 -->
-				
-			</form>
-			<!-- // findId -->
+				<h3>아이디 찾기</h3>
+				<!-- findId -->
+				<form id="findId" name="findId" th:action="@{'/findId'}"
+					method="POST">
+					<table class="table table-borderless" style="background-color: transparent;">
+						<!-- 아이디/비밀번호 찾기 -->
+						<tr>
+							<td colspan="2">
+								<div id="what_find">
+									<a th:href="@{/find/findId}" class="find" id="findId">아이디 찾기</a>
+									&nbsp; | &nbsp;
+									<a th:href="@{/find/findPw}" class="find" id="findPw">비밀번호 찾기</a>
+								</div>
+							</td>
+						</tr>
+						<!-- // 아이디/비밀번호 찾기 -->
+
+						<!-- 이름 입력란 -->
+						<tr>
+							<td>
+								<input type="text" class="form-control ms-0" id="name" name="name" required placeholder="이름" />
+							</td>
+						</tr>
+						<!-- // 이름 입력란 -->
+
+						<!-- 이메일 입력란 -->
+						<tr>
+							<td>
+								<input type="email" class="form-control" id="email" name="email" required placeholder="예시) abcd@naver.com" />
+							</td>
+						</tr>
+						<!-- // 이메일 입력란 -->
+					</table>
+
+					<!-- 아이디 이메일 전송 -->
+					<div id="btn" class="d-flex justify-content-evenly py-2">
+						<button type="submit" class="sendEmail" name="sendEmail">이메일로 아이디 전송하기</button>
+					</div>
+					<!-- // 아이디 이메일 전송 -->
+
+				</form>
+				<!-- // findId -->
 			</div>
 		</div>
 	</div>
