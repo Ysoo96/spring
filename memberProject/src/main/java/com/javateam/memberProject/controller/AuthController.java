@@ -1,5 +1,8 @@
 package com.javateam.memberProject.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 //import org.springframework.security.access.annotation.Secured;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javateam.memberProject.domain.Users;
+import com.javateam.memberProject.service.LoginService;
 import com.javateam.memberProject.service.MemberService;
 import com.javateam.memberProject.domain.CustomUser;
 import com.javateam.memberProject.domain.MemberDTO;
@@ -147,17 +151,16 @@ public class AuthController {
 		return "join";
 	}
 	
+	// 09.26 아이디 찾기 페이지
 	@GetMapping("/find/findId")
-	public String findId(Model model) {
+	public String findId() {
 		log.info("아이디 찾기");
-		model.addAttribute("memberDTO", new MemberVO());
 		return "/find/findId";
 	}
 	
 	@GetMapping("/find/findPw")
 	public String findPw(Model model) {
 		log.info("비밀번호찾기");
-		model.addAttribute("memberDTO", new MemberVO());
 		return "/find/findPw";
 	}
 
@@ -199,6 +202,19 @@ public class AuthController {
 		*/
 		return "loginForm";
 		// return path;
+	}
+	
+	// 네이버 로그인
+	private final LoginService loginService;
+	
+	@GetMapping("/naver-login")
+	public void naverLogin(HttpServletRequest request, HttpServletResponse response) throws MalformedURLException, UnsupportedEncodingException, URISyntaxException {
+		String url = loginService.getNaverAuthorizeUrl("authorize");
+		try {
+			response.sendRedirect(url);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// 로그아웃 처리

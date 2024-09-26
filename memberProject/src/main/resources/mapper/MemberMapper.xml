@@ -3,9 +3,7 @@
 <mapper namespace="mapper.MemberMapper">
 
 	<!-- 개별 회원정보 조회(검색) -->
-	<select id="selectMemberById"
-			parameterType="String"
-			resultType="com.javateam.memberProject.domain.MemberVO">
+	<select id="selectMemberById" parameterType="String" resultType="com.javateam.memberProject.domain.MemberVO">
 		SELECT * FROM MEMBER_TBL
 		 WHERE id = #{id}
 	</select>
@@ -24,14 +22,12 @@
 	</select>
 
 	<!-- 전체 회원 조회 -->
-	<select id="selectAllMembers"
-			resultType="com.javateam.memberProject.domain.MemberVO">
+	<select id="selectAllMembers" resultType="com.javateam.memberProject.domain.MemberVO">
 		SELECT * FROM MEMBER_TBL
 	</select>
 
 	<!-- 회원정보 삽입(생성) -->
-	<insert id="insertMember"
-			parameterType="com.javateam.memberProject.domain.MemberVO">
+	<insert id="insertMember" parameterType="com.javateam.memberProject.domain.MemberVO">
 		INSERT INTO
 		       MEMBER_TBL
 		       (
@@ -57,8 +53,7 @@
 	</insert>
 
 	<!-- 회원정보 수정(갱신) -->
-	<update id="updateMember"
-			parameterType="com.javateam.memberProject.domain.MemberVO">
+	<update id="updateMember" parameterType="com.javateam.memberProject.domain.MemberVO">
 		UPDATE
 			   MEMBER_TBL
 		   <set>
@@ -124,9 +119,7 @@
 	</select>
 
 	<!-- 개별 회원정보 조회(검색)-2 : 롤(role) 정보 포함, 아이디/이메일/휴대폰 -->
-	<select id="selectMemberByFld"
-			parameterType="map"
-			resultType="map">
+	<select id="selectMemberByFld" parameterType="map" resultType="map">
 		SELECT DISTINCT m3.*
 		       , ( SELECT LISTAGG(r2.ROLE, ',')
 		                    WITHIN GROUP (ORDER BY m2.ID)
@@ -219,10 +212,10 @@
 		</if>
 	</select>
 	
-	<!-- 회원 아이디 찾기 -->
-	<select id="findId" parameterType="String" resultType="com.javateam.memberProject.domain.MemberVO">
+	<!-- 09.26 회원 아이디조회 -->
+	<select id="findId" parameterType="String">
 		SELECT ID
 		  FROM MEMBER_TBL
-		 WHRER EMAIL = #{email}
+		 WHERE EMAIL = #{email}
 	</select>
 </mapper>

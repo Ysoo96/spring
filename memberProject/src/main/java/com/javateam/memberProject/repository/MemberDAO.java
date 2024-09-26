@@ -168,4 +168,12 @@ public interface MemberDAO {
 	 * @return 검색된 총 회원정보 수
 	 */
 	public int selectCountBySearching(String searchKey, String searchWord);
+	
+	/**
+	 * 09.26 회원 아이디조회
+	 * 
+	 * @param email
+	 * @return
+	 */
+	boolean findId(String email);
 }

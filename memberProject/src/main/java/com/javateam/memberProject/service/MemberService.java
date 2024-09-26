@@ -7,6 +7,8 @@ import com.javateam.memberProject.domain.MemberDTO;
 import com.javateam.memberProject.domain.MemberVO;
 import com.javateam.memberProject.domain.Role;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 public interface MemberService {
 
 	/**
@@ -154,4 +156,12 @@ public interface MemberService {
 	 * @return 검색된 총 회원정보 수
 	 */
 	public int selectCountBySearching(String searchKey, String searchWord);
+	
+	/**
+	 * 09.26 회원 아이디조회
+	 * 
+	 * @param email
+	 * @return
+	 */
+	boolean findId(String email);
 }

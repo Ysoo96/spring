@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout_find}" lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Find Id</title>
+<script th:inline="javascript" th:if="${error == 'true'}">
+	alert([[${msg.message}]]);
+</script>
+<style>
+.error {
+	padding: 10px;
+	color: red;
+}
+
+.msg {
+	padding: 10px;
+	color: red;
+}
+
+.table-borderless>:not(caption)>*>* {
+	background-color: white;
+}
+
+.find {
+	text-decoration: none;
+	color: black;
+}
+
+.find:hover {
+	color: red;
+}
+
+a#findId.find {
+	text-decoration: none;
+	padding-left: 155px;
+}
+</style>
+
+<script>
+	$(function() {
+		$("#loginBtn").click(function() {
+			location.href='/loginForm.html';
+		}) // loginBtn.click
+	}) // function
+</script>
+
+</head>
+<body>
+	<div id="wrap" layout:fragment="content" class="main_sect_pnl">
+		<div id="find-box">
+			<div id="form_content_pnl" class="mx-auto">
+				<h3>아이디찾기 검색 결과</h3>
+				<!-- findId -->
+				<!-- 아이디/비밀번호 찾기 -->
+				<div id="what_find">
+					<a th:href="@{/find/findId}" class="find" id="findId">아이디 찾기</a>
+					&nbsp; | &nbsp;
+					<a th:href="@{/find/findPw}" class="find" id="findPw">비밀번호 찾기</a>
+				</div>
+				<!-- // 아이디/비밀번호 찾기 -->
+
+				<!-- 이름 입력란 -->
+				<div>
+					<h5>
+						${id}
+					</h5>
+				</div>
+				<!-- // 이름 입력란 -->
+
+				<!-- 아이디 이메일 전송 -->
+				<div id="btn" class="d-flex justify-content-evenly py-2">
+					<button type="submit" class="sendEmail" name="sendEmail">이메일로 아이디 전송하기</button>
+				</div>
+				<!-- // 아이디 이메일 전송 -->
+	
+				<!-- // findId -->
+			</div>
+		</div>
+	</div>
+</body>
+</html>

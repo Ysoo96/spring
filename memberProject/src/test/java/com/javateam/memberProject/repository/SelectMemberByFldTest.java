@@ -45,4 +45,10 @@ class SelectMemberByFldTest {
 		assertThat("홍길동", equalTo(map.get("NAME")));
 	}
 
+	// 09.26 아이디찾기
+	@Test
+	void testSelectMemberByFldFindId() {
+		Map<String, Object> map = memberDAO.selectMemberByFld("EMAIL", "abcd1234@naver.com");
+		assertThat("abcd1234", equalTo(map.get("ID")));
+	}
 }

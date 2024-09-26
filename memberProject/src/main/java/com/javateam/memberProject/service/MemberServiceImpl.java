@@ -404,4 +404,28 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectCountBySearching(searchKey, searchWord);
 	}
 
+	// 09.26 회원 아이디조회
+	@Override
+	public boolean findId(String email) {
+		return txTemplate.execute(new TransactionCallback<Boolean>() {
+			
+			@Override
+			public Boolean doInTransaction(TransactionStatus status) {
+				boolean result = false;
+				
+				try {
+					// 회원 존재 여부
+					if (memberDAO.hasMemberByFld("EMAIL", email) ==  false) {
+						throw new Exception("회원정보가 존재하지 않습니다.");
+					}
+				} catch (Exception e) {
+					result = false;
+					log.error("MemberService.findId 오류 : " + e);
+					status.setRollbackOnly();
+				}
+				return result;
+			}
+		});
+	}
+
 }

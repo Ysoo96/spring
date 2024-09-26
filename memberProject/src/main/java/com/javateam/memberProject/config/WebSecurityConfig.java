@@ -219,7 +219,8 @@ public class WebSecurityConfig {
 										 "/bootstrap-icons/**",
 										 "/summernote/**",
 										 "/jquery/**",
-										 "/image/**");
+										 "/image/**",
+										 "/webjars/**");
 	}
 
 }

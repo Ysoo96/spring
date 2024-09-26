@@ -454,7 +454,6 @@ window.onload = () => {
 			alert("회원 이메일을 작성하십시오");
 			emailFld.focus();
 			
-			/*
 			axios.get(`/memberProject/member/hasFld/EMAIL/${emailFld.value}`)
 				 .then(function(response) {
 					
@@ -475,66 +474,81 @@ window.onload = () => {
 				 .catch(function(err) {
 					console.error("이메일 중복 점검 중 서버 에러가 발견되었습니다");
 					//emailDuplicatedCheckFlag = false;
-				 }); */
+				 });
 				 
-		} // if
+		} // if (이메일 유효성 점검 실패)
 		
-		let timer = document.getElementById("timer");
+		else {
+			// 버그 패치 : 09.26 
+			// 이메일 유효성 점검 성공
+			
+			console.log("이메일 유효성 점검 성공");
 		
-		console.log("email : " + emailFld.value);
-		console.log("limitTime : " + limitTime);
+			// 무한루프 방지 패치 : 09.26
+			// 콜백 함수 호출 해제(초기화)
+			clearInterval(intervalFunc);
+			
+			let timer = document.getElementById("timer");
+			
+			console.log("email : " + emailFld.value);
+			console.log("limitTime : " + limitTime);
+			
+			axios.get(`/memberProject/mailSend/${emailFld.value}/${limitTime / (60 * 1000)}`)
+				.then(function(response) {
+					
+					console.log("response : ", response);
+					
+					// 발급 번호
+					console.log("response.data : ", response.data);
+					
+					// 입력제한시간 카운트다운
+					let firstTime = Date.now();
+					let elapsedTime = 0; // 경과시간
+					
+					// - setInterval : 일정시간 간격으로 콜백 함수 호출
+					// : https://developer.mozilla.org/ko/docs/Web/API/setInterval
+	
+					// - clearInterval : 콜백함수 정지
+					// : https://developer.mozilla.org/ko/docs/Web/API/clearInterval
+					
+					intervalFunc = setInterval(function() { // 콜백 함수
+						
+						let now = Date.now(); // 현재 시각
+						
+						elapsedTime = now - firstTime; // 경과 시간
+						
+						console.log("처음 시간 : ", new Date().setTime(firstTime));
+						console.log("현재 시간 : ", new Date().setTime(now));
+						
+						if (elapsedTime < limitTime) {
+							
+							console.log("경과 시간 : " + parseInt(elapsedTime / 1000));
+							
+							// 경과시간 표시 ex) 02:10
+							timer.innerText = formatTime(parseInt(elapsedTime / 1000));
+						} else {
+							alert("입력시간이 만료되었습니다. 재발급하십시오.");
+							// TODO
+							
+							// 콜백 함수 호출 해제
+							clearInterval(intervalFunc);
+							console.log("exit");
+							
+							// 필드 초기화
+							timer.innerText = "";
+							
+							// 버그 패치 : 09.26
+							// inputNum.innerText = "";
+							inputNum.value = "";
+						} // if
+	
+				}, 1000, firstTime, elapsedTime); // 1초 단위로 호출
+			}) 
+			.catch(function(err) {
+				console.error("서버 에러가 발견되었습니다 : ", err);
+			}); // axios
 		
-		axios.get(`/memberProject/mailSend/${emailFld.value}/${limitTime / (60 * 1000)}`)
-			.then(function(response) {
-				
-				console.log("response : ", response);
-				
-				// 발급 번호
-				console.log("response.data : ", response.data);
-				
-				// 입력제한시간 카운트다운
-				let firstTime = Date.now();
-				let elapsedTime = 0; // 경과시간
-				
-				// - setInterval : 일정시간 간격으로 콜백 함수 호출
-				// : https://developer.mozilla.org/ko/docs/Web/API/setInterval
-
-				// - clearInterval : 콜백함수 정지
-				// : https://developer.mozilla.org/ko/docs/Web/API/clearInterval
-				
-				intervalFunc = setInterval(function() { // 콜백 함수
-					
-					let now = Date.now(); // 현재 시각
-					
-					elapsedTime = now - firstTime; // 경과 시간
-					
-					console.log("처음 시간 : ", new Date().setTime(firstTime));
-					console.log("현재 시간 : ", new Date().setTime(now));
-					
-					if (elapsedTime < limitTime) {
-						
-						console.log("경과 시간 : " + parseInt(elapsedTime / 1000));
-						
-						// 경과시간 표시 ex) 02:10
-						timer.innerText = formatTime(parseInt(elapsedTime / 1000));
-					} else {
-						alert("입력시간이 만료되었습니다. 재발급하십시오.");
-						// TODO
-						
-						// 콜백 함수 호출 해제
-						clearInterval(intervalFunc);
-						console.log("exit");
-						
-						// 필드 초기화
-						timer.innerText = "";
-						inputNum.innerText = "";
-					} // if
-
-			}, 1000, firstTime, elapsedTime); // 1초 단위로 호출
-		}) 
-		.catch(function(err) {
-			console.error("서버 에러가 발견되었습니다 : ", err);
-		}); // axios
+		} // else (이메일 유효성 점검 성공)
 		
 	} // onclick
 	
@@ -543,6 +557,10 @@ window.onload = () => {
 	let submitBtn = document.getElementById("submitBtn");
 	
 	submitBtn.onclick = function() {
+		
+		// 버그 패치 : 09.26
+		// 콜백 해제
+		clearInterval(intervalFunc);
 		
 		// 입력값과 비교
 		axios.get(`/memberProject/checkRandomNum/${inputNum.value}`)

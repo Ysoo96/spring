@@ -116,9 +116,7 @@ public class MemberDAOImpl implements MemberDAO {
 		map.put("fld", fld);
 		map.put("val", val);
 
-		return (int)sqlSession
-				.selectOne("mapper.MemberMapper.hasMemberByFld", map)
-				== 1 ? true : false;
+		return (int)sqlSession.selectOne("mapper.MemberMapper.hasMemberByFld", map) == 1 ? true : false;
 	}
 
 	@Override
@@ -265,4 +263,21 @@ public class MemberDAOImpl implements MemberDAO {
 		
 		return (int)sqlSession.selectOne("mapper.MemberMapper.selectCountBySearching", map);
 	}
+
+	// 09.26 회원 아이디조회
+	@Override
+	public boolean findId(String email) {
+		boolean returnValue = false;
+		
+		try {
+			sqlSession.selectOne("mapper.MemberMapper.findId", email);
+			returnValue = true;
+		} catch (Exception e) {
+			log.error("findId 오류 : " + e);
+			e.printStackTrace();
+			returnValue = false;
+		}
+		return returnValue;
+	}
+
 }

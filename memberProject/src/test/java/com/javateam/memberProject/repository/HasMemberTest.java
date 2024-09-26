@@ -58,4 +58,10 @@ class HasMemberTest {
 	void testHasMemberByFldMobile2() {
 		assertTrue(memberDAO.hasMemberByFld("MOBILE", "010-1234-1023"));
 	}
+	
+	// 09.26 회원 아이디찾기
+	@Test
+	void testHasMemberByFldFindId() {
+		assertTrue(memberDAO.hasMemberByFld("EMAIL", "abcd1234@naver.com"));
+	}
 }

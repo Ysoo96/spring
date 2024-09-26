@@ -37,5 +37,10 @@ class DeleteMemberTest {
 	void testDeleteMemberAbsent() {
 		assertFalse(memberService.deleteMember("abcdabcd1111"));
 	}
+	
+	@Test
+	void testfindId() {
+		assertFalse(memberService.findId("abcd1234@naver.com"));
+	}
 
 }

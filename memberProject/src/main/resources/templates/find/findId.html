@@ -43,39 +43,33 @@ a#findId.find {
 	<div id="wrap" layout:fragment="content" class="main_sect_pnl">
 		<div id="find-box">
 			<div id="form_content_pnl" class="mx-auto">
-				<h3>아이디 찾기</h3>
+				<h3>아이디찾기</h3>
 				<!-- findId -->
-				<form id="findId" name="findId" th:action="@{'/findId'}"
-					method="POST">
-					<table class="table table-borderless" style="background-color: transparent;">
-						<!-- 아이디/비밀번호 찾기 -->
-						<tr>
-							<td colspan="2">
-								<div id="what_find">
-									<a th:href="@{/find/findId}" class="find" id="findId">아이디 찾기</a>
-									&nbsp; | &nbsp;
-									<a th:href="@{/find/findPw}" class="find" id="findPw">비밀번호 찾기</a>
-								</div>
-							</td>
-						</tr>
-						<!-- // 아이디/비밀번호 찾기 -->
+				<form id="findId" name="findform" th:action="@{'/find/findId'}" method="POST">
+				
+					<!-- 아이디/비밀번호 찾기 -->
+					<div id="what_find">
+						<a th:href="@{/find/findId}" class="find" id="findId">아이디 찾기</a>
+						&nbsp; | &nbsp;
+						<a th:href="@{/find/findPw}" class="find" id="findPw">비밀번호 찾기</a>
+					</div>
+					<!-- // 아이디/비밀번호 찾기 -->
 
-						<!-- 이름 입력란 -->
-						<tr>
-							<td>
-								<input type="text" class="form-control ms-0" id="name" name="name" required placeholder="이름" />
-							</td>
-						</tr>
-						<!-- // 이름 입력란 -->
+					<!-- 이름 입력란 -->
+					<div id="name_fld_pnl" class="row py-2">
+						<div>
+							<input type="text" class="form-control ms-0" id="name" name="name" required placeholder="이름" />
+						</div>
+					</div>
+					<!-- // 이름 입력란 -->
 
-						<!-- 이메일 입력란 -->
-						<tr>
-							<td>
-								<input type="email" class="form-control" id="email" name="email" required placeholder="예시) abcd@naver.com" />
-							</td>
-						</tr>
-						<!-- // 이메일 입력란 -->
-					</table>
+					<!-- 이메일 입력란 -->
+					<div id="email_fld_pnl" class="fow py-2">
+						<div>
+							<input type="email" class="form-control" id="email" name="email" required placeholder="예시) abcd@naver.com" />
+						</div>
+					</div>
+					<!-- // 이메일 입력란 -->
 
 					<!-- 아이디 이메일 전송 -->
 					<div id="btn" class="d-flex justify-content-evenly py-2">
